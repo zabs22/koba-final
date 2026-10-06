@@ -15,6 +15,10 @@
 return [
 
     'images' => [
+        // Homepage hero: cut-out subject (transparent) over the koba leaf band.
+        'hero-croissant' => [712, 737, [480, 712], 'A KOBA croissant wrapped in a green koba leaf, held in hand'],
+        'hero-leaves' => [1515, 392, [960, 1515], ''],
+
         'croissant' => [3799, 5762, [800, 1400, 2200], 'A glossy, freshly baked KOBA croissant on a dark wooden board'],
         'almond-croissant' => [4160, 6240, [480, 960, 1600], 'Almond croissant dusted with icing sugar'],
         'bomboloni' => [3860, 5919, [480, 960, 1600], 'Sugar-dusted doughnut on a dark serving board'],
@@ -61,6 +65,26 @@ return [
         'craft-dusting' => [1853, 1361, [480, 960, 1600], 'Close-up of sugar dusting on a doughnut'],
         'craft-finish' => [2218, 1782, [480, 960, 1600], 'Close-up of a glazed éclair'],
         'craft-almond' => [2080, 1685, [480, 960, 1600], 'Close-up of toasted almonds on a croissant'],
+    ],
+
+    /*
+    | Dish photographs, keyed by Str::slug() of the dish name. Dishes without
+    | a real photograph are simply left out — never substitute another dish.
+    */
+    'dish_images' => [
+        'trio' => 'cake-trio',
+        'chocolate-fudge' => 'cake-chocolate-fudge',
+        'opera-caramel' => 'cake-opera-caramel',
+        'vanilla-eclair' => 'cake-vanilla',
+        'cheesecake' => 'cake-cheesecake',
+        'koba-croissant' => 'croissant',
+        'almond-croissant' => 'almond-croissant',
+        'pecan-tart' => 'pecan-tart',
+        'eclair' => 'eclair',
+        'espresso-milk-coffee' => 'drink-macchiato',
+        'tea' => 'drink-tea-pour',
+        'iced-coffee' => 'drink-iced-latte',
+        'fresh-cold-drinks' => 'drink-mojito',
     ],
 
     'email' => 'hello@kobapatisserie.com',

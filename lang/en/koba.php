@@ -106,6 +106,7 @@ return [
         'eyebrow' => 'Signature Creations',
         'title' => 'Something Delicious|*for Every Moment.*',
         'cta' => 'View Full Menu',
+        'view_all' => 'All :category',
         'categories' => [
             'cakes' => [
                 'label' => 'Cakes',
@@ -158,10 +159,13 @@ return [
         'body' => 'Our croissants are laminated in disciplined layers to achieve the perfect balance of crisp exterior and tender crumb.',
         'items' => [
             ['image' => 'craft-lamination', 'title' => 'Lamination', 'line' => 'Layer after layer. Precision in every fold.'],
-            ['image' => 'craft-glaze', 'title' => 'Glaze', 'line' => 'A final detail. Nothing accidental.'],
-            ['image' => 'craft-crumb', 'title' => 'Crumb', 'line' => 'Texture tells the story.'],
             ['image' => 'drink-tea-pour', 'title' => 'Pour', 'line' => 'Slow, steady, and deliberate.'],
-            ['image' => 'craft-dusting', 'title' => 'Finish', 'line' => 'Sugar, light as morning.'],
+            ['image' => 'craft-crumb', 'title' => 'Crumb', 'line' => 'Texture tells the story.'],
+            ['image' => 'mocha-slice', 'title' => 'Layers', 'line' => 'Assembled with patience, sliced clean.'],
+            ['image' => 'craft-glaze', 'title' => 'Glaze', 'line' => 'A final detail. Nothing accidental.'],
+            ['image' => 'craft-almond', 'title' => 'Almond', 'line' => 'Toasted flakes, a quiet crunch.'],
+            ['image' => 'craft-dusting', 'title' => 'Dusting', 'line' => 'Sugar, light as morning.'],
+            ['image' => 'craft-finish', 'title' => 'Finish', 'line' => 'Glossed, set, and left alone.'],
         ],
     ],
 
