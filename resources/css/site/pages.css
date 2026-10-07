@@ -198,6 +198,7 @@
 
 /* ---------- Our Story ----------------------------------------------------- */
 
+/* ── Base chapter layout ──────────────────────────────────────────────────── */
 .chapter { align-items: center; row-gap: 32px; }
 .chapter + .chapter { margin-top: clamp(96px, 12vw, 200px); }
 .chapter__no {
@@ -217,6 +218,131 @@
 .chapter--flip .chapter__media { grid-column: 3 / span 5; grid-row: 1; }
 .chapter--flip .chapter__no { grid-row: 1; }
 
+/* ── Chapter 0 · 2020 — A beginning in Addis Ababa ───────────────────────── */
+/*
+   The year becomes a monumental, ultra-light typographic
+   backdrop anchoring the top of the left column.
+   The copy settles at the bottom with the eyebrow.
+   The photograph spans the full right side, framed with
+   a restrained sand-coloured border offset.
+*/
+.chapter--0 {
+    align-items: start;
+    row-gap: 0;
+}
+
+.chapter--0 .chapter__no {
+    grid-column: 1 / span 5;
+    grid-row: 1;
+    align-self: end;
+    font-size: clamp(5rem, 12vw, 13.5rem);
+    font-weight: 100;
+    line-height: 0.84;
+    letter-spacing: -0.055em;
+    color: var(--sand);
+    opacity: 0.42;
+    padding-bottom: clamp(10px, 1.2vw, 18px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Hold the year at its restrained opacity after scroll-reveal fires */
+.js .chapter--0 .chapter__no.is-in { opacity: 0.42; }
+
+.chapter--0 .chapter__copy {
+    grid-column: 1 / span 5;
+    grid-row: 2;
+    position: relative;
+    z-index: 1;
+    gap: 20px;
+    padding-bottom: clamp(32px, 4vw, 60px);
+}
+
+.chapter--0 .chapter__media {
+    grid-column: 6 / -1;
+    grid-row: 1 / span 2;
+    align-self: stretch;
+    position: relative;
+}
+
+/* Sand-coloured frame offset behind the photograph */
+.chapter--0 .chapter__media::before {
+    content: '';
+    position: absolute;
+    inset: -14px 14px 14px -14px;
+    border: 1px solid rgba(230, 190, 126, 0.44);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.chapter--0 .chapter__media .media {
+    aspect-ratio: 4 / 5;
+    height: 100%;
+    min-height: clamp(300px, 42vw, 600px);
+}
+
+/* ── Chapter 1 · Craft — Everything from scratch ─────────────────────────── */
+/*
+   "Craft" becomes a small-caps vertical editorial label
+   along the left of the image — a quiet but precise marker.
+   The image is wider and taller; the heading is the
+   typographic centrepiece. An annotation below the body
+   copy marks the precision of KOBA's technique.
+*/
+.chapter--1 { align-items: center; }
+
+.chapter--1.chapter--flip .chapter__no {
+    grid-column: 1 / span 1;
+    grid-row: 1;
+    align-self: stretch;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--f-body);
+    font-size: clamp(0.58rem, 0.72vw, 0.76rem);
+    font-weight: 700;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--sand);
+    line-height: 1;
+    opacity: 1;
+}
+
+.chapter--1.chapter--flip .chapter__media {
+    grid-column: 2 / span 6;
+    grid-row: 1;
+}
+
+.chapter--1 .chapter__media .media { aspect-ratio: 3 / 4; }
+
+.chapter--1.chapter--flip .chapter__copy {
+    grid-column: 9 / -1;
+    grid-row: 1;
+    align-self: center;
+    gap: 22px;
+}
+
+/* ── Shared editorial additions ──────────────────────────────────────────── */
+
+/* Eyebrow inside chapters 0 & 1 inherits the global .eyebrow style */
+.chapter__eyebrow { display: inline-flex; }
+
+/* Small-caps precision annotation for chapter 1 */
+.chapter__annotation {
+    font-size: var(--t-micro);
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--brown);
+    opacity: 0.8;
+    padding-top: 12px;
+    border-top: 1px solid rgba(6, 46, 34, 0.12);
+    margin-top: 4px;
+}
+
+/* ── Namesake, statements, values, creator ────────────────────────────────── */
 .namesake { overflow: hidden; }
 .namesake__leaf { left: -18%; bottom: -24%; width: min(900px, 64vw); color: var(--sand-300); --rib: var(--sand); }
 .namesake__grid { position: relative; align-items: center; row-gap: 56px; }
@@ -267,6 +393,7 @@
     letter-spacing: -0.02em;
 }
 
+/* ── Responsive ≤ 899 px ──────────────────────────────────────────────────── */
 @media (max-width: 899px) {
     .chapter__no { grid-column: 1 / -1; }
     .chapter__copy, .chapter--flip .chapter__copy { grid-column: 1 / -1; grid-row: auto; }
@@ -279,6 +406,58 @@
     .value__name, .value__body { grid-column: 1 / -1; }
     .creator__media { grid-column: 1 / span 8; }
     .creator__quote { grid-column: 1 / -1; }
+
+    /* Chapter 0 mobile — stack deliberately: year → copy → image */
+    .chapter--0 { row-gap: 6px; }
+    .chapter--0 .chapter__no {
+        grid-column: 1 / -1;
+        grid-row: auto;
+        align-self: auto;
+        font-size: clamp(3.8rem, 22vw, 6.5rem);
+        opacity: 0.48;
+        padding-bottom: 0;
+    }
+    .js .chapter--0 .chapter__no.is-in { opacity: 0.48; }
+    .chapter--0 .chapter__copy {
+        grid-column: 1 / -1;
+        grid-row: auto;
+        padding-bottom: 0;
+    }
+    .chapter--0 .chapter__media {
+        grid-column: 1 / -1;
+        grid-row: auto;
+    }
+    .chapter--0 .chapter__media::before { display: none; }
+    .chapter--0 .chapter__media .media {
+        aspect-ratio: 4 / 3;
+        height: auto;
+        min-height: unset;
+    }
+
+    /* Chapter 1 mobile — revert vertical label to standard horizontal */
+    .chapter--1.chapter--flip .chapter__no {
+        grid-column: 1 / -1;
+        grid-row: auto;
+        writing-mode: horizontal-tb;
+        transform: none;
+        display: block;
+        font-family: var(--f-display);
+        font-size: clamp(2.4rem, 10vw, 4.2rem);
+        font-weight: 200;
+        letter-spacing: -0.03em;
+        text-transform: none;
+        opacity: 0.6;
+        line-height: 0.9;
+    }
+    .chapter--1.chapter--flip .chapter__media {
+        grid-column: 1 / -1;
+        grid-row: auto;
+    }
+    .chapter--1.chapter--flip .chapter__copy {
+        grid-column: 1 / -1;
+        grid-row: auto;
+    }
+    .chapter--1 .chapter__media .media { aspect-ratio: 4 / 3; }
 }
 
 /* ---------- Menu ---------------------------------------------------------- */

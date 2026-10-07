@@ -10,11 +10,19 @@
     <section class="chapters section is-white" aria-label="{{ __('koba.story.eyebrow') }}">
         <div class="wrap">
             @foreach (trans('koba.story.chapters') as $i => $chapter)
-                <article class="chapter grid {{ $i % 2 ? 'chapter--flip' : '' }}">
+                <article class="chapter grid {{ $i % 2 ? 'chapter--flip' : '' }} chapter--{{ $i }}">
                     <p class="chapter__no" data-reveal>{{ $chapter['no'] }}</p>
                     <div class="chapter__copy">
+                        @if ($i === 0)
+                            <p class="chapter__eyebrow eyebrow" data-reveal style="--d: 0">Our Beginning</p>
+                        @elseif ($i === 1)
+                            <p class="chapter__eyebrow eyebrow" data-reveal style="--d: 0">The Craft</p>
+                        @endif
                         <x-site.heading :text="$chapter['title']" tag="h2" size="m" />
                         <p class="body-copy" data-reveal style="--d: 2">{{ $chapter['body'] }}</p>
+                        @if ($i === 1)
+                            <p class="chapter__annotation" data-reveal style="--d: 3">Laminated. Glazed. Finished by hand.</p>
+                        @endif
                     </div>
                     <figure class="chapter__media" data-parallax="{{ $i % 2 ? '-0.05' : '0.05' }}">
                         <div class="media" data-reveal="media">
