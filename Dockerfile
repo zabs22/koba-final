@@ -35,7 +35,7 @@ COPY public ./public
 COPY --from=vendor /app/vendor/laravel/jetstream ./vendor/laravel/jetstream
 COPY --from=vendor /app/vendor/laravel/framework/src/Illuminate/Pagination/resources ./vendor/laravel/framework/src/Illuminate/Pagination/resources
 
-RUN npm run build
+RUN npm run dev
 
 # ---------------------------------------------------------------------------
 # 3. Runtime
