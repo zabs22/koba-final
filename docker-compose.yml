@@ -1,0 +1,33 @@
+# KOBA — run the full app (backend + built frontend) in one container.
+#
+#   1. Put an app key in a .env file next to this one:   APP_KEY=base64:...
+#      (generate one with:  php artisan key:generate --show)
+#   2. docker compose up -d --build
+#   3. Open http://localhost:8000
+#
+services:
+  app:
+    build: .
+    image: koba-app
+    container_name: koba-app
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT:-8000}:80"
+    environment:
+      APP_NAME: "KOBA Patisserie & Bakery"
+      APP_KEY: ${APP_KEY:?Set APP_KEY in .env}
+      APP_URL: ${APP_URL:-http://localhost:8000}
+      APP_ENV: production
+      APP_DEBUG: "false"
+      DB_CONNECTION: sqlite
+      DB_DATABASE: /var/www/data/database.sqlite
+      SESSION_DRIVER: database
+      CACHE_STORE: database
+      QUEUE_CONNECTION: database
+    volumes:
+      - koba-data:/var/www/data                  # SQLite database
+      - koba-storage:/var/www/html/storage/app   # uploaded files
+
+volumes:
+  koba-data:
+  koba-storage:

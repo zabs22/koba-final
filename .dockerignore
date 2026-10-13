@@ -1,0 +1,30 @@
+# Rebuilt inside the image
+/vendor
+/node_modules
+/public/build
+/public/hot
+/public/storage
+
+# Local state & secrets
+.env
+.env.*
+!.env.example
+/database/*.sqlite
+/storage/logs/*
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+/storage/app/*
+/bootstrap/cache/*.php
+
+# Tooling
+.git
+.github
+.idea
+.vscode
+/tests
+phpunit.xml
+.phpunit.result.cache
+Dockerfile
+docker-compose*.yml
+*.log

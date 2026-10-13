@@ -12,7 +12,11 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        // Render (and most hosts) terminate HTTPS at a proxy and forward plain HTTP.
+        // Trusting the proxy's X-Forwarded-* headers makes Laravel generate
+        // https:// URLs, so the browser doesn't block CSS/JS as mixed content.
+        // TODO: Check if needed in prod
+        $middleware->trustProxies(at: '*');
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

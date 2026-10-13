@@ -1,6 +1,44 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
+
+/*
+ | Tailwind v4 detects class names automatically. Jetstream's own views live in
+ | vendor (git-ignored, so not auto-detected) and must be listed; the public
+ | website (resources/views/site) has its own stylesheet and is excluded.
+ */
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../vendor/laravel/jetstream/**/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source not '../views/site';
+@source not '../views/components/site';
+
+@theme {
+    --font-sans:
+        Figtree, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+        'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+/*
+ | v3 compatibility (from the official upgrade guide):
+ | - v4 changed the default border colour to `currentcolor`; Jetstream relies on gray-200.
+ | - v4 buttons use `cursor: default`; Jetstream expects the pointer.
+ */
+@layer base {
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-gray-200, currentcolor);
+    }
+
+    button:not(:disabled),
+    [role='button']:not(:disabled) {
+        cursor: pointer;
+    }
+}
 
 [x-cloak] {
     display: none;
