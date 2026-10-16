@@ -15,7 +15,6 @@
                     @foreach ($sections as $key => $section)
                         <li><a class="menu-bar__link" href="#{{ $key }}" data-spy="{{ $key }}">{{ $section['label'] }}</a></li>
                     @endforeach
-                    <li><a class="menu-bar__link" href="#drinks" data-spy="drinks">{{ trans('koba.creations.categories.drinks.label') }}</a></li>
                 </ul>
             </nav>
             <div class="menu-search" data-menu-search data-msg-results="{{ __('koba.menu_page.results') }}">

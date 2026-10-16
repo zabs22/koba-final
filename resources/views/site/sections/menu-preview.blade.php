@@ -1,4 +1,4 @@
-@php($sections = collect(trans('koba.menu_page.sections'))->only(['breakfast', 'sandwiches', 'salads', 'mains']))
+@php($sections = collect(trans('koba.menu_page.sections'))->only(['cakes', 'pastries', 'beverages', 'chocolates', 'breakfast', 'dishes']))
 
 <section class="menu-preview section is-cream-2" aria-labelledby="menu-preview-title" data-tabs>
     <div class="wrap grid">
