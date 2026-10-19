@@ -166,6 +166,16 @@
         aria-labelledby="creator-heading"
         data-creator
     >
+        {{-- Oversized outlined wordmark, barely there, partly behind the image --}}
+        <span class="koba-creator__ghost" aria-hidden="true">KOBA</span>
+
+        {{-- Editorial index line: numbered marker ─── micro-typography --}}
+        <div class="wrap koba-creator__top" data-creator-rule aria-hidden="true">
+            <span class="koba-creator__no">01</span>
+            <span class="koba-creator__top-rule"></span>
+            <span class="koba-creator__tags">Craft&nbsp;/&nbsp;Discipline&nbsp;/&nbsp;Imagination</span>
+        </div>
+
         <div class="wrap koba-creator__inner">
 
             {{-- ── IMAGE COLUMN (cols 1–7) ─────────────────────────────────── --}}
@@ -195,16 +205,22 @@
                     <span class="koba-creator__eyebrow-text">THE CREATOR</span>
                 </p>
 
-                {{-- Heading: two lines in overflow-hidden wrappers for slide-up --}}
+                {{-- Signature: KOBA as a brand mark, set apart from the sentence --}}
+                <p class="koba-creator__line koba-creator__sig" aria-hidden="true" data-creator-line="0">
+                    <span>KOBA</span>
+                </p>
+
+                {{-- Heading: lines in overflow-hidden wrappers for slide-up.
+                     The accessible name keeps the full original sentence. --}}
                 <h2
                     id="creator-heading"
                     class="koba-creator__heading"
                     aria-label="KOBA crafts with imagination, grounded in discipline."
                 >
-                    <span class="koba-creator__line" aria-hidden="true" data-creator-line="0">
-                        <span>KOBA crafts with imagination,</span>
+                    <span class="koba-creator__line" aria-hidden="true" data-creator-line="1">
+                        <span>crafts with imagination,</span>
                     </span>
-                    <span class="koba-creator__line koba-creator__line--quiet" aria-hidden="true" data-creator-line="1">
+                    <span class="koba-creator__line koba-creator__line--quiet" aria-hidden="true" data-creator-line="2">
                         <span>grounded in discipline.</span>
                     </span>
                 </h2>
@@ -227,6 +243,13 @@
 
             </div>{{-- /.koba-creator__copy --}}
         </div>{{-- /.koba-creator__inner --}}
+
+        {{-- Philosophy moment — the approved purpose statement (first sentence, verbatim from lang) --}}
+        @php($purposeLine = \Illuminate\Support\Str::replaceLast('.', '.*', str_replace(['turn everyday', 'into meaningful'], ['turn|everyday', 'into|*meaningful'], \Illuminate\Support\Str::before(__('koba.story.purpose'), '. ').'.')))
+        <div class="wrap koba-creator__statement">
+            <p class="koba-creator__statement-eyebrow eyebrow" data-reveal>{{ __('koba.story.purpose_eyebrow') }}</p>
+            <x-site.heading :text="$purposeLine" tag="p" size="l" class="koba-creator__statement-text" />
+        </div>
     </section>
 
     {{-- Self-contained creator animation — runs once after JS class is set --}}
@@ -245,6 +268,7 @@
         var bodyLines = section.querySelectorAll('[data-creator-body]');
         var closing   = section.querySelector('[data-creator-closing]');
         var caption   = section.querySelector('[data-creator-caption]');
+        var rule      = section.querySelector('[data-creator-rule]');
 
         /* Lock elements in their start state — only after JS confirms presence */
         section.classList.add('koba-creator--js');
@@ -254,6 +278,11 @@
         function play() {
             if (played) return;
             played = true;
+
+            /* 0. Index line draws across the top */
+            if (rule) {
+                requestAnimationFrame(function () { rule.classList.add('is-revealed'); });
+            }
 
             /* 1. Image reveal — CSS handles clip-path + scale via .is-revealed */
             if (fig) {
@@ -296,23 +325,31 @@
 
         observer.observe(section);
 
-        /* ── Scroll parallax on the image (desktop + fine pointer only) ── */
-        if (window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 900px)').matches && fig) {
-            var ticking = false;
-            var RANGE   = 24; /* max px of travel */
+        /* ── Scroll depth on the image ───────────────────────────────────
+           All devices: scale eases 1.03 → 1.00 and the picture drifts a few px sideways.
+           Desktop + fine pointer only: the figure also travels a little vertically. */
+        if (fig) {
+            var ticking  = false;
+            var RANGE    = 24; /* max px of vertical travel */
+            var parallax = window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 900px)').matches;
 
-            function updateParallax() {
+            function updateDepth() {
                 ticking = false;
-                var rect  = fig.getBoundingClientRect();
-                var vh    = window.innerHeight;
+                var rect = fig.getBoundingClientRect();
+                var vh   = window.innerHeight;
                 if (rect.bottom < -200 || rect.top > vh + 200) return;
-                var offset = ((rect.top + rect.height / 2) / vh - 0.5) * RANGE;
-                fig.style.setProperty('--parallax-y', offset.toFixed(1) + 'px');
+                var p = Math.min(1, Math.max(0, (vh - rect.top) / (vh + rect.height))); /* 0 entering → 1 leaving */
+                fig.style.setProperty('--img-s', (1.03 - 0.03 * Math.min(1, p * 1.6)).toFixed(4));
+                fig.style.setProperty('--img-x', ((0.5 - p) * 16).toFixed(1) + 'px');
+                if (parallax) {
+                    fig.style.setProperty('--parallax-y', (((rect.top + rect.height / 2) / vh - 0.5) * RANGE).toFixed(1) + 'px');
+                }
             }
 
             window.addEventListener('scroll', function () {
-                if (!ticking) { requestAnimationFrame(updateParallax); ticking = true; }
+                if (!ticking) { requestAnimationFrame(updateDepth); ticking = true; }
             }, { passive: true });
+            updateDepth();
         }
     })();
     </script>
