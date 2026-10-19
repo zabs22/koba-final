@@ -188,6 +188,8 @@ return [
 
     'manifesto' => [
         'eyebrow' => 'Manifesto',
+        'skip' => 'Skip',
+        'skip_label' => 'the manifesto and continue to the next section',
         'opening' => ['Every Moment Composed.', 'Every Sense Invited.'],
         'fragments' => [
             'The fold of butter into dough.',
