@@ -1229,29 +1229,13 @@
 .footer__col ul { display: grid; gap: 10px; font-size: var(--t-small); }
 .footer__branch { display: block; font-size: var(--t-micro); letter-spacing: 0.12em; text-transform: uppercase; color: var(--on-dark-soft); }
 
-.footer__word {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 24px;
-    margin-top: clamp(72px, 9vw, 140px);
-    user-select: none;
-}
-.footer__word .ethiopic {
-    font-size: clamp(6rem, 24vw, 24rem);
-    font-weight: 300;
-    line-height: 0.78;
-    color: transparent;
-    -webkit-text-stroke: 1px rgba(230, 190, 126, 0.4);
-}
-.footer__word .mark { width: clamp(48px, 7vw, 110px); color: var(--sand); opacity: 0.6; margin-bottom: 1vw; }
 
 .footer__bottom {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     gap: 12px 32px;
-    margin-top: 40px;
+    margin-top: clamp(56px, 7vw, 96px);
     padding-block: 28px 36px;
     border-top: 1px solid var(--line-dark);
     font-size: var(--t-micro);
