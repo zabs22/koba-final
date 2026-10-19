@@ -864,6 +864,28 @@
     color: var(--on-dark-soft);
     transform: translateX(-50%);
 }
+/* Skip — only offered while the section is pinned and scroll-driven */
+.manifesto__skip { display: none; }
+.manifesto.is-cinematic .manifesto__skip {
+    position: absolute;
+    top: calc(var(--header-h) + 24px);
+    right: var(--gutter);
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 18px;
+    border: 1px solid var(--line-dark);
+    color: var(--on-dark);
+    font-size: var(--t-micro);
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    transition: background-color 0.4s var(--ease), color 0.4s var(--ease), border-color 0.4s var(--ease);
+}
+.manifesto__skip-icon { width: 16px; height: 16px; transform: rotate(90deg); transition: transform 0.5s var(--ease-out); }
+.manifesto__skip:hover, .manifesto__skip:focus-visible { background: var(--sand); border-color: var(--sand); color: var(--g-900); }
+.manifesto__skip:hover .manifesto__skip-icon, .manifesto__skip:focus-visible .manifesto__skip-icon { transform: rotate(90deg) translateX(3px); }
 .manifesto__bar { width: clamp(120px, 16vw, 240px); height: 1px; background: var(--line-dark); overflow: hidden; }
 .manifesto__bar i { display: block; height: 100%; background: var(--sand); transform-origin: left; transform: scaleX(var(--mp, 0)); }
 
@@ -1228,23 +1250,6 @@
 .footer__title--spaced { margin-top: 32px; }
 .footer__col ul { display: grid; gap: 10px; font-size: var(--t-small); }
 .footer__branch { display: block; font-size: var(--t-micro); letter-spacing: 0.12em; text-transform: uppercase; color: var(--on-dark-soft); }
-
-.footer__word {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 24px;
-    margin-top: clamp(72px, 9vw, 140px);
-    user-select: none;
-}
-.footer__word .ethiopic {
-    font-size: clamp(6rem, 24vw, 24rem);
-    font-weight: 300;
-    line-height: 0.78;
-    color: transparent;
-    -webkit-text-stroke: 1px rgba(230, 190, 126, 0.4);
-}
-.footer__word .mark { width: clamp(48px, 7vw, 110px); color: var(--sand); opacity: 0.6; margin-bottom: 1vw; }
 
 .footer__bottom {
     display: flex;

@@ -47,11 +47,6 @@
             </div>
         </div>
 
-        <div class="footer__word" aria-hidden="true">
-            <span class="ethiopic">ኮባ</span>
-            <x-site.mark />
-        </div>
-
         <div class="footer__bottom">
             <p>{{ __('koba.footer.rights') }}</p>
             <p class="footer__signoff">{{ __('koba.footer.signoff') }} <strong>We Are KOBA.</strong></p>

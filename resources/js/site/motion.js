@@ -89,6 +89,12 @@ export function initManifesto() {
 
     section.classList.add('is-cinematic');
 
+    // Skip: jump straight past the pinned sequence to whatever follows it.
+    $('[data-manifesto-skip]', section)?.addEventListener('click', () => {
+        const end = section.getBoundingClientRect().bottom + window.scrollY;
+        window.scrollTo({ top: end, behavior: 'instant' });
+    });
+
     onFrame((vh) => {
         const rect = section.getBoundingClientRect();
         if (rect.bottom < 0 || rect.top > vh) return;
