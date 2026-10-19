@@ -115,13 +115,13 @@ return [
                 'items' => ['Trio', 'Chocolate Fudge', 'Opera Caramel', 'Vanilla Éclair', 'Cheesecake'],
             ],
             'pastries' => [
-                'label' => 'Pasteries',
+                'label' => 'Pastries',
                 'line' => 'Laminated in disciplined layers. Crisp outside, tender within.',
                 'images' => ['almond-croissant', 'bomboloni'],
                 'items' => ['KOBA Croissant', 'Almond Croissant', 'Pecan Tart', 'Éclair', 'White & Dark Chocolate Muffins'],
             ],
             'beverages' => [
-                'label' => 'Bevarges',
+                'label' => 'Beverages',
                 'line' => 'An afternoon espresso becomes a pause.',
                 'images' => ['drink-cappuccino', 'drink-mojito'],
                 'items' => ['Espresso & milk coffee', 'Tea', 'Iced coffee', 'Fresh cold drinks', 'Mojito'],
@@ -364,13 +364,13 @@ return [
                 'items' => ['Trio', 'Chocolate Fudge', 'Opera Caramel', 'Vanilla Éclair', 'Cheesecake'],
             ],
             'pastries' => [
-                'label' => 'Pasteries',
+                'label' => 'Pastries',
                 'line' => 'Laminated in disciplined layers.',
                 'image' => 'almond-croissant',
                 'items' => ['KOBA Croissant', 'Almond Croissant', 'Pecan Tart', 'Éclair', 'White & Dark Chocolate Muffins', 'Vegetable Focaccia'],
             ],
             'beverages' => [
-                'label' => 'Bevarges',
+                'label' => 'Beverages',
                 'line' => 'Poured slowly, served with care.',
                 'image' => null,
                 'items' => ['Espresso & milk coffee', 'Tea', 'Iced coffee', 'Fresh cold drinks', 'Mojito', 'Lime & mint cooler', 'Strawberry cooler'],
