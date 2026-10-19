@@ -115,10 +115,22 @@ return [
                 'items' => ['Trio', 'Chocolate Fudge', 'Opera Caramel', 'Vanilla Éclair', 'Cheesecake'],
             ],
             'pastries' => [
-                'label' => 'Pastries',
+                'label' => 'Pasteries',
                 'line' => 'Laminated in disciplined layers. Crisp outside, tender within.',
                 'images' => ['almond-croissant', 'bomboloni'],
                 'items' => ['KOBA Croissant', 'Almond Croissant', 'Pecan Tart', 'Éclair', 'White & Dark Chocolate Muffins'],
+            ],
+            'beverages' => [
+                'label' => 'Bevarges',
+                'line' => 'An afternoon espresso becomes a pause.',
+                'images' => ['drink-cappuccino', 'drink-mojito'],
+                'items' => ['Espresso & milk coffee', 'Tea', 'Iced coffee', 'Fresh cold drinks', 'Mojito'],
+            ],
+            'chocolates' => [
+                'label' => 'Chocolates',
+                'line' => 'Rich, dark, and made to delight.',
+                'images' => [],
+                'items' => ['Dark Chocolate Bar', 'Milk Chocolate Truffle', 'Hot Chocolate', 'Chocolate Fondant', 'Chocolate Éclair'],
             ],
             'breakfast' => [
                 'label' => 'Breakfast',
@@ -126,29 +138,11 @@ return [
                 'images' => ['croissant', 'drink-flat-white'],
                 'items' => ['Eggs Benedict', 'Chechebsa', 'KOBA Croissant Sandwich', 'Fluffy Pancakes', 'Ful Medames'],
             ],
-            'sandwiches' => [
-                'label' => 'Sandwiches',
-                'line' => 'Fresh, generous, and made with care.',
-                'images' => [],
-                'items' => ['Mediterranean', 'Caprese', 'Nile Perch', 'Chicken & Avocado', 'Salt Beef'],
-            ],
-            'salads' => [
-                'label' => 'Salads',
-                'line' => 'Bright, composed, and generous.',
-                'images' => [],
-                'items' => ['Summer Salad', 'Cobb Salad', 'Citrus Salad', 'Mediterranean Salad', 'Greek Salad'],
-            ],
-            'mains' => [
-                'label' => 'Main Dishes',
+            'dishes' => [
+                'label' => 'Dishes',
                 'line' => 'Stay for lunch. Linger over something warm.',
                 'images' => [],
                 'items' => ['Honey Garlic Chicken', 'Beef Bourguignon', 'Tagliatelle Meatballs', 'Thai Nile Perch', 'Vegetable Curry'],
-            ],
-            'drinks' => [
-                'label' => 'Coffee & Drinks',
-                'line' => 'An afternoon espresso becomes a pause.',
-                'images' => ['drink-cappuccino', 'drink-mojito'],
-                'items' => ['Espresso & milk coffee', 'Tea', 'Iced coffee', 'Fresh cold drinks'],
             ],
         ],
     ],
@@ -194,6 +188,8 @@ return [
 
     'manifesto' => [
         'eyebrow' => 'Manifesto',
+        'skip' => 'Skip',
+        'skip_label' => 'the manifesto and continue to the next section',
         'opening' => ['Every Moment Composed.', 'Every Sense Invited.'],
         'fragments' => [
             'The fold of butter into dough.',
@@ -254,15 +250,26 @@ return [
     ],
 
     'voices' => [
-        'eyebrow' => 'Customer Voices',
+        'eyebrow' => 'Google Reviews',
         'title' => 'Heard at|*KOBA.*',
-        'quotes' => [
-            'KOBA croissant, excellent.',
-            'I love the white and dark chocolate muffins.',
-            'Vegetable focaccia is my favorite.',
-            'Amazing ambiance — the best café setting in Addis.',
-            'So gorgeous and calming. It makes me want to stay.',
-        ],
+        'lede' => 'Kind words from our guests, in their own words on Google.',
+        'rated' => 'Rated on Google',
+        'rating' => ':rating out of 5',
+        'count' => ':count reviews',
+        'read_on_google' => 'Read reviews on Google',
+        'view_on_maps' => 'View on Google Maps',
+        'new_tab' => '(opens in a new tab)',
+        'branch_rating' => 'Branch rating',
+        'reviewer' => 'Google review',
+        'photo' => 'Photo shared by :name on Google',
+        'label' => 'Guest reviews from Google',
+        'slide' => 'Review :n of :total',
+        'more' => 'Read more',
+        'less' => 'Read less',
+        'pause' => 'Pause automatic movement',
+        'play' => 'Resume automatic movement',
+        'note' => 'Reviews are quoted as published on Google. Ratings are each branch’s overall Google rating.',
+        'empty' => 'Guest reviews from Google will appear here.',
     ],
 
     'cta' => [
@@ -350,41 +357,41 @@ return [
         'results' => ':count matching dishes',
         'count' => ':count dish|:count dishes',
         'sections' => [
+            'cakes' => [
+                'label' => 'Cakes',
+                'line' => 'For celebrations large and quiet.',
+                'image' => 'cake-opera-caramel',
+                'items' => ['Trio', 'Chocolate Fudge', 'Opera Caramel', 'Vanilla Éclair', 'Cheesecake'],
+            ],
+            'pastries' => [
+                'label' => 'Pasteries',
+                'line' => 'Laminated in disciplined layers.',
+                'image' => 'almond-croissant',
+                'items' => ['KOBA Croissant', 'Almond Croissant', 'Pecan Tart', 'Éclair', 'White & Dark Chocolate Muffins', 'Vegetable Focaccia'],
+            ],
+            'beverages' => [
+                'label' => 'Bevarges',
+                'line' => 'Poured slowly, served with care.',
+                'image' => null,
+                'items' => ['Espresso & milk coffee', 'Tea', 'Iced coffee', 'Fresh cold drinks', 'Mojito', 'Lime & mint cooler', 'Strawberry cooler'],
+            ],
+            'chocolates' => [
+                'label' => 'Chocolates',
+                'line' => 'Rich, dark, and made to delight.',
+                'image' => null,
+                'items' => ['Dark Chocolate Bar', 'Milk Chocolate Truffle', 'Hot Chocolate', 'Chocolate Fondant', 'Chocolate Éclair', 'Chocolate Brownie'],
+            ],
             'breakfast' => [
                 'label' => 'Breakfast',
                 'line' => 'Morning light into ceremony.',
                 'image' => 'croissant',
                 'items' => ['Eggs Benedict', 'Omelettes', 'French Toast', 'Fluffy Pancakes', 'Chechebsa', 'KOBA Croissant Sandwich', 'Waffles', 'Ful Medames'],
             ],
-            'sandwiches' => [
-                'label' => 'Sandwiches',
-                'line' => 'Fresh, generous, made with care.',
-                'image' => null,
-                'items' => ['Mediterranean', 'Caprese', 'Cheese Melt', 'Nile Perch', 'Tuna', 'Chicken & Avocado', 'Salt Beef'],
-            ],
-            'salads' => [
-                'label' => 'Salads',
-                'line' => 'Bright, composed, generous.',
-                'image' => null,
-                'items' => ['Summer Salad', 'Cobb Salad', 'Citrus Salad', 'Mediterranean Salad', 'Tuna Salad', 'Greek Salad'],
-            ],
-            'mains' => [
-                'label' => 'Main Dishes',
-                'line' => 'Stay for lunch.',
+            'dishes' => [
+                'label' => 'Dishes',
+                'line' => 'Stay for lunch. Linger over something warm.',
                 'image' => null,
                 'items' => ['Honey Garlic Chicken', 'Kung Pao Chicken', 'Beef Bourguignon', 'Tagliatelle Meatballs', 'Beef Lasagna', 'Eggplant Lasagna', 'Thai Nile Perch', 'Fish Cakes', 'Vegetable Curry', 'Chicken Nuggets'],
-            ],
-            'pastries' => [
-                'label' => 'Pastries',
-                'line' => 'Laminated in disciplined layers.',
-                'image' => 'almond-croissant',
-                'items' => ['KOBA Croissant', 'Almond Croissant', 'Pecan Tart', 'Éclair', 'White & Dark Chocolate Muffins', 'Vegetable Focaccia'],
-            ],
-            'cakes' => [
-                'label' => 'Cakes',
-                'line' => 'For celebrations large and quiet.',
-                'image' => 'cake-opera-caramel',
-                'items' => ['Trio', 'Chocolate Fudge', 'Opera Caramel', 'Vanilla Éclair', 'Cheesecake'],
             ],
         ],
         'drinks_eyebrow' => 'From the bar',

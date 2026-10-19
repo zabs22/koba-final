@@ -87,6 +87,105 @@ return [
         'fresh-cold-drinks' => 'drink-mojito',
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Google reviews ("Heard at KOBA")
+    |--------------------------------------------------------------------------
+    |
+    | There is no Google Places / Business Profile integration yet, so this is
+    | explicitly supplied data — nothing here is invented. Ratings, counts and
+    | review text were transcribed from the public Google Maps listings and
+    | are a snapshot: refresh them (or replace this block with a server-side
+    | Places API fetch, key kept in .env, cached) to keep them current.
+    |
+    | Per listing: name (exact Google listing title), short (card label),
+    | image (decorative photo key from 'images' above, optional),
+    | rating + count (the listing's overall Google rating), maps_url (the
+    | listing's own Google Maps link — paste it to override the search link
+    | built from maps_query), and reviews[]: text (verbatim) plus optional
+    | author, rating (that review's own stars) and date, shown only when set.
+    |
+    */
+    'google_reviews' => [
+        'listings' => [
+            [
+                'key' => 'atlas',
+                'name' => 'KOBA Patisserie & Bakery | Atlas Branch',
+                'short' => 'Atlas Branch',
+                'image' => 'opera-slice',
+                'rating' => 4.5,
+                'count' => 604,
+                'maps_url' => null,
+                'maps_query' => 'KOBA Patisserie & Bakery Atlas Branch Addis Ababa',
+                'reviews' => [
+                    ['text' => 'It\'s a cozy place with variety of pastries & very nice customer service.', 'author' => null, 'rating' => null, 'date' => null],
+                ],
+            ],
+            [
+                'key' => '4-kilo',
+                'name' => 'KOBA Patisserie & Bakery - 4 Kilo Branch',
+                'short' => '4 Kilo Branch',
+                'image' => 'pecan-tart',
+                'rating' => 4.3,
+                'count' => 136,
+                'maps_url' => null,
+                'maps_query' => 'KOBA Patisserie & Bakery 4 Kilo Branch King George VI St Addis Ababa',
+                'reviews' => [
+                    ['text' => 'Staff is highly professional and food and pastries are wonderful!', 'author' => null, 'rating' => null, 'date' => null],
+                ],
+            ],
+            [
+                'key' => 'kebena',
+                'name' => 'KOBA Patisserie & Bakery | Kebena',
+                'short' => 'Kebena',
+                'image' => 'eclair',
+                'rating' => 4.4,
+                'count' => 313,
+                'maps_url' => null,
+                'maps_query' => 'KOBA Patisserie & Bakery Kebena Shewareged Gedle St Addis Ababa',
+                'reviews' => [
+                    ['text' => 'One of the best pastry in Addis with nice decorations and good service !', 'author' => null, 'rating' => null, 'date' => null],
+                ],
+            ],
+        ],
+
+        /*
+        | Reviews whose branch is not known. Shown mixed in with the listing
+        | reviews above. Set 'listing' to a listing 'key' (atlas, 4-kilo,
+        | kebena) to add the branch label and its Google Maps link.
+        | photos: [file in public/images/koba/reviews, width, height] — the
+        | reviewer's own photos from the review (reviewer-owned; get their OK).
+        | date is left empty: Google only showed relative dates ("5 months ago").
+        */
+        'reviews' => [
+            [
+                'listing' => null,
+                'author' => 'Zena Tadesse',
+                'rating' => 5,
+                'date' => null,
+                'text' => 'My everyday morning stop over! An incredible place with an amazing breakfast and lunch. Menu is so unique and portion is generous. The waiting staff, supervisors and kitchen staff are amazing, they treat every customer as it’s the only. They cater to every regular customer  learning his/her  behavior. Pastry and bakery is amazing, so many choices. Ample parking space relatively from what the area provides.',
+                'photos' => [['zena-1.jpg', 295, 220], ['zena-2.jpg', 294, 220]],
+            ],
+            [
+                'listing' => null,
+                'author' => 'betty eshete',
+                'rating' => 4,
+                'date' => null,
+                // Truncated by Google ("… More") in the source — paste the full text here.
+                'text' => 'We ordered a salmon sandwich along with a few desserts. The desserts arrived very quickly, but the salmon sandwich took quite a while to come out. …',
+                'photos' => [['betty-1.jpg', 295, 360], ['betty-2.jpg', 292, 360]],
+            ],
+            [
+                'listing' => null,
+                'author' => 'c!',
+                'rating' => 5,
+                'date' => null,
+                'text' => 'First food I had in Addis Ababa. The coffee was good. The french toast was big and fulfilling.',
+                'photos' => [['c-1.jpg', 295, 402], ['c-2.jpg', 296, 220], ['c-3.jpg', 296, 171]],
+            ],
+        ],
+    ],
+
     'email' => 'hello@kobapatisserie.com',
 
     // Replace with the official profile URLs.

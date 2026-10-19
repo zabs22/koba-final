@@ -14,6 +14,12 @@
                 <em>{{ __('koba.manifesto.opening.1') }}</em>
             </h2>
 
+            <button class="manifesto__skip" type="button" data-manifesto-skip>
+                <span>{{ __('koba.manifesto.skip') }}</span>
+                <x-site.arrow class="manifesto__skip-icon" />
+                <span class="sr-only">{{ __('koba.manifesto.skip_label') }}</span>
+            </button>
+
             <ol class="list-reset manifesto__fragments">
                 @foreach ($fragments as $i => $fragment)
                     <li class="manifesto__fragment" data-step="{{ $i + 1 }}">
