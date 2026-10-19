@@ -1,4 +1,4 @@
-<x-site.layout page="our-story" :title="__('koba.meta.pages.our-story')" :description="__('koba.story.lede')" image="craft-crumb">
+﻿<x-site.layout page="our-story" :title="__('koba.meta.pages.our-story')" :description="__('koba.story.lede')" image="craft-crumb">
     @include('site.partials.page-hero', [
         'eyebrow' => __('koba.story.eyebrow'),
         'title' => __('koba.story.title'),
@@ -88,15 +88,51 @@
         </div>
     </section>
 
-    {{-- Purpose, mission, vision --}}
-    <section class="statements section is-dark" aria-label="{{ __('koba.story.purpose_eyebrow') }}">
+    {{-- Purpose, mission, vision — interactive expanding cards --}}
+    @php
+        $pmvItems = [
+            'purpose' => ['img' => 'craft-lamination', 'icon' => '✦'],
+            'mission' => ['img' => 'almond-croissant',  'icon' => '◈'],
+            'vision'  => ['img' => 'cake-opera-caramel','icon' => '◉'],
+        ];
+    @endphp
+    <section class="pmv-section section is-dark" aria-label="{{ __('koba.story.purpose_eyebrow') }}">
         <div class="wrap">
-            @foreach (['purpose', 'mission', 'vision'] as $key)
-                <div class="statement grid">
-                    <p class="eyebrow statement__label" data-reveal>{{ __("koba.story.{$key}_eyebrow") }}</p>
-                    <p class="statement__text" data-reveal style="--d: 1">{{ __("koba.story.$key") }}</p>
-                </div>
-            @endforeach
+            <div class="pmv-deck" data-pmv-deck>
+                @foreach ($pmvItems as $key => $meta)
+                    @php($idx = $loop->index)
+                    <div class="pmv-panel {{ $loop->first ? 'is-open' : '' }}"
+                         data-pmv-panel
+                         role="button"
+                         tabindex="0"
+                         aria-expanded="{{ $loop->first ? 'true' : 'false' }}"
+                         style="--i: {{ $idx }}">
+
+                        {{-- collapsed label (visible when closed) --}}
+                        <div class="pmv-panel__label">
+                            <span class="pmv-panel__icon">{{ $meta['icon'] }}</span>
+                            <span class="pmv-panel__title-vert">{{ __("koba.story.{$key}_eyebrow") }}</span>
+                        </div>
+
+                        {{-- expanded content --}}
+                        <div class="pmv-panel__body">
+                            <div class="pmv-panel__media">
+                                <img class="pmv-panel__img"
+                                     src="/images/koba/{{ $meta['img'] }}-960.webp"
+                                     alt="{{ __("koba.story.{$key}_eyebrow") }}"
+                                     loading="lazy">
+                            </div>
+                            <div class="pmv-panel__content">
+                                <span class="pmv-panel__num">{{ str_pad($idx + 1, 2, '0', STR_PAD_LEFT) }}</span>
+                                <h3 class="pmv-panel__heading">{{ __("koba.story.{$key}_eyebrow") }}</h3>
+                                <div class="pmv-panel__rule"></div>
+                                <p class="pmv-panel__text">{{ __("koba.story.$key") }}</p>
+                            </div>
+                        </div>
+
+                    </div>
+                @endforeach
+            </div>
         </div>
     </section>
 
