@@ -1,4 +1,13 @@
-@php($sections = trans('koba.menu_page.sections'))
+@php
+    $sections = trans('koba.menu_page.sections');
+    $categories = ['cakes' => $sections['cakes'], 'pastries' => $sections['pastries'],
+        'drinks' => ['label' => 'Beverages', 'line' => __('koba.menu_page.drinks_line')],
+        'chocolates' => ['label' => 'Chocolates', 'line' => '']];
+    $categories += collect($sections)->except(['cakes', 'pastries'])->all();
+    $selected = array_key_exists(request('category', 'cakes'), $categories) ? request('category', 'cakes') : 'cakes';
+    $cakes = trans('koba.cakes');
+    $dishImages = config('koba.dish_images');
+@endphp
 
 <x-site.layout page="menu" :title="__('koba.meta.pages.menu')" :description="__('koba.menu_page.lede')" image="almond-croissant">
     @include('site.partials.page-hero', [
@@ -12,80 +21,51 @@
         <div class="wrap menu-bar__inner">
             <nav class="menu-bar__nav" aria-label="{{ __('koba.menu_page.eyebrow') }}">
                 <ul class="list-reset">
-                    @foreach ($sections as $key => $section)
-                        <li><a class="menu-bar__link" href="#{{ $key }}" data-spy="{{ $key }}">{{ $section['label'] }}</a></li>
+                    @foreach ($categories as $key => $category)
+                        <li><a class="menu-bar__link {{ $selected === $key ? 'is-active' : '' }}"
+                            href="{{ route('menu', ['category' => $key]) }}#{{ $key }}"
+                            data-menu-category="{{ $key }}" @if ($selected === $key) aria-current="true" @endif>{{ $category['label'] }}</a></li>
                     @endforeach
-                    <li><a class="menu-bar__link" href="#drinks" data-spy="drinks">{{ trans('koba.creations.categories.drinks.label') }}</a></li>
                 </ul>
             </nav>
             <div class="menu-search" data-menu-search data-msg-results="{{ __('koba.menu_page.results') }}">
                 <label class="sr-only" for="menu-search">{{ __('koba.menu_page.search') }}</label>
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="11" cy="11" r="6.5" /><path d="m16 16 4.5 4.5" stroke-linecap="round" /></svg>
-                <input id="menu-search" type="search" placeholder="{{ __('koba.menu_page.search_placeholder') }}" autocomplete="off" data-menu-input>
+                <input id="menu-search" type="search" placeholder="{{ __('koba.menu_page.search') }}" autocomplete="off" data-menu-input>
             </div>
         </div>
     </div>
 
     <p class="sr-only" role="status" aria-live="polite" data-menu-status></p>
-
-    <div class="menu-sections">
-        @foreach ($sections as $key => $section)
-            <section class="menu-section section--tight {{ $loop->even ? 'is-white' : '' }}" id="{{ $key }}" aria-labelledby="menu-{{ $key }}" data-menu-section>
-                <div class="wrap grid">
-                    <div class="menu-section__aside">
-                        <p class="index menu-section__no" data-reveal>{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</p>
-                        <h2 id="menu-{{ $key }}" class="display display--l" data-reveal>{{ $section['label'] }}</h2>
-                        <p class="menu-section__line" data-reveal>{{ $section['line'] }}</p>
-                        <p class="menu-section__count" data-reveal>{{ trans_choice('koba.menu_page.count', count($section['items'])) }}</p>
-                        @if ($section['image'])
-                            <div class="menu-section__media media" data-reveal="media">
-                                <x-site.img :src="$section['image']" sizes="(min-width: 900px) 28vw, 80vw" />
-                            </div>
-                        @else
-                            <x-site.mark class="menu-section__mark" />
-                        @endif
-                    </div>
-
-                    <ol class="list-reset menu-list">
-                        @foreach ($section['items'] as $item)
-                            <li class="menu-item" id="dish-{{ \Illuminate\Support\Str::slug($item) }}" data-menu-item data-name="{{ \Illuminate\Support\Str::lower(\Illuminate\Support\Str::ascii($item)) }}">
-                                <span class="index">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
-                                <span class="menu-item__name">{{ $item }}</span>
-                            </li>
-                        @endforeach
-                    </ol>
-                </div>
+    <div class="menu-catalogue wrap">
+        @foreach ($categories as $key => $category)
+            @php
+                $products = match ($key) {
+                    'cakes' => collect($sections['cakes']['items'])->map(function ($name) use ($cakes, $dishImages) {
+                        $slug = \Illuminate\Support\Str::slug($name);
+                        return array_merge($cakes[$slug] ?? ['name' => $name], ['slug' => $slug, 'href' => route('cakes').'#cake-'.$slug]);
+                    }),
+                    'drinks' => collect(trans('koba.menu_page.drinks'))->map(fn ($drink) => ['name' => $drink['label'], 'image' => $drink['image'], 'slug' => \Illuminate\Support\Str::slug($drink['label'])]),
+                    'chocolates' => collect(),
+                    default => collect($category['items'])->map(function ($name) use ($dishImages) {
+                        $slug = \Illuminate\Support\Str::slug($name);
+                        return ['name' => $name, 'slug' => $slug, 'image' => $dishImages[$slug] ?? null];
+                    }),
+                };
+            @endphp
+            <section class="menu-category" id="{{ $key }}" aria-labelledby="menu-{{ $key }}" data-menu-section @if ($selected !== $key) hidden @endif>
+                <header class="menu-category__head">
+                    <h2 id="menu-{{ $key }}" class="display display--m">{{ $category['label'] }}</h2>
+                    @if ($category['line']) <p class="body-copy">{{ $category['line'] }}</p> @endif
+                </header>
+                @if ($key === 'chocolates')
+                    <p class="body-copy">No chocolate products are listed in this menu.</p>
+                @else
+                    <x-site.menu-products :products="$products" />
+                @endif
             </section>
         @endforeach
-
-        <p class="menu-empty wrap" hidden data-menu-empty>{{ __('koba.menu_page.empty') }}</p>
+        <p class="menu-empty" hidden data-menu-empty>{{ __('koba.menu_page.empty') }}</p>
     </div>
-
-    {{-- From the bar --}}
-    <section class="drinks section is-dark" id="drinks" aria-labelledby="drinks-title" data-menu-section>
-        <div class="wrap">
-            <header class="grid drinks__head">
-                <div class="drinks__heading">
-                    <p class="eyebrow" data-reveal>{{ __('koba.menu_page.drinks_eyebrow') }}</p>
-                    <x-site.heading id="drinks-title" :text="__('koba.menu_page.drinks_title')" size="l" />
-                </div>
-                <p class="lede drinks__lede" data-reveal>{{ __('koba.menu_page.drinks_line') }}</p>
-            </header>
-
-            <ul class="list-reset drinks__grid">
-                @foreach (trans('koba.menu_page.drinks') as $drink)
-                    <li class="drink" data-menu-item data-name="{{ \Illuminate\Support\Str::lower($drink['label']) }}" data-cursor="{{ __('koba.ui.view') }}">
-                        <figure>
-                            <div class="media hover-zoom" data-reveal="media" style="--d: {{ $loop->index % 5 }}">
-                                <x-site.img :src="$drink['image']" sizes="(min-width: 900px) 20vw, 45vw" />
-                            </div>
-                            <figcaption>{{ $drink['label'] }}</figcaption>
-                        </figure>
-                    </li>
-                @endforeach
-            </ul>
-        </div>
-    </section>
 
     <section class="band is-sand" aria-label="{{ __('koba.menu_page.cake_cta_title') }}">
         <div class="wrap band__inner">

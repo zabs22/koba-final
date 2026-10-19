@@ -26,7 +26,7 @@
                         <span class="principle__index index">{{ str_pad($i + 1, 2, '0', STR_PAD_LEFT) }}</span>
                         <h3 class="principle__name">{{ $item['name'] }}</h3>
                         <div class="principle__more">
-                            <p>{{ $item['line'] }}</p>
+                            <p>{{ ['Layered by hand. Finished with care.', 'Thoughtful flavors. Quiet detail.', 'Texture and taste, in balance.', 'The same care in every visit.', 'Warm service, always.'][$i] }}</p>
                         </div>
                     </li>
                 @endforeach

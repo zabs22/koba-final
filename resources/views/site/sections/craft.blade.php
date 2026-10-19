@@ -19,7 +19,7 @@
                 <p class="eyebrow" data-reveal>{{ __('koba.craft.eyebrow') }}</p>
                 <x-site.heading id="craft-title" :text="__('koba.craft.title')" size="l" />
             </div>
-            <p class="lede craft__lede" data-reveal>“{{ __('koba.craft.body') }}”</p>
+            <p class="lede craft__lede" data-reveal>Folded by hand. Baked in delicate layers.</p>
         </header>
 
         {{-- Masonry: photographs keep their proportions and stack tightly. --}}

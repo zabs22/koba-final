@@ -7,7 +7,7 @@
             <x-site.heading id="final-cta-title" :text="__('koba.cta.title')" size="xl" />
         </div>
         <div class="final-cta__body">
-            <p class="lede" data-reveal>{{ __('koba.cta.body') }}</p>
+            <p class="lede" data-reveal>Good food tastes better together. Bring your people, or treat yourself.</p>
             <div class="final-cta__actions" data-reveal style="--d: 1">
                 <a class="btn btn--sand" href="{{ route('order') }}">{{ __('koba.cta.order') }} <x-site.arrow /></a>
                 <a class="btn btn--ghost" href="{{ route('menu') }}">{{ __('koba.cta.menu') }}</a>

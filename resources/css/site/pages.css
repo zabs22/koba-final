@@ -502,7 +502,7 @@
 }
 .header-hidden .menu-bar { top: 0; }
 .menu-bar__inner { display: flex; align-items: center; gap: 24px; min-height: 68px; }
-.menu-bar__nav { flex: 1; overflow-x: auto; scrollbar-width: none; }
+.menu-bar__nav { flex: 1; min-width: 0; overflow-x: auto; scrollbar-width: none; }
 .menu-bar__nav::-webkit-scrollbar { display: none; }
 .menu-bar__nav ul { display: flex; gap: clamp(18px, 2.4vw, 36px); }
 .menu-bar__link {
@@ -596,7 +596,32 @@
 @keyframes dish-flash { 0%, 55% { opacity: 1; } 100% { opacity: 0.35; } }
 .menu-item:hover .menu-item__name { font-weight: 700; }
 
-.menu-empty { padding-block: 96px; font-family: var(--f-display); font-size: var(--t-m); font-weight: 200; }
+.menu-empty { padding-block: 48px; font-family: var(--f-display); font-size: var(--t-m); font-weight: 200; }
+
+.menu-catalogue { padding-block: clamp(40px, 6vw, 88px); }
+.menu-category { scroll-margin-top: calc(var(--header-h) + 150px); }
+.menu-category__head { display: grid; gap: 14px; margin-bottom: 36px; }
+.menu-products { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px 32px; }
+.menu-product { min-width: 0; scroll-margin-top: calc(var(--header-h) + 150px); }
+.menu-product__link { display: block; height: 100%; }
+.menu-product__media { aspect-ratio: 4 / 5; overflow: hidden; background: var(--cream); }
+.menu-product__media img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 58%; transition: transform 250ms ease; }
+.menu-product__details { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 16px; margin-top: 18px; }
+.menu-product__name { font-size: clamp(1.125rem, 1.6vw, 1.5rem); line-height: 1.3; font-weight: 600; }
+.menu-product__price { font-weight: 600; }
+.menu-product__description { margin-top: 8px; font-size: var(--t-small); color: var(--ink-soft); }
+.menu-product__vegan { display: inline-block; margin-top: 10px; color: var(--g-600); font-size: var(--t-small); }
+.menu-product__link:focus-visible, .menu-bar__link:focus-visible { outline: 2px solid var(--g-600); outline-offset: 5px; }
+.menu-product:target { outline: 2px solid var(--g-600); outline-offset: 8px; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .menu-product__link:hover img { transform: scale(1.025); }
+}
+@media (max-width: 999px) {
+    .menu-products { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 24px; }
+}
+@media (max-width: 599px) {
+    .menu-products { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+}
 
 .drinks { scroll-margin-top: calc(var(--header-h) + 70px); }
 .drinks__head { align-items: end; row-gap: 24px; }

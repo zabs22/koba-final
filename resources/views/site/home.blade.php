@@ -2,7 +2,7 @@
     @include('site.sections.hero')
     @include('site.sections.intro')
     @include('site.sections.philosophy')
-    @include('site.sections.creations')
+    {{-- @include('site.sections.creations') --}}
     @include('site.sections.craft')
     @include('site.sections.menu-preview')
     @include('site.sections.cakes-feature')

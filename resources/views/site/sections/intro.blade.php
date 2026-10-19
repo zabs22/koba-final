@@ -19,7 +19,7 @@
         </figure>
 
         <div class="intro__body">
-            <p class="lede" data-reveal>{{ __('koba.intro.body') }}</p>
+            <p class="lede" data-reveal>Thoughtful pastries, cakes, and café moments in Addis.</p>
 
             <ul class="intro__rituals list-reset">
                 @foreach (trans('koba.intro.rituals') as $i => $ritual)

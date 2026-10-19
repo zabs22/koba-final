@@ -10,7 +10,7 @@
                 <x-site.heading id="cakes-feature-title" :text="__('koba.cakes_feature.title')" size="l" />
             </div>
             <div class="cakes-feature__intro">
-                <p class="lede" data-reveal>{{ __('koba.cakes_feature.body') }}</p>
+                <p class="lede" data-reveal>Cakes made for every celebration.</p>
                 <div class="btn-row" data-reveal style="--d: 1">
                     <a class="btn" href="{{ route('order') }}">{{ __('koba.cakes_feature.cta_order') }} <x-site.arrow /></a>
                     <a class="link" href="{{ route('cakes') }}">{{ __('koba.cakes_feature.cta_explore') }}</a>
@@ -24,7 +24,7 @@
             @foreach ($cakes as $slug => $cake)
                 <li class="carousel__slide">
                     <a class="cake-card" href="{{ route('cakes') }}#cake-{{ $slug }}" data-cursor="{{ __('koba.ui.discover') }}" draggable="false">
-                        <div class="cake-card__media media hover-zoom">
+                        <div class="cake-card__media media hover-zoom" data-reveal="media">
                             <x-site.img :src="$cake['image']" sizes="(min-width: 900px) 30vw, 78vw" draggable="false" />
                         </div>
                         <div class="cake-card__meta">

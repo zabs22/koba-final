@@ -615,6 +615,9 @@
    ========================================================================== */
 
 .menu-preview .grid { align-items: start; row-gap: 56px; }
+.menu-preview__head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 28px; margin-bottom: clamp(40px, 6vw, 88px); }
+.menu-preview__head > div { display: grid; gap: 18px; }
+.menu-preview__action { display: flex; justify-content: center; margin-top: clamp(32px, 4vw, 56px); }
 .mp__intro {
     grid-column: 1 / span 5;
     display: flex;

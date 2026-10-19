@@ -40,6 +40,34 @@ class SiteTest extends TestCase
             ->assertSee('property="og:image"', false);
     }
 
+    public function test_menu_keeps_existing_products_and_cake_links(): void
+    {
+        $response = $this->get('/menu')->assertOk()
+            ->assertSee('id="cakes" aria-labelledby="menu-cakes" data-menu-section >', false)
+            ->assertSee('id="pastries" aria-labelledby="menu-pastries" data-menu-section  hidden', false)
+            ->assertSee('No chocolate products are listed in this menu.')
+            ->assertDontSee('class="menu-product__vegan"', false);
+
+        foreach (trans('koba.cakes') as $slug => $cake) {
+            $response->assertSee(route('cakes').'#cake-'.$slug, false);
+        }
+
+        foreach (trans('koba.menu_page.sections') as $section) {
+            foreach ($section['items'] as $name) {
+                $response->assertSee('id="dish-'.\Illuminate\Support\Str::slug($name).'"', false);
+            }
+        }
+    }
+
+    public function test_menu_category_links_work_without_javascript(): void
+    {
+        $this->get('/menu?category=pastries')->assertOk()
+            ->assertSee('id="pastries" aria-labelledby="menu-pastries" data-menu-section >', false)
+            ->assertSee('id="cakes" aria-labelledby="menu-cakes" data-menu-section  hidden', false);
+        $this->get('/menu?category=unknown')->assertOk()
+            ->assertSee('id="cakes" aria-labelledby="menu-cakes" data-menu-section >', false);
+    }
+
     public function test_sitemap_lists_public_pages(): void
     {
         $this->get('/sitemap.xml')
