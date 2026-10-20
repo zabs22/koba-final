@@ -2,9 +2,11 @@
     $sections = trans('koba.menu_page.sections');
     $categories = ['cakes' => $sections['cakes'], 'pastries' => $sections['pastries'],
         'drinks' => ['label' => 'Beverages', 'line' => __('koba.menu_page.drinks_line')],
-        'chocolates' => ['label' => 'Chocolates', 'line' => '']];
-    $categories += collect($sections)->except(['cakes', 'pastries'])->all();
-    $selected = array_key_exists(request('category', 'cakes'), $categories) ? request('category', 'cakes') : 'cakes';
+        'chocolates' => $sections['chocolates']];
+    // One Beverages tab: the 'beverages' text list is folded into 'drinks' below.
+    $categories += collect($sections)->except(['cakes', 'pastries', 'beverages'])->all();
+    $requested = request('category', 'cakes') === 'beverages' ? 'drinks' : request('category', 'cakes');
+    $selected = array_key_exists($requested, $categories) ? $requested : 'cakes';
     $cakes = trans('koba.cakes');
     $dishImages = config('koba.dish_images');
 @endphp
@@ -44,8 +46,14 @@
                         $slug = \Illuminate\Support\Str::slug($name);
                         return array_merge($cakes[$slug] ?? ['name' => $name], ['slug' => $slug, 'href' => route('cakes').'#cake-'.$slug]);
                     }),
-                    'drinks' => collect(trans('koba.menu_page.drinks'))->map(fn ($drink) => ['name' => $drink['label'], 'image' => $drink['image'], 'slug' => \Illuminate\Support\Str::slug($drink['label'])]),
-                    'chocolates' => collect(),
+                    'drinks' => (function () use ($sections) {
+                        $photos = collect(trans('koba.menu_page.drinks'))->map(fn ($drink) => ['name' => $drink['label'], 'image' => $drink['image'], 'slug' => \Illuminate\Support\Str::slug($drink['label'])]);
+                        // Add text-only beverages that aren't already shown (e.g. 'Tea' vs 'Tea, poured to order').
+                        $extra = collect($sections['beverages']['items'] ?? [])
+                            ->map(fn ($name) => ['name' => $name, 'image' => null, 'slug' => \Illuminate\Support\Str::slug($name)])
+                            ->reject(fn ($item) => $photos->contains(fn ($photo) => str_starts_with($photo['slug'], $item['slug'])));
+                        return $photos->concat($extra)->values();
+                    })(),
                     default => collect($category['items'])->map(function ($name) use ($dishImages) {
                         $slug = \Illuminate\Support\Str::slug($name);
                         return ['name' => $name, 'slug' => $slug, 'image' => $dishImages[$slug] ?? null];
@@ -57,11 +65,7 @@
                     <h2 id="menu-{{ $key }}" class="display display--m">{{ $category['label'] }}</h2>
                     @if ($category['line']) <p class="body-copy">{{ $category['line'] }}</p> @endif
                 </header>
-                @if ($key === 'chocolates')
-                    <p class="body-copy">No chocolate products are listed in this menu.</p>
-                @else
-                    <x-site.menu-products :products="$products" />
-                @endif
+                <x-site.menu-products :products="$products" />
             </section>
         @endforeach
         <p class="menu-empty" hidden data-menu-empty>{{ __('koba.menu_page.empty') }}</p>

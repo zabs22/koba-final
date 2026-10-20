@@ -43,16 +43,24 @@ class SiteTest extends TestCase
     public function test_menu_keeps_existing_products_and_cake_links(): void
     {
         $response = $this->get('/menu')->assertOk()
+            ->assertSee('>Beverages</a>', false)
+            ->assertDontSee('Bevarges')
+            ->assertDontSee('Pasteries')
             ->assertSee('id="cakes" aria-labelledby="menu-cakes" data-menu-section >', false)
             ->assertSee('id="pastries" aria-labelledby="menu-pastries" data-menu-section  hidden', false)
-            ->assertSee('No chocolate products are listed in this menu.')
+            ->assertSee('id="chocolates" aria-labelledby="menu-chocolates" data-menu-section  hidden', false)
             ->assertDontSee('class="menu-product__vegan"', false);
 
         foreach (trans('koba.cakes') as $slug => $cake) {
             $response->assertSee(route('cakes').'#cake-'.$slug, false);
         }
 
-        foreach (trans('koba.menu_page.sections') as $section) {
+        // Beverages are merged into the photo drinks list, so duplicates like "Tea" appear once by name.
+        foreach (trans('koba.menu_page.sections.beverages.items') as $name) {
+            $response->assertSee(e($name), false);
+        }
+
+        foreach (collect(trans('koba.menu_page.sections'))->except('beverages') as $section) {
             foreach ($section['items'] as $name) {
                 $response->assertSee('id="dish-'.\Illuminate\Support\Str::slug($name).'"', false);
             }
