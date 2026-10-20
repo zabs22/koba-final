@@ -282,47 +282,6 @@
    02 — Brand introduction
    ========================================================================== */
 
-.intro { overflow: hidden; }
-.intro__leaf { right: -18%; bottom: -14%; width: min(1100px, 72vw); transform: rotate(-8deg); color: var(--cream); --rib: var(--white); }
-
-.intro__grid { position: relative; row-gap: clamp(48px, 7vw, 112px); }
-
-.intro__statement { grid-column: 1 / -1; position: relative; isolation: isolate; }
-
-/* Horizontal label under the headline: "The KOBA Experience · Est. 2020 · Addis Ababa" */
-.intro__label {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 10px 22px;
-    margin-top: clamp(24px, 2.6vw, 40px);
-    color: var(--ink-faint);
-    font-size: var(--t-micro);
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-}
-.intro__label .eyebrow { color: var(--brown); }
-.intro__est { display: inline-flex; align-items: center; gap: 22px; }
-.intro__est::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--sand); }
-.intro__statement .display { position: relative; max-width: 11ch; }
-.intro__statement .display em { color: var(--g-600); }
-
-.intro__glyph {
-    position: absolute;
-    right: 0;
-    top: -0.32em;
-    font-size: clamp(6rem, 17vw, 17rem);
-    font-weight: 300;
-    line-height: 1;
-    color: var(--cream-2);
-    user-select: none;
-    z-index: -1;
-}
-
-.intro__figure { grid-column: 1 / span 5; align-self: start; }
-.intro__figure .media { aspect-ratio: 4 / 5; }
-
 .caption {
     margin-top: 16px;
     font-size: var(--t-micro);
@@ -330,35 +289,213 @@
     color: var(--ink-soft);
 }
 
-.intro__body {
-    grid-column: 7 / span 5;
-    align-self: center;
-    display: grid;
-    gap: 40px;
-    justify-items: start;
+/* Rituals: a day at KOBA. Pinned on desktop (home.js adds .is-pinned and drives
+   --p, --sx/--sy and each card's --b/--f); a fanned, static deck elsewhere. */
+.rituals {
+    --bg: var(--cream);
+    position: relative;
+    background: var(--bg);
+    transition: background-color 1.4s var(--ease);
+    overflow: clip;
 }
-.intro__body .lede { max-width: 44ch; color: var(--ink); }
+.rituals[data-step="1"] { --bg: #fbe8c9; }
+.rituals[data-step="2"] { --bg: var(--sand-200); }
 
-.intro__rituals { display: grid; border-top: 1px solid var(--line); width: 100%; }
-.intro__rituals li {
+.rituals__pin { position: relative; padding-block: var(--section); }
+.rituals.is-pinned { height: 300vh; }
+.rituals.is-pinned .rituals__pin {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    height: 100svh;
     display: flex;
     align-items: center;
-    gap: 18px;
-    padding-block: 18px;
+    padding-block: calc(var(--header-h) + 8px) 24px;
+}
+.rituals.is-pinned .rituals__pin > .wrap { width: 100%; }
+
+.rituals__sky { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.rituals__leaf--a {
+    right: -16%;
+    bottom: -22%;
+    width: min(980px, 64vw);
+    color: var(--sand);
+    --rib: var(--bg);
+    transform: rotate(calc(-14deg + var(--p, 0) * 22deg));
+}
+.rituals__leaf--b {
+    right: -10%;
+    top: -16%;
+    width: min(520px, 34vw);
+    color: var(--g-600);
+    --rib: var(--bg);
+    transform: rotate(calc(196deg - var(--p, 0) * 16deg));
+}
+.rituals__glyph {
+    position: absolute;
+    left: 36%;
+    top: -0.2em;
+    font-size: clamp(8rem, 24vw, 24rem);
+    font-weight: 600;
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(6, 46, 34, 0.08);
+    transform: translateX(calc(var(--p, 0) * 6%));
+    user-select: none;
+}
+
+.rituals__grid { position: relative; align-items: center; row-gap: 56px; }
+.rituals__copy { grid-column: 1 / span 5; display: grid; gap: clamp(18px, 2.6vh, 30px); justify-items: start; }
+.rituals__copy .display { max-width: 11ch; font-size: min(var(--t-xl), 10.5vh); }
+.rituals__copy .display em { color: var(--g-600); }
+.rituals__copy .lede { max-width: 40ch; color: var(--ink); }
+
+/* "The KOBA Experience · Est. 2020 · Addis Ababa" */
+.rituals__label {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 22px;
+    color: var(--ink-faint);
+    font-size: var(--t-micro);
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+.rituals__label .eyebrow { color: var(--brown); }
+.rituals__est { display: inline-flex; align-items: center; gap: 22px; }
+.rituals__est::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--sand); }
+
+.rituals__list { width: 100%; border-top: 1px solid var(--line); }
+.rituals__item {
+    position: relative;
+    display: grid;
+    grid-template-columns: 64px minmax(0, 1fr);
+    column-gap: 14px;
+    padding-block: clamp(10px, 1.6vh, 16px);
     border-bottom: 1px solid var(--line);
+}
+.rituals__time {
+    grid-row: span 2;
+    padding-top: 2px;
+    font-family: var(--f-display);
+    font-size: 0.95rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--brown);
+}
+.rituals__part { font-size: var(--t-micro); font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-faint); }
+.rituals__text {
     font-family: var(--f-display);
     font-size: var(--t-s);
     font-weight: 300;
+    line-height: 1.25;
     letter-spacing: -0.01em;
+    transition: font-weight 0.6s var(--ease), opacity 0.6s var(--ease);
 }
-.intro__rituals .mark { width: 12px; flex: none; color: var(--sand); }
+.rituals__bar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 2px;
+    background: var(--g-600);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 1s var(--ease-out);
+}
+.rituals.is-pinned .rituals__text,
+.rituals.is-pinned .rituals__time { opacity: 0.38; transition: opacity 0.6s var(--ease), font-weight 0.6s var(--ease); }
+.rituals.is-pinned .is-past .rituals__text,
+.rituals.is-pinned .is-past .rituals__time { opacity: 0.7; }
+.rituals.is-pinned .is-active .rituals__text,
+.rituals.is-pinned .is-active .rituals__time { opacity: 1; }
+.rituals.is-pinned .is-active .rituals__text { font-weight: 700; }
+.rituals.is-pinned .is-active .rituals__bar { transform: scaleX(1); }
+
+/* Stage: the sun on its arc, and a deck of three photographs in 3D. */
+.rituals__stage { grid-column: 7 / -1; position: relative; height: min(66vh, 640px); perspective: 1600px; }
+/* The arc's horizon runs through the middle of the deck, so the sun always rises above the cards. */
+.rituals__horizon {
+    position: absolute;
+    left: 50%;
+    top: 52%;
+    width: min(112%, calc(min(56%, 340px) * 2));
+    aspect-ratio: 600 / 320;
+    translate: -50% -93.75%;
+}
+.rituals__arc { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.rituals__arc path,
+.rituals__arc line { fill: none; stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.rituals__arc-track { stroke: var(--line-strong); stroke-dasharray: 0.004 0.01; }
+.rituals__arc-done { stroke: var(--g-600); stroke-dasharray: 1; stroke-dashoffset: calc(1 - var(--p, 1)); }
+.rituals__arc line { stroke: var(--line-strong); }
+.rituals__sun { position: absolute; left: calc(var(--sx, 0.5) * 100%); top: calc(var(--sy, 0.0625) * 100%); }
+.rituals__sun i {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    margin: -11px;
+    border-radius: 50%;
+    background: var(--sand);
+    box-shadow: 0 0 0 8px rgba(230, 190, 126, 0.28), 0 0 70px 24px rgba(230, 190, 126, 0.6);
+}
+
+.rituals__deck {
+    position: absolute;
+    left: 50%;
+    top: 52%;
+    width: min(56%, 340px);
+    aspect-ratio: 4 / 5;
+    translate: -50% -50%;
+    transform-style: preserve-3d;
+}
+.rituals__card {
+    --b: var(--i);
+    --f: 0;
+    position: absolute;
+    inset: 0;
+    transform-style: preserve-3d;
+    transform:
+        translate3d(calc(var(--b) * 10%), calc(var(--b) * -7% - var(--f) * 90%), calc(var(--b) * -120px + var(--f) * 160px))
+        rotateZ(calc(var(--b) * 5deg - var(--f) * 12deg))
+        rotateX(calc(var(--f) * 30deg))
+        rotateY(calc(var(--b) * -10deg));
+    opacity: calc(1 - var(--f) * 1.2);
+}
+.rituals:not(.is-pinned) .rituals__card { transition: transform 1.2s var(--ease-out); }
+.rituals__photo {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    border-radius: 20px;
+    background: var(--cream-2);
+    box-shadow: 0 50px 90px -40px rgba(3, 35, 26, 0.55), 0 0 0 1px rgba(6, 46, 34, 0.06);
+    filter: brightness(calc(1 - var(--b) * 0.12));
+}
+.rituals__photo img { width: 100%; height: 100%; object-fit: cover; }
+.rituals__card figcaption {
+    position: absolute;
+    left: 16px;
+    bottom: 16px;
+    display: grid;
+    gap: 4px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    background: var(--cream);
+    transform: translateZ(40px);
+}
+.rituals__card figcaption .index { color: var(--brown); }
+.rituals__card figcaption strong { font-family: var(--f-display); font-size: 1.35rem; font-weight: 800; line-height: 1; letter-spacing: -0.02em; }
 
 @media (max-width: 899px) {
-    .intro__statement { grid-column: 1 / -1; }
-    .intro__label { flex-direction: column; align-items: flex-start; gap: 10px; }
-    .intro__est::before { display: none; }
-    .intro__figure { grid-column: 1 / span 8; }
-    .intro__body { grid-column: 1 / -1; }
+    .rituals__copy, .rituals__stage { grid-column: 1 / -1; }
+    .rituals__label { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .rituals__est::before { display: none; }
+    .rituals__stage { height: clamp(380px, 112vw, 540px); }
+    .rituals__deck { width: 60%; }
+    .rituals__leaf--a { width: 120vw; bottom: -10%; }
+    .rituals__leaf--b { width: 60vw; }
 }
 
 /* ==========================================================================
@@ -664,6 +801,144 @@
 }
 
 /* ==========================================================================
+   Values (home): a horizontal track driven by vertical scroll.
+   home.js adds .is-pinned on desktop and sets --tone and each card's --o/--a.
+   ========================================================================== */
+
+.pillars { --tone: var(--g-700); position: relative; overflow: clip; }
+.pillars::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--pattern-sand) 0 0 / 88px auto;
+    opacity: 0.035;
+    pointer-events: none;
+}
+.pillars__glow {
+    position: absolute;
+    inset: 0;
+    background-color: var(--tone);
+    -webkit-mask: radial-gradient(60% 62% at 50% 64%, #000, transparent);
+    mask: radial-gradient(60% 62% at 50% 64%, #000, transparent);
+    transition: background-color 1.2s var(--ease);
+    pointer-events: none;
+}
+
+.pillars__pin { position: relative; display: flex; flex-direction: column; gap: clamp(32px, 4.5vh, 64px); padding-block: var(--section); }
+.pillars.is-pinned { height: calc(var(--n) * 60vh + 100vh); }
+.pillars.is-pinned .pillars__pin {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    height: 100svh;
+    justify-content: center;
+    padding-block: calc(var(--header-h) + 8px) 28px;
+    overflow: hidden;
+}
+
+.pillars__head { position: relative; align-items: end; row-gap: 20px; width: 100%; }
+.pillars__heading { grid-column: 1 / span 7; display: grid; gap: 22px; justify-items: start; }
+.pillars.is-pinned .pillars__heading .display { font-size: min(var(--t-l), 8.5vh); }
+.pillars__aside { grid-column: 9 / -1; display: grid; gap: 14px; justify-items: start; }
+.pillars__count { font-family: var(--f-display); font-size: var(--t-m); font-weight: 200; letter-spacing: -0.03em; color: var(--on-dark-soft); font-variant-numeric: tabular-nums; }
+.pillars__count span { font-weight: 800; color: var(--sand); }
+
+.pillars__viewport {
+    position: relative;
+    perspective: 1600px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+}
+.pillars__viewport::-webkit-scrollbar { display: none; }
+.pillars.is-pinned .pillars__viewport { overflow: visible; scroll-snap-type: none; }
+.pillars__track {
+    --card: clamp(250px, 30vw, 440px);
+    display: flex;
+    gap: clamp(20px, 3vw, 56px);
+    width: max-content;
+    padding: 24px calc(50vw - var(--card) / 2);
+    transform-style: preserve-3d;
+}
+.pillars.is-pinned .pillars__track { --card: clamp(220px, min(30vw, (100svh - 420px) * 0.8), 440px); will-change: transform; }
+.pillars__track:focus-visible { outline: 2px solid var(--sand); outline-offset: -2px; }
+
+.pillar { --o: 0; --a: 0; flex: 0 0 var(--card); scroll-snap-align: center; transform-style: preserve-3d; }
+.pillar__card {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    border-radius: 8px;
+    background: var(--g-800);
+    box-shadow: 0 70px 110px -50px rgba(0, 0, 0, 0.85), inset 0 0 0 1px rgba(255, 245, 230, 0.08);
+    transform: translateZ(calc(var(--a) * -220px)) rotateY(calc(var(--o) * -26deg));
+    opacity: calc(1 - var(--a) * 0.3);
+}
+.pillar__media { position: absolute; inset: 0; }
+.pillar__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(calc(1.08 + var(--a) * 0.06)) translateX(calc(var(--o) * 6%));
+    filter: brightness(calc(1 - var(--a) * 0.3)) saturate(calc(1 - var(--a) * 0.4));
+}
+.pillar__card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(3, 35, 26, 0.94) 4%, rgba(3, 35, 26, 0.2) 52%, transparent 70%); }
+.pillar__body { position: absolute; inset: auto 0 0; z-index: 2; display: grid; gap: 10px; padding: clamp(20px, 2vw, 32px); }
+.pillar__no {
+    position: absolute;
+    right: clamp(16px, 1.6vw, 26px);
+    bottom: calc(100% + 6px);
+    font-family: var(--f-display);
+    font-size: clamp(3.5rem, 6vw, 6.5rem);
+    font-weight: 800;
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(230, 190, 126, 0.7);
+}
+.pillar__name {
+    font-family: var(--f-display);
+    font-size: clamp(1.5rem, 2.3vw, 2.4rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    color: var(--sand);
+}
+.pillar__line { max-width: 34ch; font-size: var(--t-small); line-height: 1.55; color: var(--on-dark-soft); opacity: clamp(0, calc(1 - var(--a) * 1.8), 1); }
+
+.pillars__foot { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 24px; width: 100%; }
+.pillars__ticks { display: flex; gap: 8px; flex: 1; max-width: 760px; }
+.pillars__ticks li {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+    padding-top: 12px;
+    overflow: hidden;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: rgba(255, 245, 230, 0.4);
+    transition: color 0.5s var(--ease);
+}
+.pillars__ticks li::before,
+.pillars__ticks li::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--line-dark); }
+.pillars__ticks li::after { background: var(--sand); transform: scaleX(0); transform-origin: left; transition: transform 0.7s var(--ease-out); }
+.pillars__ticks li.is-active { color: var(--sand); }
+.pillars__ticks li.is-active::after,
+.pillars__ticks li.is-past::after { transform: none; }
+.pillars__hint { font-size: var(--t-micro); letter-spacing: 0.2em; text-transform: uppercase; color: var(--on-dark-soft); }
+.pillars__hint::after { content: " ↓"; }
+.pillars:not(.is-pinned) .pillars__hint { display: none; }
+
+@media (max-width: 899px) {
+    .pillars__heading, .pillars__aside { grid-column: 1 / -1; }
+    .pillars__ticks li { font-size: 0; }
+}
+
+/* ==========================================================================
    05 — The craft: tight masonry gallery
    ========================================================================== */
 
@@ -748,9 +1023,46 @@
     .craft__line { display: none; }
 }
 
+/* Desktop: the wall starts tilted back in 3D and settles flat as it scrolls in
+   (home.js sets --w from 0 to 1, and --drift for a gentle column parallax). */
+.craft__stage { perspective: 1800px; perspective-origin: 50% 0%; }
+.craft.is-3d .craft__masonry {
+    transform-origin: 50% 0%;
+    transform:
+        translateY(calc((1 - var(--w, 1)) * 60px))
+        rotateX(calc((1 - var(--w, 1)) * 36deg))
+        scale(calc(0.82 + var(--w, 1) * 0.18));
+    will-change: transform;
+}
+.craft.is-3d .craft__col { transform: translate3d(0, calc((1 - var(--w, 1)) * var(--lift) + var(--drift, 0) * var(--sway)), 0); }
+.craft.is-3d .craft__col:nth-child(1) { --lift: 160px; --sway: -26px; }
+.craft.is-3d .craft__col:nth-child(2) { --lift: -40px; --sway: 22px; }
+.craft.is-3d .craft__col:nth-child(3) { --lift: 260px; --sway: -34px; }
+
 /* ==========================================================================
    06 — Menu preview
    ========================================================================== */
+
+.menu-preview { overflow: hidden; }
+.menu-preview > .wrap { position: relative; }
+.menu-preview__leaf { left: -16%; top: 6%; width: min(760px, 54vw); color: var(--cream); --rib: var(--cream-2); transform: rotate(28deg); }
+
+/* Home: product photographs tilt toward the pointer (home.js → initTilt). */
+.menu-product__media.is-tilt {
+    transform: perspective(900px) rotateX(calc(var(--rx, 0) * 1deg)) rotateY(calc(var(--ry, 0) * 1deg));
+    transition: transform 0.6s var(--ease-out), box-shadow 0.6s var(--ease);
+}
+.menu-product__media.is-tilt::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: radial-gradient(circle at var(--gx, 50%) var(--gy, 0%), rgba(255, 255, 255, 0.3), transparent 55%);
+    opacity: 0;
+    transition: opacity 0.5s var(--ease);
+}
+.menu-product:hover .menu-product__media.is-tilt::after { opacity: 1; }
 
 .menu-preview .grid { align-items: start; row-gap: 56px; }
 .menu-preview__head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 28px; margin-bottom: clamp(40px, 6vw, 88px); }
@@ -840,37 +1152,105 @@
 .cakes-feature__intro { grid-column: 8 / -1; display: grid; gap: 28px; }
 .cakes-feature .display em { color: var(--g-600); }
 
-.carousel { position: relative; margin-top: clamp(56px, 7vw, 104px); }
-.carousel__track {
-    display: flex;
-    gap: var(--col-gap);
-    padding-inline: max(var(--gutter), calc((100vw - var(--max)) / 2 + var(--gutter)));
-    scroll-padding-inline: max(var(--gutter), calc((100vw - var(--max)) / 2 + var(--gutter)));
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-    overscroll-behavior-x: contain;
+/* The cake ring: cards stand on a cylinder (radius --r, set by home.js) and the
+   whole ring turns by --angle. Each card's --f is how squarely it faces you (1 → -1). */
+.ring { --card: clamp(180px, 19vw, 300px); --r: calc(var(--card) * 1.7); position: relative; margin-top: clamp(32px, 4vw, 64px); }
+.ring__backdrop {
+    position: absolute;
+    left: 50%;
+    top: 30%;
+    translate: -50% -50%;
+    font-family: var(--f-display);
+    font-size: clamp(5rem, 17vw, 19rem);
+    font-weight: 800;
+    line-height: 0.8;
+    letter-spacing: -0.05em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba(6, 46, 34, 0.2);
+    pointer-events: none;
+    user-select: none;
+}
+/* The ring's tilt lifts the far side by about r·sin(10°) and drops the front by the same,
+   so the scene leaves that much room above and below the cards. */
+.ring__scene {
+    --lift: calc(var(--r) * 0.18);
+    position: relative;
+    height: calc(var(--card) * 1.25 + var(--lift) * 2 + 40px);
+    perspective: 2000px;
+    perspective-origin: 50% 25%;
+    touch-action: pan-y;
+    user-select: none;
     cursor: grab;
 }
-.carousel__track::-webkit-scrollbar { display: none; }
-.carousel__track.is-dragging { cursor: grabbing; scroll-snap-type: none; }
-.carousel__track.is-dragging a { pointer-events: none; }
-.carousel__track:focus-visible { outline-offset: -4px; }
-.carousel__slide { flex: 0 0 clamp(260px, 29vw, 440px); scroll-snap-align: start; }
-.carousel__slide:nth-child(even) { margin-top: clamp(24px, 4vw, 72px); }
+.ring__scene.is-dragging { cursor: grabbing; }
+.ring__floor {
+    position: absolute;
+    left: 50%;
+    bottom: 30px;
+    width: min(96%, calc(var(--r) * 2.4));
+    height: 110px;
+    translate: -50% 0;
+    background: radial-gradient(closest-side, rgba(6, 46, 34, 0.3), transparent);
+    pointer-events: none;
+}
+.ring__spin {
+    position: absolute;
+    left: 50%;
+    top: calc(var(--lift) + 10px);
+    width: var(--card);
+    aspect-ratio: 4 / 5;
+    margin-left: calc(var(--card) / -2);
+    transform-style: preserve-3d;
+    transform: translateZ(calc(var(--r) * -1)) rotateX(-10deg) rotateY(var(--angle, 0deg));
+}
+.ring__face {
+    --f: 1;
+    position: absolute;
+    inset: 0;
+    transform: rotateY(calc(var(--i) * 360deg / var(--n))) translateZ(var(--r));
+}
+.ring__card {
+    position: absolute;
+    inset: 0;
+    display: block;
+    overflow: hidden;
+    border-radius: 999px 999px 20px 20px;
+    background: var(--sand-300);
+    box-shadow: 0 50px 80px -44px rgba(3, 35, 26, 0.7), inset 0 0 0 1px rgba(6, 46, 34, 0.08);
+    opacity: calc(0.3 + (var(--f) + 1) * 0.35);
+    filter: brightness(calc(0.5 + (var(--f) + 1) * 0.25));
+    -webkit-user-drag: none;
+}
+.ring__card img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+.ring__shine {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(115deg, transparent 32%, rgba(255, 255, 255, 0.3) 47%, transparent 60%);
+    transform: translateX(calc((1 - var(--f)) * 70%));
+    opacity: clamp(0, var(--f), 1);
+    pointer-events: none;
+}
+.ring__card:focus-visible { outline: 2px solid var(--g-900); outline-offset: 4px; }
 
-.cake-card { display: block; user-select: none; -webkit-user-drag: none; }
-.cake-card__media { aspect-ratio: 4 / 5; background: var(--sand-300); }
-.cake-card__media img { object-position: 50% 62%; }
-.cake-card__meta { display: grid; gap: 6px; padding-top: 20px; }
-.cake-card__meta .index { color: var(--brown); }
-.cake-card__meta p { color: rgba(6, 46, 34, 0.76); font-size: var(--t-small); }
-
-.carousel__controls { display: flex; align-items: center; gap: clamp(16px, 2vw, 32px); margin-top: 48px; }
-.carousel__progress { flex: 1; height: 1px; background: rgba(6, 46, 34, 0.2); overflow: hidden; }
-.carousel__progress span { display: block; height: 100%; background: var(--g-900); transform-origin: left; transform: scaleX(var(--p, 0.2)); transition: transform 0.4s var(--ease); }
-.carousel__hint { font-size: var(--t-micro); letter-spacing: 0.14em; text-transform: uppercase; color: rgba(6, 46, 34, 0.7); }
-.carousel__buttons { display: flex; gap: 8px; }
+.ring__info { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: clamp(16px, 3vw, 48px); max-width: 960px; }
+.ring__captions { display: grid; text-align: center; }
+.ring__caption {
+    grid-area: 1 / 1;
+    display: grid;
+    gap: 8px;
+    justify-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(14px);
+    transition: opacity 0.5s var(--ease), transform 0.8s var(--ease-out), visibility 0s linear 0.5s;
+}
+.ring__caption.is-active { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
+.ring__caption .index { color: var(--brown); }
+.ring__caption p { max-width: 36ch; color: rgba(6, 46, 34, 0.78); }
+.ring__caption .link { margin-top: 6px; }
+.ring__hint { margin-top: 28px; text-align: center; font-size: var(--t-micro); letter-spacing: 0.14em; text-transform: uppercase; color: rgba(6, 46, 34, 0.6); }
 
 .round-btn {
     display: grid;
@@ -887,8 +1267,9 @@
 
 @media (max-width: 899px) {
     .cakes-feature__heading, .cakes-feature__intro { grid-column: 1 / -1; }
-    .carousel__slide { flex-basis: 76vw; }
-    .carousel__hint { display: none; }
+    .ring { --card: clamp(170px, 50vw, 240px); }
+    .ring__info { grid-template-columns: auto minmax(0, 1fr) auto; gap: 12px; }
+    .ring__caption .display--m { font-size: var(--t-s); }
 }
 
 /* ==========================================================================
@@ -937,6 +1318,100 @@
 }
 .experience__copy .display { max-width: 10ch; }
 .experience__copy .lede { max-width: 48ch; color: var(--cream); }
+
+/* Brand leaves cover the photograph and part like a curtain as --p runs 0 → 1.
+   Without the scroll driver (--p unset) they rest out of view. */
+.experience__copy { z-index: 2; }
+.experience__curtain { position: absolute; inset: 0; z-index: 1; overflow: hidden; pointer-events: none; }
+.experience__leaf { width: min(1200px, 86vw); will-change: transform; }
+.experience__leaf--1 {
+    left: -30%;
+    top: -22%;
+    color: var(--g-600);
+    --rib: var(--g-800);
+    transform: translate(calc(var(--p, 1) * -62vw), calc(var(--p, 1) * -24vh)) rotate(calc(32deg - var(--p, 1) * 20deg));
+}
+.experience__leaf--2 {
+    right: -32%;
+    bottom: -26%;
+    color: var(--sand);
+    --rib: var(--sand-300);
+    transform: translate(calc(var(--p, 1) * 62vw), calc(var(--p, 1) * 26vh)) rotate(calc(200deg + var(--p, 1) * 18deg));
+}
+.experience__leaf--3 {
+    left: -26%;
+    bottom: -34%;
+    color: var(--g-800);
+    --rib: var(--g-950);
+    transform: translate(calc(var(--p, 1) * -58vw), calc(var(--p, 1) * 30vh)) rotate(calc(-18deg - var(--p, 1) * 14deg));
+}
+.experience__leaf--4 {
+    right: -26%;
+    top: -30%;
+    color: var(--g-700);
+    --rib: var(--g-900);
+    transform: translate(calc(var(--p, 1) * 58vw), calc(var(--p, 1) * -30vh)) rotate(calc(158deg + var(--p, 1) * 16deg));
+}
+
+/* ==========================================================================
+   Chapter guide (home): fixed on the right on wide screens.
+   ========================================================================== */
+
+.chapters { display: none; }
+@media (min-width: 1100px) {
+    .chapters:not([hidden]) {
+        --c: var(--g-900);
+        --c-soft: rgba(6, 46, 34, 0.3);
+        position: fixed;
+        right: clamp(14px, 1.4vw, 26px);
+        top: 50%;
+        z-index: 40;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 22px;
+        translate: 12px -50%;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.6s var(--ease), translate 0.8s var(--ease-out);
+    }
+    .chapters.is-visible { opacity: 1; translate: 0 -50%; pointer-events: auto; }
+    .chapters.is-on-dark { --c: var(--cream); --c-soft: rgba(255, 245, 230, 0.35); }
+}
+.chapters__list { display: grid; gap: 4px; justify-items: end; }
+.chapters__link { display: flex; align-items: center; gap: 10px; padding: 4px 0; color: var(--c); }
+.chapters__dot { width: 6px; height: 6px; border-radius: 50%; background: var(--c-soft); transition: transform 0.5s var(--ease-out), background-color 0.4s var(--ease), box-shadow 0.4s var(--ease); }
+.chapters__link.is-past .chapters__dot { background: var(--c); }
+.chapters__link.is-active .chapters__dot { background: var(--sand); transform: scale(1.7); box-shadow: 0 0 0 3px rgba(230, 190, 126, 0.28); }
+.chapters__label {
+    order: -1;
+    padding: 3px 8px;
+    border-radius: 2px;
+    background: var(--g-900);
+    color: var(--cream);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0;
+    transform: translateX(6px);
+    transition: opacity 0.35s var(--ease), transform 0.5s var(--ease-out);
+}
+.chapters__link:hover .chapters__label,
+.chapters__link:focus-visible .chapters__label { opacity: 1; transform: none; }
+.chapters__now {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    writing-mode: vertical-rl;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--c);
+}
+.chapters__now span { color: var(--sand); font-family: var(--f-display); font-weight: 800; }
+.chapters__now b { font-weight: 600; }
 
 /* ==========================================================================
    Manifesto (cinematic, scroll-driven)
@@ -1799,4 +2274,5 @@
     }
     .js .experience { height: auto; }
     .experience__sticky { position: relative; }
+    .experience__curtain { display: none; }
 }

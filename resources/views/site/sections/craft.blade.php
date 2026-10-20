@@ -12,7 +12,7 @@
     }
 @endphp
 
-<section class="craft section is-white" aria-labelledby="craft-title">
+<section class="craft section is-white" aria-labelledby="craft-title" data-craft data-chapter="{{ __('koba.chapters.craft') }}">
     <div class="wrap">
         <header class="grid craft__head">
             <div class="craft__heading">
@@ -22,10 +22,12 @@
             <p class="lede craft__lede" data-reveal>Folded by hand. Baked in delicate layers.</p>
         </header>
 
-        {{-- Masonry: photographs keep their proportions and stack tightly. --}}
-        <div class="craft__masonry">
+        {{-- Masonry: photographs keep their proportions and stack tightly.
+             On desktop the wall starts tilted back and settles flat as it scrolls in. --}}
+        <div class="craft__stage">
+        <div class="craft__masonry" data-craft-wall>
             @foreach ($columns as $c => $indexes)
-                <ol class="craft__col list-reset">
+                <ol class="craft__col list-reset" style="--c: {{ $c }}">
                     @foreach ($indexes as $i)
                         @php($item = $items[$i])
                         <li class="craft__tile">
@@ -41,6 +43,7 @@
                     @endforeach
                 </ol>
             @endforeach
+        </div>
         </div>
     </div>
 </section>

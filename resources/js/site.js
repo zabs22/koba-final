@@ -33,3 +33,4 @@ if ($('[data-reviews]')) import('./site/reviews').then((m) => m.initReviews());
 if ($('[data-xp]')) import('./site/experience').then((m) => m.initExperience());
 if ($('[data-atlas]')) import('./site/atlas').then((m) => m.initAtlas());
 if ($('[data-cake-dialog]')) import('./site/cakes').then((m) => m.initCakes());
+if ($('[data-home]')) import('./site/home').then((m) => m.initHome());

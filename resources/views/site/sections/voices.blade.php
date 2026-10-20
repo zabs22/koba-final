@@ -14,7 +14,7 @@
     }
 @endphp
 
-<section class="vc section is-white" aria-labelledby="voices-title">
+<section class="vc section is-white" aria-labelledby="voices-title" data-chapter="{{ __('koba.chapters.voices') }}">
     <div class="wrap grid vc__head">
         <div class="vc__heading">
             <p class="eyebrow" data-reveal>{{ __('koba.voices.eyebrow') }}</p>

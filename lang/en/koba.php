@@ -90,6 +90,42 @@ return [
             'A slice of cake becomes memory.',
         ],
         'founded' => 'Est. 2020 · Addis Ababa',
+        'lede' => 'Thoughtful pastries, cakes, and café moments in Addis.',
+        'day_label' => 'A day at KOBA',
+        // The three rituals from the Brand Purpose, as a day from morning to evening.
+        'moments' => [
+            ['time' => '07:00', 'part' => 'Morning', 'word' => 'Ceremony', 'image' => 'croissant', 'position' => '50% 50%'],
+            ['time' => '15:00', 'part' => 'Afternoon', 'word' => 'Pause', 'image' => 'drink-macchiato', 'position' => '50% 45%'],
+            ['time' => '19:00', 'part' => 'Evening', 'word' => 'Memory', 'image' => 'opera-slice', 'position' => '50% 58%'],
+        ],
+    ],
+
+    'pillars' => [
+        'eyebrow' => 'What We Stand For',
+        'title' => 'Precision|*With Warmth.*',
+        'body' => 'Six values shape every fold, pour, and plate. They are how we bake, and how we welcome you.',
+        'hint' => 'Keep scrolling',
+        'items' => [
+            ['name' => 'Craftsmanship', 'line' => 'Every fold, temper, and proof is deliberate. No shortcuts. Technique defines our work.', 'image' => 'craft-lamination', 'tone' => '#0b4a36'],
+            ['name' => 'Integrity', 'line' => 'We deliver what we promise. Trust is built through consistency.', 'image' => 'mocha-slice', 'tone' => '#5b4a1c'],
+            ['name' => 'Refinement', 'line' => 'Luxury lives in restraint. Nothing is unnecessary. Everything has purpose.', 'image' => 'glazed-dome', 'tone' => '#3d5a2c'],
+            ['name' => 'Excellence', 'line' => 'Texture, structure, taste, and presentation must be flawless.', 'image' => 'craft-crumb', 'tone' => '#1a140c'],
+            ['name' => 'Consistency', 'line' => 'Every experience matches the first. Every sip reflects the same standard.', 'image' => 'drink-chocolate-pour', 'tone' => '#06150f'],
+            ['name' => 'Warmth', 'line' => 'Hospitality is genuine, attentive, and human. Every guest feels welcomed.', 'image' => 'drink-tea-pour', 'tone' => '#7a4e22'],
+        ],
+    ],
+
+    'chapters' => [
+        'label' => 'Page sections',
+        'intro' => 'Rituals',
+        'pillars' => 'Values',
+        'craft' => 'Craft',
+        'menu' => 'Menu',
+        'cakes' => 'Cakes',
+        'experience' => 'Experience',
+        'manifesto' => 'Manifesto',
+        'locations' => 'Visit',
+        'voices' => 'Reviews',
     ],
 
     'philosophy' => [
@@ -180,6 +216,9 @@ return [
         'cta_explore' => 'Explore Cakes',
         'cta_order' => 'Order Your Cake',
         'drag' => 'Drag or use the arrows',
+        'ring_label' => 'Signature cakes',
+        'backdrop' => 'Celebrate',
+        'order_this' => 'Order this cake',
     ],
 
     'experience' => [
@@ -471,7 +510,25 @@ return [
             ['title' => 'Share the details', 'body' => 'Size, date, and any message or request.'],
             ['title' => 'We confirm', 'body' => 'Our team calls you to confirm every detail.'],
         ],
+        'stage_hint' => 'Drag, swipe or use the arrows',
+        'stage_prev' => 'Previous cake',
+        'stage_next' => 'Next cake',
+        'stage_show' => 'Show :name',
+        'stage_ring' => 'Handcrafted and finished with intention · Indulgence, never excess · ',
+
+        'layers_eyebrow' => 'Anatomy of a cake',
+        'layers_title' => 'Texture. Structure.|*Balance.*',
+        'layers_body' => 'A KOBA cake is composed, not assembled. Texture, structure, and flavor are carefully balanced, and every layer is made from scratch.',
+        'layers' => [
+            ['name' => 'Glaze', 'line' => 'Poured once, flawless, and left untouched.'],
+            ['name' => 'Cream', 'line' => 'Whipped to hold its shape, never too sweet.'],
+            ['name' => 'Sponge', 'line' => 'Baked level, with a tender crumb.'],
+            ['name' => 'Base', 'line' => 'A crisp, buttery foundation that carries the rest.'],
+        ],
+
+        'slices_hint' => 'Drag to browse',
         'cta_title' => 'Ready when you are.',
+        'cta_body' => 'Tell us the date and the occasion. We will take care of the rest.',
         'cta' => 'Order Your Cake',
     ],
 

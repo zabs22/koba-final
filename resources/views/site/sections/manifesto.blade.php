@@ -1,6 +1,6 @@
 @php($fragments = trans('koba.manifesto.fragments'))
 
-<section class="manifesto is-deep" aria-labelledby="manifesto-title" data-manifesto style="--steps: {{ count($fragments) + 2 }}">
+<section class="manifesto is-deep" aria-labelledby="manifesto-title" data-manifesto data-chapter="{{ __('koba.chapters.manifesto') }}" data-chapter-tone="dark" style="--steps: {{ count($fragments) + 2 }}">
     <div class="manifesto__stage">
         <div class="manifesto__texture" aria-hidden="true"></div>
         <x-site.leaf class="manifesto__leaf manifesto__leaf--a" />
