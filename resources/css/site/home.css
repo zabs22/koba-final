@@ -1170,7 +1170,7 @@
 /* Carousel — a plain scroll-snap row until JS lifts it onto the seamless ring */
 .vc__carousel {
     --vc-pad: max(var(--gutter), calc((100% - var(--max)) / 2 + var(--gutter)));
-    --vc-w: clamp(300px, 42vw, 640px);
+    --vc-w: clamp(280px, 30vw, 440px);
     --vc-gap: var(--col-gap);
     margin-top: clamp(48px, 6vw, 88px);
 }
@@ -1211,8 +1211,8 @@
     display: flex;
     flex-direction: column;
     width: var(--vc-w);
-    min-height: clamp(420px, 36vw, 600px);
-    padding: clamp(24px, 2.6vw, 40px);
+    min-height: clamp(400px, 30vw, 460px);
+    padding: clamp(20px, 2vw, 28px);
     border: 1px solid var(--line);
     background: var(--white);
     color: var(--ink-soft);
@@ -1234,7 +1234,7 @@
 
 /* Decorative photograph, full-bleed across the top of the card */
 .vcard__media {
-    --vc-card-pad: clamp(24px, 2.6vw, 40px);
+    --vc-card-pad: clamp(20px, 2vw, 28px);
     position: relative;
     /* Sits below the quote: a clear gap above, full-bleed to the card's sides. */
     margin: clamp(28px, 2.6vw, 40px) calc(var(--vc-card-pad) * -1) var(--vc-card-pad);
@@ -1273,21 +1273,21 @@
 }
 .vcard__mark { width: 16px; flex: none; color: var(--sand); }
 
-.vcard__quote { margin-top: clamp(24px, 3vw, 40px); }
+.vcard__quote { margin-top: clamp(16px, 1.8vw, 24px); }
 .vcard__text {
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 7;
+    -webkit-line-clamp: 5;
     overflow: hidden;
     font-family: var(--f-display);
-    font-size: clamp(1.35rem, 0.9rem + 1.2vw, 2rem);
+    font-size: clamp(1.15rem, 0.85rem + 0.6vw, 1.45rem);
     font-weight: 300;
     line-height: 1.25;
     letter-spacing: -0.02em;
     color: var(--ink);
     text-wrap: pretty;
 }
-.vcard__text--long { -webkit-line-clamp: 6; font-size: clamp(1.1rem, 0.8rem + 0.75vw, 1.5rem); line-height: 1.35; }
+.vcard__text--long { -webkit-line-clamp: 4; font-size: clamp(1rem, 0.78rem + 0.4vw, 1.2rem); line-height: 1.35; }
 .vcard.is-open .vcard__text { display: block; overflow: visible; }
 .vcard__more {
     align-self: flex-start;
@@ -1300,8 +1300,8 @@
     color: var(--ink);
 }
 
-.vcard__foot { display: grid; gap: 12px; margin-top: auto; padding-top: clamp(24px, 3vw, 40px); }
-.vcard__foot::before { content: ""; height: 1px; background: var(--line); margin-bottom: 8px; }
+.vcard__foot { display: grid; gap: 8px; margin-top: auto; padding-top: clamp(16px, 2vw, 24px); }
+.vcard__foot::before { content: ""; height: 1px; background: var(--line); margin-bottom: 4px; }
 .vcard__who { font-size: var(--t-micro); font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-faint); }
 .vcard__rate { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; font-size: var(--t-small); color: var(--ink-soft); }
 .vcard__rate strong { color: var(--ink); font-weight: 700; }
@@ -1336,11 +1336,11 @@
 
 @media (max-width: 899px) {
     .vc__heading, .vc__ratings { grid-column: 1 / -1; }
-    .vc__carousel { --vc-w: clamp(300px, 56vw, 520px); }
+    .vc__carousel { --vc-w: clamp(280px, 46vw, 420px); }
 }
 
 @media (max-width: 599px) {
-    .vc__carousel { --vc-w: 84vw; }
+    .vc__carousel { --vc-w: min(84vw, 360px); }
     .vc__rating { grid-template-columns: minmax(0, 1fr) auto 18px; row-gap: 2px; }
     .vc__rating-name { grid-column: 1; }
     .vc__rating-score { grid-column: 2; }
