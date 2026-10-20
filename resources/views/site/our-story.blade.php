@@ -157,6 +157,8 @@
         </div>
     </section>
 
+    @include('site.sections.philosophy')
+
     {{-- The Creator ----------------------------------------------------------------
          Files changed: resources/views/site/our-story.blade.php (this section only)
                         resources/css/site/pages.css  (.koba-creator-* block appended)

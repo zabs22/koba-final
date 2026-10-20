@@ -247,6 +247,18 @@ export function initHeroSliders() {
         if (reduceMotion) hero.classList.add('is-static');
 
         dots.forEach((dot, i) => dot.addEventListener('click', () => show(i)));
+        $('[data-slide-prev]', hero)?.addEventListener('click', () => show(index - 1));
+        $('[data-slide-next]', hero)?.addEventListener('click', () => show(index + 1));
+
+        // Horizontal swipe on touch screens.
+        let touchX = null;
+        hero.addEventListener('touchstart', (event) => { touchX = event.touches[0].clientX; }, { passive: true });
+        hero.addEventListener('touchend', (event) => {
+            if (touchX === null) return;
+            const dx = event.changedTouches[0].clientX - touchX;
+            touchX = null;
+            if (Math.abs(dx) > 50) show(index + (dx < 0 ? 1 : -1));
+        }, { passive: true });
 
         toggle?.addEventListener('click', () => {
             userPaused = !userPaused;
