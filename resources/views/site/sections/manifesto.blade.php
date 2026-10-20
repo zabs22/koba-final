@@ -20,6 +20,12 @@
                 <span class="sr-only">{{ __('koba.manifesto.skip_label') }}</span>
             </button>
 
+            <button class="manifesto__skip manifesto__back" type="button" data-manifesto-up>
+                <x-site.arrow class="manifesto__skip-icon manifesto__back-icon" />
+                <span>{{ __('koba.manifesto.back') }}</span>
+                <span class="sr-only">{{ __('koba.manifesto.back_label') }}</span>
+            </button>
+
             <ol class="list-reset manifesto__fragments">
                 @foreach ($fragments as $i => $fragment)
                     <li class="manifesto__fragment" data-step="{{ $i + 1 }}">

@@ -36,6 +36,8 @@ return [
         'slide' => 'Show photograph :n of :total',
         'pause' => 'Pause slideshow',
         'play' => 'Play slideshow',
+        'prev' => 'Previous photograph',
+        'next' => 'Next photograph',
         'menu_open' => 'Open menu',
         'menu_close' => 'Close menu',
         'order_cake' => 'Order a Cake',
@@ -75,6 +77,7 @@ return [
         'caption_no' => 'No. 01',
         'caption' => 'The KOBA croissant — laminated in disciplined layers.',
         'inset_caption' => 'Afternoon pause into ritual.',
+        'badge' => 'Handcrafted in Addis Ababa · Since 2020 · ',
     ],
 
     'intro' => [
@@ -190,6 +193,8 @@ return [
         'eyebrow' => 'Manifesto',
         'skip' => 'Skip',
         'skip_label' => 'the manifesto and continue to the next section',
+        'back' => 'Back',
+        'back_label' => 'the manifesto and return to the previous section',
         'opening' => ['Every Moment Composed.', 'Every Sense Invited.'],
         'fragments' => [
             'The fold of butter into dough.',
@@ -475,11 +480,42 @@ return [
     | Confirm each photo ↔ name pairing with the KOBA team.
     */
     'cakes' => [
-        'trio' => ['name' => 'Trio', 'line' => 'Composed in layers, finished by hand.', 'image' => 'cake-trio'],
-        'chocolate-fudge' => ['name' => 'Chocolate Fudge', 'line' => 'Deep, glossy, and generous.', 'image' => 'cake-chocolate-fudge'],
-        'opera-caramel' => ['name' => 'Opera Caramel', 'line' => 'Fine layers, finished in caramel.', 'image' => 'cake-opera-caramel'],
-        'vanilla-eclair' => ['name' => 'Vanilla Éclair', 'line' => 'Soft vanilla, quietly elegant.', 'image' => 'cake-vanilla'],
-        'cheesecake' => ['name' => 'Cheesecake', 'line' => 'Creamy, bright, and balanced.', 'image' => 'cake-cheesecake'],
+        'trio' => ['name' => 'Trio', 'line' => 'Three textures, set as one composition.', 'image' => 'cake-trio'],
+        'chocolate-fudge' => ['name' => 'Chocolate Fudge', 'line' => 'A dark glaze, poured once and left untouched.', 'image' => 'cake-chocolate-fudge'],
+        'opera-caramel' => ['name' => 'Opera Caramel', 'line' => 'Fine layers, set level, finished in caramel.', 'image' => 'cake-opera-caramel'],
+        'vanilla-eclair' => ['name' => 'Vanilla Éclair', 'line' => 'Quiet vanilla, sealed in chocolate.', 'image' => 'cake-vanilla'],
+        'cheesecake' => ['name' => 'Cheesecake', 'line' => 'Baked slowly. Bright on top, buttery at the base.', 'image' => 'cake-cheesecake'],
+    ],
+
+    /*
+    | Menu card notes, keyed by item slug: the composition (what it is made of,
+    | read from the photographs) and one line in the KOBA voice.
+    | Confirm every composition with the KOBA kitchen before launch.
+    */
+    'menu_notes' => [
+        'trio' => ['kind' => 'Signature cake', 'notes' => ['Chocolate mousse', 'Cocoa velvet', 'Dark chocolate']],
+        'chocolate-fudge' => ['kind' => 'Signature cake', 'notes' => ['Fudge sponge', 'Mirror glaze', 'White chocolate lattice']],
+        'opera-caramel' => ['kind' => 'Signature cake', 'notes' => ['Almond sponge', 'Coffee cream', 'Caramel glaze']],
+        'vanilla-eclair' => ['kind' => 'Signature cake', 'notes' => ['Vanilla cream', 'White glaze', 'Chocolate seals']],
+        'cheesecake' => ['kind' => 'Signature cake', 'notes' => ['Baked cream cheese', 'Biscuit base', 'Berry glaze']],
+
+        'koba-croissant' => ['kind' => 'Viennoiserie', 'notes' => ['Butter', 'Laminated dough'], 'line' => 'Laminated in disciplined layers: a crisp shell, a tender crumb.'],
+        'almond-croissant' => ['kind' => 'Viennoiserie', 'notes' => ['Almond cream', 'Toasted almonds', 'Icing sugar'], 'line' => 'Our croissant, filled with almond cream.'],
+        'pecan-tart' => ['kind' => 'Tart', 'notes' => ['Shortcrust', 'Pecans', 'Caramel'], 'line' => 'Toasted pecans, set in deep caramel.'],
+        'eclair' => ['kind' => 'Choux', 'notes' => ['Choux', 'Coffee cream', 'Coffee glaze'], 'line' => 'Light choux, finished with coffee beans.'],
+        'white-dark-chocolate-muffins' => ['kind' => 'Bakery', 'notes' => ['White chocolate', 'Dark chocolate'], 'line' => 'Two chocolates, one generous crumb.'],
+        'vegetable-focaccia' => ['kind' => 'Bakery', 'notes' => ['Olive oil', 'Roasted vegetables'], 'line' => 'An open crumb, baked golden.'],
+
+        'layered-espresso' => ['kind' => 'Coffee', 'notes' => ['Espresso', 'Steamed milk'], 'line' => 'Poured in layers, left to settle.'],
+        'milk-coffee' => ['kind' => 'Coffee', 'notes' => ['Espresso', 'Steamed milk'], 'line' => 'A morning ritual, poured by hand.'],
+        'tea-poured-to-order' => ['kind' => 'Tea', 'notes' => ['Black tea', 'Milk'], 'line' => 'An afternoon pause, poured to order.'],
+        'iced-coffee' => ['kind' => 'Coffee', 'notes' => ['Espresso', 'Milk', 'Ice'], 'line' => 'Cold, smooth, unhurried.'],
+        'hot-chocolate' => ['kind' => 'Chocolate', 'notes' => ['Chocolate sphere', 'Hot milk'], 'line' => 'Hot milk poured over chocolate, melting as you watch.'],
+        'affogato' => ['kind' => 'Coffee', 'notes' => ['Espresso', 'Vanilla ice cream'], 'line' => 'Hot over cold, served in glass.'],
+        'lime-mint-cooler' => ['kind' => 'Cold drink', 'notes' => ['Lime', 'Fresh mint', 'Crushed ice'], 'line' => 'Bright, cold, and clean.'],
+        'green-mint' => ['kind' => 'Cold drink', 'notes' => ['Fresh mint'], 'line' => 'Cool green, from the leaf.'],
+        'layered-fresh-juice' => ['kind' => 'Fresh juice', 'notes' => ['Seasonal fruit'], 'line' => 'Fresh fruit, layered by colour.'],
+        'strawberry-cooler' => ['kind' => 'Cold drink', 'notes' => ['Strawberry', 'Mint', 'Ice'], 'line' => 'Strawberry and mint over ice.'],
     ],
 
     'gallery_cakes' => [

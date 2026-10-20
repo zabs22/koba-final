@@ -58,6 +58,16 @@
                         @php($l = $card['listing'])
                         @php($r = $card['review'])
                         <li class="vcard" data-review style="--i: {{ $i }}">
+                            <div class="vcard__top">
+                                <p class="vcard__branch">{{ $l['short'] ?? __('koba.voices.reviewer') }}</p>
+                                <x-site.mark class="vcard__mark" />
+                            </div>
+
+                            <blockquote class="vcard__quote">
+                                <p class="vcard__text{{ mb_strlen($r['text']) > 140 ? ' vcard__text--long' : '' }}" data-review-text>“{{ $r['text'] }}”</p>
+                            </blockquote>
+                            <button class="vcard__more" type="button" aria-expanded="false" data-review-more hidden>{{ __('koba.voices.more') }}</button>
+
                             @if (! empty($r['photos']))
                                 <div class="vcard__media vcard__media--photos vcard__media--n{{ min(count($r['photos']), 3) }}">
                                     @foreach (array_slice($r['photos'], 0, 3) as [$file, $pw, $ph])
@@ -69,16 +79,6 @@
                                     <x-site.img :src="$l['image']" alt="" sizes="(min-width: 900px) 40vw, 84vw" draggable="false" />
                                 </div>
                             @endif
-
-                            <div class="vcard__top">
-                                <p class="vcard__branch">{{ $l['short'] ?? __('koba.voices.reviewer') }}</p>
-                                <x-site.mark class="vcard__mark" />
-                            </div>
-
-                            <blockquote class="vcard__quote">
-                                <p class="vcard__text{{ mb_strlen($r['text']) > 140 ? ' vcard__text--long' : '' }}" data-review-text>“{{ $r['text'] }}”</p>
-                            </blockquote>
-                            <button class="vcard__more" type="button" aria-expanded="false" data-review-more hidden>{{ __('koba.voices.more') }}</button>
 
                             <footer class="vcard__foot">
                                 <p class="vcard__who">

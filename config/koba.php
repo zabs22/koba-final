@@ -18,6 +18,7 @@ return [
         // Homepage hero: cut-out subject (transparent) over the koba leaf band.
         'hero-croissant' => [712, 737, [480, 712], 'A KOBA croissant wrapped in a green koba leaf, held in hand'],
         'hero-leaves' => [1515, 392, [960, 1515], ''],
+        'hero-leaves-alpha' => [1515, 392, [960, 1515], ''],
 
         'croissant' => [3799, 5762, [800, 1400, 2200], 'A glossy, freshly baked KOBA croissant on a dark wooden board'],
         'almond-croissant' => [4160, 6240, [480, 960, 1600], 'Almond croissant dusted with icing sugar'],
@@ -112,7 +113,6 @@ return [
                 'key' => 'atlas',
                 'name' => 'KOBA Patisserie & Bakery | Atlas Branch',
                 'short' => 'Atlas Branch',
-                'image' => 'opera-slice',
                 'rating' => 4.5,
                 'count' => 604,
                 'maps_url' => null,
@@ -125,7 +125,6 @@ return [
                 'key' => '4-kilo',
                 'name' => 'KOBA Patisserie & Bakery - 4 Kilo Branch',
                 'short' => '4 Kilo Branch',
-                'image' => 'pecan-tart',
                 'rating' => 4.3,
                 'count' => 136,
                 'maps_url' => null,
@@ -138,7 +137,6 @@ return [
                 'key' => 'kebena',
                 'name' => 'KOBA Patisserie & Bakery | Kebena',
                 'short' => 'Kebena',
-                'image' => 'eclair',
                 'rating' => 4.4,
                 'count' => 313,
                 'maps_url' => null,

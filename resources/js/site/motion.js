@@ -95,6 +95,13 @@ export function initManifesto() {
         window.scrollTo({ top: end, behavior: 'instant' });
     });
 
+    // Back: jump up to the section preceding the pinned sequence.
+    $('[data-manifesto-up]', section)?.addEventListener('click', () => {
+        const prev = section.previousElementSibling;
+        const top = prev ? prev.getBoundingClientRect().top + window.scrollY : section.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({ top, behavior: 'instant' });
+    });
+
     onFrame((vh) => {
         const rect = section.getBoundingClientRect();
         if (rect.bottom < 0 || rect.top > vh) return;
