@@ -349,24 +349,11 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center;
+    object-position: 0% 50%; /* whole croissant, not the baked-in caption */
     display: block;
 }
 
-/* Left-edge gradient: fades from white (matching is-white section bg)
-   to transparent, blending the dark image edge into the text column */
-.chapter__media-blend {
-    position: absolute;
-    inset: 0 auto 0 0;          /* left edge only */
-    width: clamp(48px, 8vw, 120px);
-    background: linear-gradient(
-        to right,
-        rgba(255, 255, 255, 1) 0%,
-        rgba(255, 255, 255, 0) 100%
-    );
-    pointer-events: none;
-    z-index: 2;
-}
+
 
 
 /* ΓöÇΓöÇ Namesake, statements, values, creator ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
@@ -1727,4 +1714,122 @@
     .koba-creator__ghost    { font-size: 52vw; top: 8vw; }
     .koba-creator__statement-eyebrow,
     .koba-creator__statement-text.display { margin-left: 0; }
+}
+
+/* ==========================================================================
+   OUR STORY — chapters as a café menu card (scoped to .chapters)
+   Brand guideline: cream paper, koba-leaf silhouette, ኮባ pattern band,
+   Nexa bold/extra-light contrast, sand + earthy green accents.
+   ========================================================================== */
+
+.chapters.is-white { background: var(--cream); }
+.chapters { position: relative; overflow: hidden; }
+.chapters > .wrap { position: relative; z-index: 1; }
+.chapters__band { position: absolute; inset: 0 0 auto; height: 56px; opacity: 0.16; }
+.chapters__leaf {
+    width: min(980px, 64vw);
+    right: -26%;
+    top: 34%;
+    color: var(--sand-200);
+    --rib: var(--cream);
+    opacity: 0.6;
+    transform: rotate(152deg);
+}
+
+/* Menu-card index line: 01 ··········· 2020 */
+.chapter__menu {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    max-width: 26rem;
+    font-family: var(--f-display);
+    font-size: var(--t-micro);
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--g-700);
+}
+.chapter__menu i { flex: 1; border-bottom: 2px dotted rgba(6, 46, 34, 0.26); transform: translateY(-3px); }
+.chapter__menu span:last-child { color: var(--brown); }
+/* The big "2020" / "Today" already name chapters 1 and 3 — the leader runs to the edge there */
+.chapter--0 .chapter__menu span:last-child,
+.chapter--2 .chapter__menu span:last-child { display: none; }
+
+/* Photographs as prints on a café table: white mat + soft table shadow */
+.chapters .chapter__media { position: relative; }
+.chapters .chapter__media .media {
+    outline: clamp(8px, 0.9vw, 14px) solid var(--white);
+    box-shadow: 0 34px 70px -34px rgba(6, 46, 34, 0.45);
+}
+.chapters .chapter__media .media > img { transition: clip-path 1.4s var(--ease-in-out), transform 1.6s var(--ease-out); }
+.chapters .chapter__media:hover .media.is-in > img { transform: scale(1.04); }
+.chapters .chapter--1 .chapter__media .media { aspect-ratio: 1 / 1; }
+.chapter--1 .chapter__media .media > img { object-position: 100% 50%; } /* whole cake + hand, not the baked-in caption */
+.chapter--0 .chapter__media::before { inset: -26px 26px 26px -26px; border-color: rgba(122, 78, 34, 0.28); }
+/* Square frame = the croissant at full height of the source, zoomed out */
+.chapters .chapter--0 .chapter__media { align-self: center; }
+.chapters .chapter--0 .chapter__media .media { aspect-ratio: 9 / 8; height: auto; min-height: 0; }
+
+/* Rotating café seal — text on a ring around the ኮባ leaf mark */
+.chapter__seal {
+    --seal: clamp(96px, 9vw, 136px);
+    position: absolute;
+    z-index: 3;
+    display: grid;
+    place-items: center;
+    width: var(--seal);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--g-900);
+    color: var(--sand);
+    box-shadow: 0 16px 34px -14px rgba(3, 35, 26, 0.55);
+}
+.chapter__seal-ring { position: absolute; inset: 0; width: 100%; height: 100%; animation: chapter-seal 30s linear infinite; }
+.chapter__seal-ring text { font-family: var(--f-body); font-size: 15px; font-weight: 600; letter-spacing: 0.08em; fill: currentColor; }
+.chapter__seal-mark { width: 24%; }
+@keyframes chapter-seal { to { transform: rotate(360deg); } }
+
+.chapter--0 .chapter__seal { left: calc(var(--seal) / -2); bottom: 12%; }
+.chapter--1 .chapter__seal { right: calc(var(--seal) / -2); top: 10%; }
+.chapter--2 .chapter__seal { left: calc(var(--seal) / -2); top: 12%; }
+
+/* Coffee-cup ring left on the table */
+.chapter__ring {
+    position: absolute;
+    right: -7%;
+    bottom: -9%;
+    z-index: -1;
+    width: clamp(150px, 15vw, 230px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 3px solid rgba(122, 78, 34, 0.12);
+    box-shadow: inset 0 0 0 9px rgba(122, 78, 34, 0.04);
+    pointer-events: none;
+}
+.chapter__ring::after {
+    content: "";
+    position: absolute;
+    inset: 9% -6% -4% 8%;
+    border-radius: 50%;
+    border: 2px solid rgba(122, 78, 34, 0.07);
+    clip-path: inset(0 0 45% 30%);
+}
+
+/* "Today" / "Craft" labels pick up the menu-card brown */
+.chapter--2 .chapter__no { color: var(--sand); font-weight: 200; }
+
+@media (max-width: 899px) {
+    .chapters__leaf { width: 120vw; right: -60%; top: 40%; }
+    .chapter__seal { --seal: 88px; }
+    .chapter--0 .chapter__seal,
+    .chapter--1 .chapter__seal,
+    .chapter--2 .chapter__seal { left: auto; right: 12px; top: auto; bottom: calc(var(--seal) / -2.5); }
+    .chapter--0 .chapter__media::before { display: none; }
+    /* Portrait crop keeps the baked-in poster captions out of frame */
+    .chapters .chapter--0 .chapter__media .media { aspect-ratio: 9 / 8; height: auto; min-height: 0; }
+    .chapters .chapter--1 .chapter__media .media { aspect-ratio: 1 / 1; height: auto; min-height: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .chapter__seal-ring { animation: none; }
 }

@@ -7,12 +7,23 @@
     ])
 
     {{-- Chapters --}}
+    @php
+        $seals = ['Est. 2020 · Addis Ababa · KOBA Patisserie & Bakery ·', 'Laminated · Glazed · Finished by hand ·', 'Sanford · Bole Atlas · 4 Killo · KOBA ·'];
+    @endphp
     <section class="chapters section is-white" aria-label="{{ __('koba.story.eyebrow') }}">
+        {{-- Café paper: brand pattern band + a drifting sand leaf --}}
+        <div class="pattern-band chapters__band" aria-hidden="true"></div>
+        <x-site.leaf class="chapters__leaf" data-parallax="0.06" />
+
         <div class="wrap">
             @foreach (trans('koba.story.chapters') as $i => $chapter)
                 <article class="chapter grid {{ $i % 2 ? 'chapter--flip' : '' }} chapter--{{ $i }}">
                     <p class="chapter__no" data-reveal>{{ $chapter['no'] }}</p>
                     <div class="chapter__copy">
+                        {{-- Menu-card index: 01 ·········· 2020 --}}
+                        <p class="chapter__menu" aria-hidden="true" data-reveal>
+                            <span>{{ str_pad($i + 1, 2, '0', STR_PAD_LEFT) }}</span><i></i><span>{{ $chapter['no'] }}</span>
+                        </p>
                         @if ($i === 0)
                             <p class="chapter__eyebrow eyebrow" data-reveal style="--d: 0">Our Beginning</p>
                         @elseif ($i === 1)
@@ -32,15 +43,13 @@
                                     class="img"
                                     src="{{ asset('images/koba/excellence.jpg.png') }}"
                                     alt="Cross-section of a handcrafted KOBA croissant showing its airy layers"
-                                    width="1200"
-                                    height="1500"
+                                    width="1189"
+                                    height="597"
                                     loading="lazy"
                                     decoding="async"
-                                    style="object-fit: contain; object-position: left center; background-color: #062e22;"
                                 >
                             </div>
-                            {{-- Soft gradient blending the dark-green image edge into the white text column --}}
-                            <div class="chapter__media-blend" aria-hidden="true"></div>
+                            @include('site.partials.chapter-seal', ['i' => $i, 'text' => $seals[$i]])
                         </figure>
                     @elseif ($i === 1)
                         {{-- Chapter 1 uses custom image 12.png --}}
@@ -50,19 +59,21 @@
                                     class="img"
                                     src="{{ asset('images/koba/12.png') }}"
                                     alt="Layers of a handcrafted KOBA pastry showing precision and craftsmanship"
-                                    width="1200"
-                                    height="1500"
+                                    width="760"
+                                    height="520"
                                     loading="lazy"
                                     decoding="async"
-                                    style="object-fit: contain; object-position: center; background-color: #062e22;"
                                 >
                             </div>
+                            @include('site.partials.chapter-seal', ['i' => $i, 'text' => $seals[$i]])
                         </figure>
                     @else
                         <figure class="chapter__media" data-parallax="{{ $i % 2 ? '-0.05' : '0.05' }}">
                             <div class="media" data-reveal="media">
                                 <x-site.img :src="$chapter['image']" sizes="(min-width: 900px) 40vw, 90vw" />
                             </div>
+                            @include('site.partials.chapter-seal', ['i' => $i, 'text' => $seals[$i] ?? 'KOBA Patisserie & Bakery ·'])
+                            <span class="chapter__ring" aria-hidden="true"></span>
                         </figure>
                     @endif
                 </article>
@@ -184,7 +195,7 @@
                     <img
                         src="{{ asset('images/koba/15.png') }}"
                         alt="A perfectly glazed KOBA éclair resting on a dark surface, its caramel coating flawlessly smooth and decorated with a single chocolate pearl — a study in precision pastry craft"
-                        width="1200"
+                        width="1100"
                         height="1500"
                         loading="lazy"
                         decoding="async"
