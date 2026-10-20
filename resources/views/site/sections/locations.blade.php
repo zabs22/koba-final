@@ -42,13 +42,6 @@
                                 @endunless
                                 <a class="link" href="{{ $mapsUrl($branch['maps']) }}" target="_blank" rel="noopener">{{ __('koba.ui.directions') }} <x-site.arrow /></a>
                             </div>
-
-                            @if ($full)
-                                <div class="branch__map" data-map data-src="https://www.google.com/maps?q={{ urlencode($branch['maps']) }}&output=embed" data-title="{{ $branch['name'] }}">
-                                    <button class="btn btn--ghost" type="button" data-map-load>{{ __('koba.locations.map_show') }}</button>
-                                    <p class="branch__map-note">{{ __('koba.locations.map_note') }}</p>
-                                </div>
-                            @endif
                           </div>
                         </div>
                     </li>
@@ -68,6 +61,10 @@
                 </p>
             </div>
         </div>
+
+        @if ($full)
+            @include('site.partials.atlas')
+        @endif
 
         <div class="hours" aria-labelledby="hours-title">
             <h3 id="hours-title" class="eyebrow">{{ __('koba.locations.hours_title') }}</h3>

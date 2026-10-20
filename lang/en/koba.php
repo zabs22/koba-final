@@ -218,6 +218,9 @@ return [
                 'phone' => '+251 941 000 022',
                 'image' => 'drink-tea-pour',
                 'maps' => 'KOBA Patisserie Sanford Addis Ababa',
+                'area' => 'Sanford, Addis Ababa',
+                'pin' => [565, 395],
+                'open' => ['weekday' => [7, 21], 'weekend' => [6, 23]],
             ],
             'bole-atlas' => [
                 'name' => 'KOBA Bole Atlas',
@@ -228,6 +231,9 @@ return [
                 'phone' => '+251 900 989 898',
                 'image' => 'drink-iced-latte-terrace',
                 'maps' => 'KOBA Patisserie Bole Atlas Addis Ababa',
+                'area' => 'Bole, Addis Ababa',
+                'pin' => [735, 505],
+                'open' => ['weekday' => [7, 22], 'weekend' => [6, 23]],
             ],
             '4-killo' => [
                 'name' => 'KOBA 4 Killo',
@@ -238,6 +244,9 @@ return [
                 'phone' => '+251 900 898 989',
                 'image' => 'drink-macchiato',
                 'maps' => 'KOBA Patisserie 4 Killo Addis Ababa',
+                'area' => '4 Killo, Addis Ababa',
+                'pin' => [395, 215],
+                'open' => ['weekday' => [7, 21], 'weekend' => [6, 23]],
             ],
         ],
         'hours' => [
@@ -245,8 +254,32 @@ return [
             ['where' => 'Bole Atlas', 'days' => 'Monday – Friday', 'time' => '7:00 AM – 10:00 PM'],
             ['where' => 'All branches', 'days' => 'Saturday & Sunday', 'time' => '6:00 AM – 11:00 PM'],
         ],
-        'map_show' => 'Show map',
-        'map_note' => 'Map loads from Google Maps.',
+        'atlas' => [
+            'eyebrow' => 'The KOBA Atlas',
+            'title' => 'Three Cafés.|*One City.*',
+            'lede' => 'Pick a café to fly to it. Every pin is a table waiting for you.',
+            'list_label' => 'KOBA cafés',
+            'map_label' => 'Illustrated map of KOBA cafés in Addis Ababa',
+            'zoom_in' => 'Zoom in',
+            'zoom_out' => 'Zoom out',
+            'reset' => 'Show all cafés',
+            'live' => 'Live map',
+            'illustrated' => 'Illustrated',
+            'live_note' => 'The live map loads from Google Maps.',
+            'open_now' => 'Open now',
+            'until' => 'until :time',
+            'closed' => 'Closed',
+            'opens' => 'opens :time',
+            'call' => 'Call',
+            'directions' => 'Directions',
+            'city' => 'Addis Ababa',
+            // [name, x, y] on the 1000 × 700 illustrated map
+            'districts' => [
+                ['Entoto', 560, 62], ['Arat Kilo', 285, 250], ['Piassa', 215, 345], ['Kazanchis', 600, 300],
+                ['Mexico', 290, 485], ['Megenagna', 820, 250], ['Bole', 845, 585], ['Gerji', 905, 410],
+            ],
+            'note' => 'Illustrative map, not to scale.',
+        ],
     ],
 
     'voices' => [
@@ -509,20 +542,54 @@ return [
         'eyebrow' => 'The Experience',
         'title' => 'More Than|*a Bakery.*',
         'lede' => 'KOBA is a place to meet, relax, celebrate, and enjoy. A space that holds you — where a barista remembers, and every detail is composed.',
-        'day_eyebrow' => 'A day at KOBA',
-        'day' => [
-            ['time' => 'Morning', 'title' => 'Morning light into ceremony.', 'body' => 'Come for your morning coffee and pastry. The crack of a croissant, the aroma of morning drifting through the café.', 'images' => ['croissant', 'drink-flat-white']],
-            ['time' => 'Afternoon', 'title' => 'Afternoon pause into ritual.', 'body' => 'Stay for lunch. Meet your friends. Let an espresso become a pause, or a pot of tea become a conversation.', 'images' => ['drink-tea-pour', 'drink-iced-mocha']],
-            ['time' => 'Evening', 'title' => 'Evening indulgence into memory.', 'body' => 'Bring your family. Celebrate something special. Or simply give yourself a moment to enjoy something delicious.', 'images' => ['glazed-dome', 'drink-chocolate-pour']],
+        'intro_eyebrow' => 'The Ritual',
+        'intro_title' => 'Every Moment Composed.|*Every Sense Invited.*',
+        'intro_body' => 'Koba is the Ethiopian name for the ensete plant — patient, resilient, rooted in tradition. We bring the same patience to every table: a morning croissant becomes a ceremony, an afternoon espresso becomes a pause, a slice of cake becomes memory.',
+        'intro_facts' => [
+            ['value' => '2020', 'label' => 'Founded in Addis Ababa'],
+            ['value' => '03', 'label' => 'Cafés across the city'],
+            ['value' => '100%', 'label' => 'Made from scratch'],
         ],
+
+        'day_eyebrow' => 'A day at KOBA',
+        'day_hint' => 'Scroll to move through the day',
+        'day' => [
+            ['time' => 'Morning', 'hour' => '07:00', 'title' => 'Morning light|*into ceremony.*', 'body' => 'Come for your morning coffee and pastry. The crack of a croissant, the aroma of morning drifting through the café.', 'images' => ['croissant', 'drink-flat-white', 'almond-croissant']],
+            ['time' => 'Afternoon', 'hour' => '14:00', 'title' => 'Afternoon pause|*into ritual.*', 'body' => 'Stay for lunch. Meet your friends. Let an espresso become a pause, or a pot of tea become a conversation.', 'images' => ['drink-tea-pour', 'opera-slice', 'drink-iced-mocha']],
+            ['time' => 'Evening', 'hour' => '20:00', 'title' => 'Evening indulgence|*into memory.*', 'body' => 'Bring your family. Celebrate something special. Or simply give yourself a moment to enjoy something delicious.', 'images' => ['glazed-dome', 'drink-chocolate-pour', 'cake-chocolate-mousse']],
+        ],
+
+        'senses_eyebrow' => 'Five senses',
+        'senses_title' => 'Details Tell|*the Story.*',
+        'senses_body' => 'Indulgence is never excess. It is thought, precision, and delight — in every bite, sip, and glance.',
+        'senses' => [
+            ['name' => 'Sight', 'line' => 'The shimmer of glaze, the curve of a plate.', 'image' => 'eclair'],
+            ['name' => 'Sound', 'line' => 'The crack of a croissant, laminated in disciplined layers.', 'image' => 'craft-crumb'],
+            ['name' => 'Scent', 'line' => 'The aroma of morning drifting through the café.', 'image' => 'drink-cappuccino'],
+            ['name' => 'Taste', 'line' => 'Flavor is language — of patience, choice, and care.', 'image' => 'pecan-tart'],
+            ['name' => 'Touch', 'line' => 'A space that holds you, and room to stay a while.', 'image' => 'drink-iced-latte-terrace'],
+        ],
+
         'atmosphere_eyebrow' => 'Atmosphere',
         'atmosphere_title' => 'Warm wood.|Green leaves.|*Quiet light.*',
         'atmosphere_body' => 'Every KOBA is composed with the same calm presence — natural textures, generous light, and room to stay a while.',
+        'atmosphere_hint' => 'Drag to turn',
+
         'hospitality_eyebrow' => 'Hospitality',
         'hospitality' => 'Warmth is essential: a barista who remembers, a space that holds you, humanity folded into refinement.',
+        'hospitality_sign' => 'From the KOBA manifesto',
+
         'craft_eyebrow' => 'Behind the counter',
         'craft_title' => 'Slow,|*thoughtful baking.*',
         'craft_body' => 'We honor the art of slow, thoughtful baking — never rushed, never forced. Each product is given the time and care it deserves, creating moments that comfort, restore, and quiet the mind.',
+        'craft_steps' => [
+            ['name' => 'Fold', 'line' => 'Butter folded into dough, layer by layer.', 'image' => 'craft-lamination'],
+            ['name' => 'Proof', 'line' => 'Time given freely, never forced.', 'image' => 'craft-crumb'],
+            ['name' => 'Glaze', 'line' => 'A mirror finish, poured once.', 'image' => 'craft-glaze'],
+            ['name' => 'Toast', 'line' => 'Almonds roasted to an even gold.', 'image' => 'craft-almond'],
+            ['name' => 'Dust', 'line' => 'A quiet veil of sugar.', 'image' => 'craft-dusting'],
+            ['name' => 'Finish', 'line' => 'Every detail placed by hand.', 'image' => 'craft-finish'],
+        ],
     ],
 
     'locations_page' => [

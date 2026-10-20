@@ -30,4 +30,6 @@ if ($('[data-order-form]')) import('./site/order').then((m) => m.initOrderForm()
 if ($('[data-enquiry-form]')) import('./site/enquiry').then((m) => m.initEnquiryForms());
 if ($('[data-menu-search]')) import('./site/menu').then((m) => m.initMenu());
 if ($('[data-reviews]')) import('./site/reviews').then((m) => m.initReviews());
+if ($('[data-xp]')) import('./site/experience').then((m) => m.initExperience());
+if ($('[data-atlas]')) import('./site/atlas').then((m) => m.initAtlas());
 if ($('[data-cake-dialog]')) import('./site/cakes').then((m) => m.initCakes());

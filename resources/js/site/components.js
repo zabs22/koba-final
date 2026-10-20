@@ -95,18 +95,6 @@ export function initLocations() {
             images.forEach((img, i) => img.classList.toggle('is-active', i === index));
             moods.forEach((mood, i) => mood.classList.toggle('is-active', i === index));
         });
-
-        // Maps load only on request — no third-party requests until asked.
-        $$('[data-map]', scope).forEach((holder) => {
-            $('[data-map-load]', holder)?.addEventListener('click', () => {
-                const frame = document.createElement('iframe');
-                frame.src = holder.dataset.src;
-                frame.title = holder.dataset.title;
-                frame.loading = 'lazy';
-                frame.referrerPolicy = 'no-referrer-when-downgrade';
-                holder.replaceChildren(frame);
-            });
-        });
     });
 }
 
