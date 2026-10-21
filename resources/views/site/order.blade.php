@@ -156,7 +156,7 @@
                         <legend class="ostep__legend display display--m">{{ $steps[3] }}</legend>
                         <div class="field">
                             <label class="field__label" for="notes">{{ $fields['notes'] }}</label>
-                            <textarea class="field__input field__input--area" id="notes" name="notes" rows="5" maxlength="1000"
+                            <textarea class="field__input field__input--area" id="notes" name="notes" data-cart-intro="{{ __('koba.cart.from_cart') }}" rows="5" maxlength="1000"
                                       aria-describedby="{{ $describe('notes', true) }}" @error('notes') aria-invalid="true" @enderror>{{ old('notes') }}</textarea>
                             <p class="field__hint" id="notes-hint">{{ $fields['notes_hint'] }} <span class="field__count" data-count-for="notes">0 / 1000</span></p>
                             <p class="field__error" id="notes-error" data-error-for="notes">@error('notes'){{ $message }}@enderror</p>

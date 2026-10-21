@@ -5,12 +5,14 @@
 import { $ } from './site/util';
 import { initLoader, initCurtain, initHeader, initOverlayMenu, initCursor } from './site/shell';
 import { initReveals, initParallax, initHeroParallax, initScrub, initManifesto } from './site/motion';
+import { initCart } from './site/cart';
 import { initTabs, initPrinciples, initLocations, initFeatures, initCarousels, initHeroSliders, initDishPreviews, initPmvPanels } from './site/components';
 
 initCurtain();
 initHeader();
 initOverlayMenu();
 initCursor();
+initCart();
 initTabs();
 initPrinciples();
 initLocations();

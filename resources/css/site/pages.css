@@ -770,16 +770,6 @@
     pointer-events: none;
     transition: opacity 0.5s var(--ease-out);
 }
-.menu-product__order {
-    position: absolute;
-    left: 14px;
-    right: 14px;
-    bottom: 14px;
-    z-index: 2;
-    min-height: 46px;
-    padding: 0 20px;
-}
-.menu-product__order--inline { position: relative; left: auto; right: auto; bottom: auto; align-self: flex-start; margin-top: 18px; }
 .menu-product__details { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 16px; margin-top: 6px; }
 .menu-product__media + .menu-product__details { margin-top: 22px; }
 /* Pâtisserie-card type: a small category, the name in the display face, the composition, then one line in the KOBA voice. */
@@ -827,6 +817,19 @@
 .menu-product__link::after { content: ""; position: absolute; inset: 0; z-index: 1; border-radius: 3px; }
 .menu-product__price { font-weight: 600; }
 .menu-product__description { margin-top: 10px; font-family: var(--f-display); font-size: clamp(1.125rem, 1.3vw, 1.3125rem); font-weight: 300; line-height: 1.5; color: var(--ink-soft); }
+.menu-product__add {
+    position: relative;
+    z-index: 2;
+    align-self: flex-start;
+    gap: 12px;
+    min-height: 48px;
+    margin-top: auto;
+    padding-inline: 24px;
+    font-size: 0.8125rem;
+}
+.menu-product__description + .menu-product__add,
+.menu-product__vegan + .menu-product__add { margin-top: 22px; }
+.menu-product__add.is-added { --btn-bg: var(--g-900); --btn-fg: var(--cream); box-shadow: none; }
 .menu-product__vegan { display: inline-block; margin-top: 10px; color: var(--g-600); font-size: var(--t-small); }
 .menu-product__link:focus-visible, .menu-bar__link:focus-visible { outline: 2px solid var(--g-600); outline-offset: 5px; }
 .menu-product:target { outline: 2px solid var(--g-600); outline-offset: 8px; }
@@ -838,15 +841,6 @@
     .menu-product:focus-within .menu-product__media img { transform: scale(1.05); }
     .menu-product:hover .menu-product__shade,
     .menu-product:focus-within .menu-product__shade { opacity: 1; }
-    .menu-product__order {
-        opacity: 0;
-        transform: translateY(14px);
-        pointer-events: none;
-        transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
-    }
-    .menu-product__order--inline { opacity: 1; transform: none; pointer-events: auto; }
-    .menu-product:hover .menu-product__order,
-    .menu-product:focus-within .menu-product__order { opacity: 1; transform: none; pointer-events: auto; }
 }
 @media (max-width: 999px) {
     .menu-products { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 24px; }

@@ -1,0 +1,89 @@
+/* ==========================================================================
+   "The Sweetest Place in Addis" — the brand introduction section, kept as its
+   own file (view: sections/intro-classic.blade.php) so it survives the
+   upstream change that replaces sections/intro.blade.php with "Rituals".
+   ========================================================================== */
+
+/* ==========================================================================
+   02 — Brand introduction
+   ========================================================================== */
+
+.intro { overflow: hidden; }
+.intro__leaf { right: -18%; bottom: -14%; width: min(1100px, 72vw); transform: rotate(-8deg); color: var(--cream); --rib: var(--white); }
+
+.intro__grid { position: relative; row-gap: clamp(48px, 7vw, 112px); }
+
+.intro__statement { grid-column: 1 / -1; position: relative; isolation: isolate; }
+
+/* Horizontal label under the headline: "The KOBA Experience · Est. 2020 · Addis Ababa" */
+.intro__label {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 22px;
+    margin-top: clamp(24px, 2.6vw, 40px);
+    color: var(--ink-faint);
+    font-size: var(--t-micro);
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+.intro__label .eyebrow { color: var(--brown); }
+.intro__est { display: inline-flex; align-items: center; gap: 22px; }
+.intro__est::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--sand); }
+.intro__statement .display { position: relative; max-width: 11ch; }
+.intro__statement .display em { color: var(--g-600); }
+
+.intro__glyph {
+    position: absolute;
+    right: 0;
+    top: -0.32em;
+    font-size: clamp(6rem, 17vw, 17rem);
+    font-weight: 300;
+    line-height: 1;
+    color: var(--cream-2);
+    user-select: none;
+    z-index: -1;
+}
+
+.intro__figure { grid-column: 1 / span 5; align-self: start; }
+.intro__figure .media { aspect-ratio: 4 / 5; }
+
+.caption {
+    margin-top: 16px;
+    font-size: var(--t-micro);
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+}
+
+.intro__body {
+    grid-column: 7 / span 5;
+    align-self: center;
+    display: grid;
+    gap: 40px;
+    justify-items: start;
+}
+.intro__body .lede { max-width: 44ch; color: var(--ink); }
+
+.intro__rituals { display: grid; border-top: 1px solid var(--line); width: 100%; }
+.intro__rituals li {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding-block: 18px;
+    border-bottom: 1px solid var(--line);
+    font-family: var(--f-display);
+    font-size: var(--t-s);
+    font-weight: 300;
+    letter-spacing: -0.01em;
+}
+.intro__rituals .mark { width: 12px; flex: none; color: var(--sand); }
+
+@media (max-width: 899px) {
+    .intro__statement { grid-column: 1 / -1; }
+    .intro__label { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .intro__est::before { display: none; }
+    .intro__figure { grid-column: 1 / span 8; }
+    .intro__body { grid-column: 1 / -1; }
+}
+

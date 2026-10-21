@@ -37,7 +37,6 @@ return [
         'pause' => 'Pause slideshow',
         'play' => 'Play slideshow',
         'prev' => 'Previous photograph',
-        'next' => 'Next photograph',
         'menu_open' => 'Open menu',
         'menu_close' => 'Close menu',
         'order_cake' => 'Order a Cake',
@@ -72,6 +71,8 @@ return [
             ['text' => 'Made With Heart.', 'weight' => 'heavy'],
         ],
         'sub' => 'A modern patisserie rooted in craftsmanship, warmth, and thoughtful café culture.',
+        'simple' => ['Every Slice,', 'a Ceremony.'],
+        'simple_sub' => 'Handcrafted cakes and pastries, made in Addis Ababa.',
         'cta_menu' => 'Explore Our Menu',
         'cta_cake' => 'Order a Cake',
         'caption_no' => 'No. 01',
@@ -488,34 +489,52 @@ return [
     ],
 
     /*
-    | Menu card notes, keyed by item slug: the composition (what it is made of,
-    | read from the photographs) and one line in the KOBA voice.
-    | Confirm every composition with the KOBA kitchen before launch.
+    | Menu cards, keyed by item slug, in the manner of a pâtisserie collection:
+    | a creative "title" (the house name), the composition "notes", and one
+    | "line" describing it in the KOBA voice. The plain product name still
+    | shows above the title, so guests and staff recognise every item.
+    | Compositions are read from the photographs: confirm each with the kitchen.
     */
     'menu_notes' => [
-        'trio' => ['kind' => 'Signature cake', 'notes' => ['Chocolate mousse', 'Cocoa velvet', 'Dark chocolate']],
-        'chocolate-fudge' => ['kind' => 'Signature cake', 'notes' => ['Fudge sponge', 'Mirror glaze', 'White chocolate lattice']],
-        'opera-caramel' => ['kind' => 'Signature cake', 'notes' => ['Almond sponge', 'Coffee cream', 'Caramel glaze']],
-        'vanilla-eclair' => ['kind' => 'Signature cake', 'notes' => ['Vanilla cream', 'White glaze', 'Chocolate seals']],
-        'cheesecake' => ['kind' => 'Signature cake', 'notes' => ['Baked cream cheese', 'Biscuit base', 'Berry glaze']],
+        'trio' => ['kind' => 'Signature cake', 'title' => 'Le Damier', 'notes' => ['Chocolate mousse', 'Cocoa velvet', 'Dark chocolate'], 'line' => 'Squares of chocolate mousse dressed in cocoa velvet, tied together by a ribbon of dark chocolate.'],
+        'chocolate-fudge' => ['kind' => 'Signature cake', 'title' => 'Midnight Mirror', 'notes' => ['Fudge sponge', 'Mirror glaze', 'White chocolate lattice'], 'line' => 'A deep fudge sponge beneath a dark glaze, poured once and left untouched, wrapped in a lattice of white chocolate.'],
+        'opera-caramel' => ['kind' => 'Signature cake', 'title' => 'Golden Hour', 'notes' => ['Almond sponge', 'Coffee cream', 'Caramel glaze'], 'line' => 'Almond sponge and coffee cream, set level layer by layer and sealed beneath a caramel glaze.'],
+        'vanilla-eclair' => ['kind' => 'Signature cake', 'title' => 'Ivory', 'notes' => ['Vanilla cream', 'White glaze', 'Chocolate seals'], 'line' => 'Quiet vanilla cream under a smooth white glaze, closed with seals of chocolate.'],
+        'cheesecake' => ['kind' => 'Signature cake', 'title' => 'First Light', 'notes' => ['Baked cream cheese', 'Biscuit base', 'Berry glaze'], 'line' => 'Cream cheese baked slowly on a buttery biscuit base, brightened with a glaze of berries.'],
 
-        'koba-croissant' => ['kind' => 'Viennoiserie', 'notes' => ['Butter', 'Laminated dough'], 'line' => 'Laminated in disciplined layers: a crisp shell, a tender crumb.'],
-        'almond-croissant' => ['kind' => 'Viennoiserie', 'notes' => ['Almond cream', 'Toasted almonds', 'Icing sugar'], 'line' => 'Our croissant, filled with almond cream.'],
-        'pecan-tart' => ['kind' => 'Tart', 'notes' => ['Shortcrust', 'Pecans', 'Caramel'], 'line' => 'Toasted pecans, set in deep caramel.'],
-        'eclair' => ['kind' => 'Choux', 'notes' => ['Choux', 'Coffee cream', 'Coffee glaze'], 'line' => 'Light choux, finished with coffee beans.'],
-        'white-dark-chocolate-muffins' => ['kind' => 'Bakery', 'notes' => ['White chocolate', 'Dark chocolate'], 'line' => 'Two chocolates, one generous crumb.'],
-        'vegetable-focaccia' => ['kind' => 'Bakery', 'notes' => ['Olive oil', 'Roasted vegetables'], 'line' => 'An open crumb, baked golden.'],
+        'koba-croissant' => ['kind' => 'Viennoiserie', 'title' => 'The Fold', 'notes' => ['Butter', 'Laminated dough'], 'line' => 'Butter folded into dough in disciplined layers, for a crust that shatters and a crumb that stays tender.'],
+        'almond-croissant' => ['kind' => 'Viennoiserie', 'title' => 'Amande', 'notes' => ['Almond cream', 'Toasted almonds', 'Icing sugar'], 'line' => 'Our croissant, filled with almond cream and crowned with toasted almonds and a snow of icing sugar.'],
+        'pecan-tart' => ['kind' => 'Tart', 'title' => 'Harvest', 'notes' => ['Shortcrust', 'Pecans', 'Caramel'], 'line' => 'Toasted pecans set in deep caramel, on a crisp shortcrust.'],
+        'eclair' => ['kind' => 'Choux', 'title' => 'Buna', 'notes' => ['Choux', 'Coffee cream', 'Coffee glaze'], 'line' => 'Named for coffee in Amharic: light choux filled with coffee cream, glazed and finished with roasted beans.'],
+        'white-dark-chocolate-muffins' => ['kind' => 'Bakery', 'title' => 'Light & Shade', 'notes' => ['White chocolate', 'Dark chocolate'], 'line' => 'White and dark chocolate, folded into one generous crumb.'],
+        'vegetable-focaccia' => ['kind' => 'Bakery', 'title' => 'Garden Bread', 'notes' => ['Olive oil', 'Roasted vegetables'], 'line' => 'Olive oil and roasted vegetables on an open, golden crumb.'],
 
-        'layered-espresso' => ['kind' => 'Coffee', 'notes' => ['Espresso', 'Steamed milk'], 'line' => 'Poured in layers, left to settle.'],
-        'milk-coffee' => ['kind' => 'Coffee', 'notes' => ['Espresso', 'Steamed milk'], 'line' => 'A morning ritual, poured by hand.'],
-        'tea-poured-to-order' => ['kind' => 'Tea', 'notes' => ['Black tea', 'Milk'], 'line' => 'An afternoon pause, poured to order.'],
-        'iced-coffee' => ['kind' => 'Coffee', 'notes' => ['Espresso', 'Milk', 'Ice'], 'line' => 'Cold, smooth, unhurried.'],
-        'hot-chocolate' => ['kind' => 'Chocolate', 'notes' => ['Chocolate sphere', 'Hot milk'], 'line' => 'Hot milk poured over chocolate, melting as you watch.'],
-        'affogato' => ['kind' => 'Coffee', 'notes' => ['Espresso', 'Vanilla ice cream'], 'line' => 'Hot over cold, served in glass.'],
-        'lime-mint-cooler' => ['kind' => 'Cold drink', 'notes' => ['Lime', 'Fresh mint', 'Crushed ice'], 'line' => 'Bright, cold, and clean.'],
-        'green-mint' => ['kind' => 'Cold drink', 'notes' => ['Fresh mint'], 'line' => 'Cool green, from the leaf.'],
-        'layered-fresh-juice' => ['kind' => 'Fresh juice', 'notes' => ['Seasonal fruit'], 'line' => 'Fresh fruit, layered by colour.'],
-        'strawberry-cooler' => ['kind' => 'Cold drink', 'notes' => ['Strawberry', 'Mint', 'Ice'], 'line' => 'Strawberry and mint over ice.'],
+        'layered-espresso' => ['kind' => 'Coffee', 'title' => 'Strata', 'notes' => ['Espresso', 'Steamed milk'], 'line' => 'Espresso poured over steamed milk and left to settle into layers.'],
+        'milk-coffee' => ['kind' => 'Coffee', 'title' => 'Morning Ceremony', 'notes' => ['Espresso', 'Steamed milk'], 'line' => 'Espresso and silky milk, finished by hand with latte art.'],
+        'tea-poured-to-order' => ['kind' => 'Tea', 'title' => 'Shai', 'notes' => ['Black tea', 'Milk'], 'line' => 'Tea in Amharic: black tea and milk, poured to order for an afternoon pause.'],
+        'iced-coffee' => ['kind' => 'Coffee', 'title' => 'Slow Ice', 'notes' => ['Espresso', 'Milk', 'Ice'], 'line' => 'Espresso and cold milk over ice. Smooth, cold, and unhurried.'],
+        'hot-chocolate' => ['kind' => 'Chocolate', 'title' => 'The Melt', 'notes' => ['Chocolate sphere', 'Hot milk'], 'line' => 'Hot milk poured over a sphere of chocolate, melting as you watch.'],
+        'affogato' => ['kind' => 'Coffee', 'title' => 'Hot & Cold', 'notes' => ['Espresso', 'Vanilla ice cream'], 'line' => 'A shot of espresso poured over vanilla ice cream, served in glass.'],
+        'lime-mint-cooler' => ['kind' => 'Cold drink', 'title' => 'Clear Mint', 'notes' => ['Lime', 'Fresh mint', 'Crushed ice'], 'line' => 'Lime and fresh mint over crushed ice. Bright, cold, and clean.'],
+        'green-mint' => ['kind' => 'Cold drink', 'title' => 'Koba Leaf', 'notes' => ['Fresh mint'], 'line' => 'Cool and green, after the leaf that gives KOBA its name.'],
+        'layered-fresh-juice' => ['kind' => 'Fresh juice', 'title' => 'Sunset Layers', 'notes' => ['Seasonal fruit'], 'line' => 'Seasonal fruit, pressed fresh and layered by colour.'],
+        'strawberry-cooler' => ['kind' => 'Cold drink', 'title' => 'Strawberry Field', 'notes' => ['Strawberry', 'Mint', 'Ice'], 'line' => 'Strawberry and mint over crushed ice.'],
+    ],
+
+    'cart' => [
+        'add' => 'Add to cart',
+        'added' => 'Added',
+        'open' => 'Open your cart',
+        'title' => 'Your Cart',
+        'empty' => 'Your cart is empty. Add something from the menu.',
+        'browse' => 'Browse the Menu',
+        'remove' => 'Remove',
+        'less' => 'One fewer',
+        'more' => 'One more',
+        'note' => 'Our team calls to confirm your order, the price, and pickup at your preferred branch.',
+        'checkout' => 'Continue to Order',
+        'close' => 'Close cart',
+        'from_cart' => 'From my cart:',
     ],
 
     'gallery_cakes' => [
