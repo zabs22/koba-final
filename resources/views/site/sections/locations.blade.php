@@ -4,7 +4,7 @@
     $mapsUrl = fn ($query) => 'https://www.google.com/maps/search/?api=1&query='.urlencode($query);
 @endphp
 
-<section class="locations section {{ $full ? 'locations--full' : '' }}" aria-labelledby="locations-title" data-locations>
+<section class="locations section {{ $full ? 'locations--full' : '' }}" aria-labelledby="locations-title" data-locations data-chapter="{{ __('koba.chapters.locations') }}">
     <div class="wrap">
         @unless ($full)
             <header class="grid locations__head">

@@ -12,7 +12,8 @@
     $featuredProducts = $featuredCakes->values()->concat($featuredPastries)->concat($featuredBeverages);
 @endphp
 
-<section class="menu-preview section is-cream-2" aria-labelledby="menu-preview-title">
+<section class="menu-preview section is-cream-2" aria-labelledby="menu-preview-title" data-tilt-scope data-chapter="{{ __('koba.chapters.menu') }}">
+    <x-site.leaf class="menu-preview__leaf" data-parallax="0.08" />
     <div class="wrap">
         <header class="menu-preview__head">
             <div>

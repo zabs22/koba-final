@@ -1,7 +1,15 @@
-<section class="experience" aria-labelledby="experience-title" data-scrub>
+<section class="experience" aria-labelledby="experience-title" data-scrub data-chapter="{{ __('koba.chapters.experience') }}" data-chapter-tone="dark">
     <div class="experience__sticky">
         <div class="experience__frame media" data-reveal="media">
             <x-site.img src="drink-iced-latte-terrace" sizes="100vw" position="50% 46%" />
+        </div>
+
+        {{-- Brand leaves part like a curtain as the photograph opens. --}}
+        <div class="experience__curtain" aria-hidden="true">
+            <x-site.leaf class="experience__leaf experience__leaf--1" />
+            <x-site.leaf class="experience__leaf experience__leaf--2" />
+            <x-site.leaf class="experience__leaf experience__leaf--3" />
+            <x-site.leaf class="experience__leaf experience__leaf--4" />
         </div>
 
         <div class="wrap experience__copy is-dark">
