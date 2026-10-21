@@ -147,6 +147,9 @@
         </div>
     </section>
 
+    {{-- What We Stand For: the brand values as a scroll-driven track (resources/js/site/home.js → initPillarsSection) --}}
+    @include('site.sections.pillars')
+
     {{-- Values --}}
     <section class="values section" aria-labelledby="values-title">
         <div class="wrap">

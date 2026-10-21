@@ -770,6 +770,15 @@
     pointer-events: none;
     transition: opacity 0.5s var(--ease-out);
 }
+.menu-product__media--empty {
+    display: grid;
+    place-items: center;
+    background:
+        radial-gradient(70% 60% at 50% 45%, rgba(0, 106, 71, 0.55), transparent 75%),
+        var(--g-900) var(--pattern-green) 0 0 / 54px auto;
+}
+.menu-product__icon { width: 34%; height: auto; color: var(--sand); opacity: 0.9; transition: transform 0.6s var(--ease-out); }
+.menu-product:hover .menu-product__icon { transform: scale(1.06); }
 .menu-product__details { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 16px; margin-top: 6px; }
 .menu-product__media + .menu-product__details { margin-top: 22px; }
 /* Pâtisserie-card type: a small category, the name in the display face, the composition, then one line in the KOBA voice. */
@@ -816,7 +825,7 @@
 .menu-product__link { color: inherit; }
 .menu-product__link::after { content: ""; position: absolute; inset: 0; z-index: 1; border-radius: 3px; }
 .menu-product__price { font-weight: 600; }
-.menu-product__description { margin-top: 10px; font-family: var(--f-display); font-size: clamp(1.125rem, 1.3vw, 1.3125rem); font-weight: 300; line-height: 1.5; color: var(--ink-soft); }
+.menu-product__description { margin-top: 10px; font-family: var(--f-display); font-size: clamp(1.125rem, 1.3vw, 1.3125rem); font-weight: 300; line-height: 1.5; color: var(--ink-soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .menu-product__add {
     position: relative;
     z-index: 2;
@@ -1028,7 +1037,7 @@
 .ck-stage__hint {
     position: absolute;
     left: 50%;
-    bottom: 0;
+    bottom: -64px;
     translate: -50% 0;
     font-size: 11px;
     font-weight: 600;

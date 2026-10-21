@@ -184,27 +184,91 @@ function initPillars(section) {
     viewport.addEventListener('scroll', queue, { passive: true });
 }
 
-/* ---- Craft: the wall settles from a 3D tilt to flat ---------------------- */
+/* ---- Craft: columns glide in, drift on scroll, full-size view ----------- */
 
 function initCraft(section) {
     const wall = $('[data-craft-wall]', section);
-    const active = () => !reduceMotion && wide.matches;
+    const tiles = $$('[data-craft-tile]', section);
+    const figures = $$('[data-craft-open]', section).sort((a, b) => a.dataset.craftOpen - b.dataset.craftOpen);
+
+    // 1 · Each tile glides in with its column as it enters the screen.
+    if (reduceMotion || !('IntersectionObserver' in window)) {
+        tiles.forEach((tile) => tile.classList.add('is-in'));
+    } else {
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                io.unobserve(entry.target);
+                entry.target.classList.add('is-in');
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -8% 0px' });
+        tiles.forEach((tile) => io.observe(tile));
+    }
+
+    // 2 · On wide screens the columns keep drifting at different speeds.
+    const drifting = () => !reduceMotion && wide.matches;
     const sync = () => {
-        section.classList.toggle('is-3d', active());
-        if (!active()) section.style.removeProperty('--w');
+        section.classList.toggle('is-drifting', drifting());
         queue();
     };
     wide.addEventListener('change', sync);
     sync();
-
     onFrame((vh) => {
-        if (!active()) return;
+        if (!drifting()) return;
         const rect = wall.getBoundingClientRect();
         if (rect.bottom < 0 || rect.top > vh) return;
-        const w = clamp((vh - rect.top) / (vh * 0.95));
-        section.style.setProperty('--w', (1 - Math.pow(1 - w, 3)).toFixed(4));
-        section.style.setProperty('--drift', ((rect.top + rect.height / 2 - vh / 2) / vh).toFixed(4));
+        section.style.setProperty('--drift', clamp((rect.top + rect.height / 2 - vh / 2) / vh, -1, 1).toFixed(4));
     });
+
+    // Hover: each photograph glides toward the pointer (mouse only).
+    if (finePointer && !reduceMotion) {
+        const RANGE = 11;
+        figures.forEach((figure) => {
+            const img = $('img', figure);
+            figure.addEventListener('pointermove', (event) => {
+                const rect = figure.getBoundingClientRect();
+                const x = (event.clientX - rect.left) / rect.width - 0.5;
+                const y = (event.clientY - rect.top) / rect.height - 0.5;
+                img.style.setProperty('--px', `${(x * RANGE * 2).toFixed(1)}px`);
+                img.style.setProperty('--py', `${(y * RANGE * 2).toFixed(1)}px`);
+            });
+            figure.addEventListener('pointerleave', () => {
+                img.style.setProperty('--px', '0px');
+                img.style.setProperty('--py', '0px');
+            });
+        });
+    }
+
+    // 3 · Full-size view, with previous / next and the arrow keys.
+    const view = $('[data-craft-view]', section);
+    if (!view || typeof view.showModal !== 'function') return;
+    const viewImg = $('[data-craft-view-img]', view);
+    let current = 0;
+
+    const show = (index) => {
+        current = (index + figures.length) % figures.length;
+        const figure = figures[current];
+        viewImg.src = figure.dataset.full;
+        viewImg.alt = $('img', figure).alt;
+        $('[data-craft-view-no]', view).textContent = `${pad(current + 1)} / ${pad(figures.length)}`;
+        $('[data-craft-view-title]', view).textContent = figure.dataset.title;
+        $('[data-craft-view-line]', view).textContent = figure.dataset.line;
+        viewImg.classList.remove('is-swapping');
+        void viewImg.offsetWidth;
+        viewImg.classList.add('is-swapping');
+        if (!view.open) view.showModal();
+    };
+
+    figures.forEach((figure, i) => figure.addEventListener('click', () => show(i)));
+    $('[data-craft-view-prev]', view).addEventListener('click', () => show(current - 1));
+    $('[data-craft-view-next]', view).addEventListener('click', () => show(current + 1));
+    $('[data-craft-view-close]', view).addEventListener('click', () => view.close());
+    view.addEventListener('click', (event) => { if (event.target === view) view.close(); });
+    view.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowLeft') show(current - 1);
+        if (event.key === 'ArrowRight') show(current + 1);
+    });
+    view.addEventListener('close', () => figures[current]?.focus());
 }
 
 /* ---- Menu preview: cards tilt toward the pointer ------------------------- */
@@ -408,4 +472,11 @@ export function initHome() {
     $$('[data-tilt-scope]', flow).forEach(initTilt);
     const ring = $('[data-ring]', flow);
     if (ring) initRing(ring);
+}
+
+/** The values track on its own, for pages outside the home flow (Our Story). */
+export function initPillarsSection() {
+    $$('[data-pillars]').forEach((section) => {
+        if (!section.closest('[data-home]')) initPillars(section);
+    });
 }

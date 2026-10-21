@@ -2,6 +2,9 @@
    "The Sweetest Place in Addis" — the brand introduction section, kept as its
    own file (view: sections/intro-classic.blade.php) so it survives the
    upstream change that replaces sections/intro.blade.php with "Rituals".
+   SAVED, NOT IN USE: the home page now uses the Rituals version. To restore,
+   import this file in resources/css/site.css and include
+   site.sections.intro-classic in resources/views/site/home.blade.php.
    ========================================================================== */
 
 /* ==========================================================================

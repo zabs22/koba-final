@@ -65,7 +65,7 @@
                     <h2 id="menu-{{ $key }}" class="display display--m">{{ $category['label'] }}</h2>
                     @if ($category['line']) <p class="body-copy">{{ $category['line'] }}</p> @endif
                 </header>
-                <x-site.menu-products :products="$products" />
+                <x-site.menu-products :products="$products" :category="$key" />
             </section>
         @endforeach
         <p class="menu-empty" hidden data-menu-empty>{{ __('koba.menu_page.empty') }}</p>

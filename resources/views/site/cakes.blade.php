@@ -78,22 +78,6 @@
             </div>
         </section>
 
-        {{-- 02 · Occasions — two crossing ribbons --}}
-        <section class="ck-ribbons" aria-labelledby="occasions-title">
-            <h2 id="occasions-title" class="sr-only">{{ $page['occasions_eyebrow'] }}: {{ implode(', ', $page['occasions']) }}</h2>
-            @foreach (['is-sand', 'is-green'] as $tone)
-                <div class="ck-ribbon ck-ribbon--{{ $loop->iteration }} {{ $tone }}" aria-hidden="true">
-                    <div class="ck-ribbon__track">
-                        @for ($r = 0; $r < 4; $r++)
-                            @foreach ($page['occasions'] as $occasion)
-                                <span>{{ $occasion }}</span><x-site.mark />
-                            @endforeach
-                        @endfor
-                    </div>
-                </div>
-            @endforeach
-        </section>
-
         {{-- 03 · Anatomy — an exploded 3D cake --}}
         <section class="ck-layers section is-white" aria-labelledby="layers-title" data-ck-layers>
             <div class="ck-layers__pin">

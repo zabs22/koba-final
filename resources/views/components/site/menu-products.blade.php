@@ -1,4 +1,4 @@
-@props(['products', 'idPrefix' => 'dish-', 'reveal' => false])
+@props(['products', 'idPrefix' => 'dish-', 'reveal' => false, 'category' => null])
 
 @php
     $cakeSlugs = array_keys(trans('koba.cakes'));
@@ -20,6 +20,11 @@
                 <div class="menu-product__media">
                     <x-site.img :src="$product['image']" sizes="(min-width: 1000px) 30vw, (min-width: 600px) 45vw, 92vw" />
                     <span class="menu-product__shade" aria-hidden="true"></span>
+                </div>
+            @else
+                {{-- No photograph yet: a green panel with the section's icon. --}}
+                <div class="menu-product__media menu-product__media--empty" aria-hidden="true">
+                    <x-site.menu-icon :name="$category" class="menu-product__icon" />
                 </div>
             @endif
             <p class="menu-product__kind">
