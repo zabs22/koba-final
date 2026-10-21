@@ -1835,7 +1835,10 @@ nav.chapters { display: none; }
 .atlas__note { position: absolute; right: 90px; bottom: 26px; z-index: 2; font-size: 11px; letter-spacing: 0.06em; color: var(--on-dark-soft); opacity: 0.55; pointer-events: none; }
 
 /* Floating café card */
-.atlas__cards { position: absolute; left: 24px; bottom: 24px; z-index: 4; width: min(430px, calc(100% - 48px)); }
+.atlas__cards { position: absolute; left: 24px; bottom: 24px; z-index: 4; width: min(430px, calc(100% - 48px)); transition: bottom 0.6s var(--ease-out); }
+/* Google's own controls (map/satellite toggle, logo, camera, attribution) run along
+   the bottom ~64px of the live map, so lift the card clear of them */
+.atlas__stage.is-live .atlas__cards { bottom: 72px; }
 .atlas__card {
     display: grid;
     grid-template-columns: 108px minmax(0, 1fr);
@@ -1913,6 +1916,7 @@ nav.chapters { display: none; }
     .atlas__mode { right: 12px; }
     .atlas__zoom { left: 12px; }
     .atlas__cards { left: 12px; right: 12px; bottom: 12px; width: auto; }
+    .atlas__stage.is-live .atlas__cards { bottom: 76px; }
     .atlas__card { grid-template-columns: 80px minmax(0, 1fr); gap: 14px; padding: 12px; border-radius: 18px; }
     .atlas__compass, .atlas__note { display: none; }
 }

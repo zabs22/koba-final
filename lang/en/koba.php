@@ -266,6 +266,7 @@ return [
                 'maps' => 'KOBA Patisserie Sanford Addis Ababa',
                 'area' => 'Sanford, Addis Ababa',
                 'pin' => [565, 395],
+                'coords' => [9.0351, 38.7722],
                 'open' => ['weekday' => [7, 21], 'weekend' => [6, 23]],
             ],
             'bole-atlas' => [
@@ -279,6 +280,7 @@ return [
                 'maps' => 'KOBA Patisserie Bole Atlas Addis Ababa',
                 'area' => 'Bole, Addis Ababa',
                 'pin' => [735, 505],
+                'coords' => [9.0010, 38.7801],
                 'open' => ['weekday' => [7, 22], 'weekend' => [6, 23]],
             ],
             '4-killo' => [
@@ -292,6 +294,7 @@ return [
                 'maps' => 'KOBA Patisserie 4 Killo Addis Ababa',
                 'area' => '4 Killo, Addis Ababa',
                 'pin' => [395, 215],
+                'coords' => [9.0362, 38.7626],
                 'open' => ['weekday' => [7, 21], 'weekend' => [6, 23]],
             ],
         ],

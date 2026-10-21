@@ -3,6 +3,7 @@
     $branches = trans('koba.locations.branches');
     $labels = array_intersect_key($atlas, array_flip(['open_now', 'until', 'closed', 'opens']));
     $pins = array_values(array_map(fn ($b) => $b['pin'], $branches));
+    $coords = fn ($b) => sprintf('%.2f° %s · %.2f° %s', abs($b['coords'][0]), $b['coords'][0] >= 0 ? 'N' : 'S', abs($b['coords'][1]), $b['coords'][1] >= 0 ? 'E' : 'W');
 
     // A softly curving trail that links the cafés in order.
     $trail = 'M'.implode(' ', $pins[0]);
@@ -35,7 +36,7 @@
 
             <ol class="list-reset atlas__list">
                 @foreach ($branches as $slug => $branch)
-                    <li class="atlas__item {{ $loop->first ? 'is-active' : '' }}" data-atlas-item="{{ $loop->index }}" data-slug="{{ $slug }}" data-open="{{ json_encode($branch['open']) }}">
+                    <li class="atlas__item {{ $loop->first ? 'is-active' : '' }}" data-atlas-item="{{ $loop->index }}" data-slug="{{ $slug }}" data-open="{{ json_encode($branch['open']) }}" data-coords="{{ $coords($branch) }}">
                         <button class="atlas__pick" type="button" data-atlas-pick="{{ $loop->index }}" aria-pressed="{{ $loop->first ? 'true' : 'false' }}">
                             <span class="atlas__no">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
                             <span class="atlas__pick-text">
@@ -51,7 +52,7 @@
                 @endforeach
             </ol>
 
-            <p class="atlas__coords" aria-hidden="true">9.03° N · 38.74° E</p>
+            <p class="atlas__coords" aria-hidden="true" data-atlas-coords>{{ $coords(array_values($branches)[0]) }}</p>
         </aside>
 
         {{-- Map stage --}}

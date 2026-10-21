@@ -53,6 +53,7 @@ export function initAtlas() {
         const pins = $$('[data-atlas-pin]', atlas);
         const cards = $$('[data-atlas-card]', atlas);
         const live = $('[data-atlas-live]', atlas);
+        const coords = $('[data-atlas-coords]', atlas);
         const modes = $$('[data-atlas-mode]', atlas);
         const points = pins.map((pin) => [parseFloat(pin.style.getPropertyValue('--x')) / 100, parseFloat(pin.style.getPropertyValue('--y')) / 100]);
 
@@ -163,6 +164,7 @@ export function initAtlas() {
                 $('[data-atlas-pick]', item).setAttribute('aria-pressed', String(i === index));
             });
             pins.forEach((pin, i) => pin.classList.toggle('is-active', i === index));
+            if (coords) coords.textContent = items[index].dataset.coords;
             cards.forEach((card, i) => {
                 card.hidden = i !== index;
                 card.classList.toggle('is-active', i === index);
