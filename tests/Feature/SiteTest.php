@@ -88,19 +88,24 @@ class SiteTest extends TestCase
     {
         $this->postJson('/order-a-cake', [
             'phone' => '12',
-            'cake' => 'not-a-cake',
-            'date' => '2020-01-01',
         ])
             ->assertUnprocessable()
-            ->assertJsonValidationErrors(['name', 'phone', 'cake', 'size', 'branch', 'date'])
+            ->assertJsonValidationErrors(['name', 'phone', 'items', 'branch'])
             ->assertJsonPath('errors.name.0', 'Your name is required.');
     }
 
     public function test_custom_cake_requires_instructions(): void
     {
-        $this->postJson('/order-a-cake', $this->order(['cake' => 'custom']))
+        $this->postJson('/order-a-cake', $this->order(['items' => [['slug' => 'custom', 'name' => 'Something else', 'qty' => 1, 'size' => 'advise']]]))
             ->assertUnprocessable()
             ->assertJsonValidationErrors(['notes']);
+    }
+
+    public function test_cakes_in_an_order_need_a_size(): void
+    {
+        $this->postJson('/order-a-cake', $this->order(['items' => [['slug' => 'trio', 'name' => 'Trio', 'qty' => 1]]]))
+            ->assertUnprocessable()
+            ->assertJsonValidationErrors(['items.0.size']);
     }
 
     public function test_cake_order_is_accepted(): void
@@ -129,18 +134,19 @@ class SiteTest extends TestCase
     }
 
     /**
-     * @param  array<string, string>  $overrides
-     * @return array<string, string>
+     * @param  array<string, mixed>  $overrides
+     * @return array<string, mixed>
      */
     private function order(array $overrides = []): array
     {
         return [
             'name' => 'Abel',
             'phone' => '+251 911 000 000',
-            'cake' => 'trio',
-            'size' => 'large',
+            'items' => [
+                ['slug' => 'trio', 'name' => 'Trio', 'qty' => 1, 'size' => 'large'],
+                ['slug' => 'koba-croissant', 'name' => 'KOBA Croissant', 'qty' => 4],
+            ],
             'branch' => '4-killo',
-            'date' => now()->addDays(3)->toDateString(),
             ...$overrides,
         ];
     }

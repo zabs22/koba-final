@@ -6,12 +6,21 @@ import { $, $$ } from './util';
  */
 const KEY = 'koba:cart';
 
-const load = () => {
-    try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) { return []; }
+let memory = null;
+
+/** The cart's items: [{ slug, name, title, image, cake, qty, size? }]. */
+export const loadCart = () => {
+    try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) { return memory || []; }
 };
-const save = (items) => {
+
+/** Saves the cart and tells every view of it (header drawer, order form) to refresh. */
+export const saveCart = (items) => {
+    memory = items;
     try { localStorage.setItem(KEY, JSON.stringify(items)); } catch (e) { /* storage blocked: cart lasts this page view */ }
+    window.dispatchEvent(new CustomEvent('koba:cart'));
 };
+const load = loadCart;
+const save = saveCart;
 
 export function initCart() {
     const root = $('[data-cart]');
@@ -20,7 +29,6 @@ export function initCart() {
     const list = $('[data-cart-list]', root);
     const empty = $('[data-cart-empty]', root);
     const foot = $('[data-cart-foot]', root);
-    const checkout = $('[data-cart-checkout]', root);
     const panel = $('.cart__panel', root);
     const openers = $$('[data-cart-open]');
     const counts = $$('[data-cart-count]');
@@ -74,14 +82,10 @@ export function initCart() {
         empty.hidden = items.length > 0;
         foot.hidden = items.length === 0;
 
-        // Pre-select the first cake on the order form; the full list goes into the notes.
-        const cake = items.find((item) => item.cake);
-        const url = new URL(checkout.href, location.href);
-        url.search = '';
-        url.searchParams.set('from', 'cart');
-        if (cake) url.searchParams.set('cake', cake.slug);
-        checkout.href = url.toString();
     };
+
+    // The order form edits the same cart; follow its changes.
+    window.addEventListener('koba:cart', () => { items = load(); render(); });
 
     const change = (slug, delta) => {
         items = items
@@ -132,14 +136,6 @@ export function initCart() {
             open();
         });
     });
-
-    // On the order form, write the cart into the special instructions.
-    const notes = $('[data-order-form] [name="notes"]');
-    if (notes && new URLSearchParams(location.search).get('from') === 'cart' && items.length && !notes.value) {
-        const lines = items.map((item) => `${item.qty} × ${item.title}${item.title !== item.name ? ` (${item.name})` : ''}`);
-        notes.value = [notes.dataset.cartIntro || 'From my cart:', ...lines].join('\n').slice(0, notes.maxLength);
-        notes.dispatchEvent(new Event('input', { bubbles: true }));
-    }
 
     render();
 }

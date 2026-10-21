@@ -2,8 +2,19 @@
     $cakes = trans('koba.cakes');
     $steps = trans('koba.order.steps');
     $fields = trans('koba.order.fields');
-    $selectedCake = old('cake', array_key_exists(request('cake'), $cakes) ? request('cake') : null);
-    $tomorrow = now()->addDay()->toDateString();
+    $notes = trans('koba.menu_notes');
+    $thumb = fn ($key) => asset("images/koba/$key-".config("koba.images.$key")[2][0].'.webp');
+    // The signature cakes, as the cart stores them, for the "add a cake" picker.
+    $catalogue = collect($cakes)->map(fn ($cake, $slug) => [
+        'slug' => $slug,
+        'name' => $cake['name'],
+        'title' => $notes[$slug]['title'] ?? $cake['name'],
+        'image' => $thumb($cake['image']),
+        'cake' => true,
+    ])->values();
+    $custom = ['slug' => 'custom', 'name' => __('koba.order.custom_name'), 'title' => __('koba.order.custom_title'), 'image' => '', 'cake' => true];
+    // "Order this cake" links arrive with ?cake=slug; that cake is added to the order.
+    $preselect = array_key_exists(request('cake'), $cakes) ? request('cake') : null;
     $describe = fn ($field, $hint = false) => trim(($hint ? "$field-hint " : '')."$field-error");
 @endphp
 
@@ -59,7 +70,8 @@
                 <form class="order-form" method="POST" action="{{ route('order.store') }}" novalidate data-order-form
                       data-msg-required="{{ __('koba.ui.required') }}"
                       data-msg-phone="{{ __('validation.regex', ['attribute' => $fields['phone']]) }}"
-                      data-msg-date="{{ $fields['date_hint'] }}"
+                      data-msg-items="{{ __('koba.order.items_required') }}"
+                      data-msg-size="{{ __('koba.order.size_required') }}"
                       data-msg-step="{{ __('koba.order.step_of') }}"
                       data-msg-error="{{ __('koba.order.error') }}"
                       data-msg-sending="{{ __('koba.order.sending') }}">
@@ -87,43 +99,45 @@
                         </div>
                     </fieldset>
 
-                    {{-- 02 · Your Cake --}}
+                    {{-- 02 · Your Order: the cart, editable here (resources/js/site/order.js) --}}
                     <fieldset class="ostep" data-ostep="1">
                         <legend class="ostep__legend display display--m">{{ $steps[1] }}</legend>
 
-                        <fieldset class="field" aria-describedby="cake-error">
-                            <legend class="field__label">{{ $fields['cake'] }}</legend>
-                            <div class="choices choices--cakes">
-                                @foreach ($cakes as $slug => $cake)
-                                    <label class="choice">
-                                        <input type="radio" name="cake" value="{{ $slug }}" required @checked($selectedCake === $slug)>
-                                        <span class="choice__media media">
-                                            <x-site.img :src="$cake['image']" alt="" sizes="160px" position="50% 62%" />
-                                        </span>
-                                        <span class="choice__label">{{ $cake['name'] }}</span>
-                                    </label>
-                                @endforeach
-                                <label class="choice choice--custom">
-                                    <input type="radio" name="cake" value="custom" required @checked($selectedCake === 'custom')>
-                                    <span class="choice__media choice__blank"><x-site.mark /></span>
-                                    <span class="choice__label">{{ $fields['custom'] }}</span>
-                                </label>
+                        <div class="field" data-order-items-field>
+                            <p class="field__label">{{ $fields['items'] }}</p>
+                            <ul class="list-reset order-items" data-order-items
+                                data-catalogue='@json($catalogue)' data-custom='@json($custom)' data-preselect="{{ $preselect }}"
+                                data-sizes='@json(trans('koba.order.sizes'))'
+                                data-label-size="{{ $fields['size'] }}" data-label-qty="{{ $fields['qty'] }}"
+                                data-label-less="{{ __('koba.order.less') }}" data-label-more="{{ __('koba.order.more') }}"
+                                data-label-remove="{{ __('koba.order.remove') }}"></ul>
+                            <div class="order-items__empty" data-order-empty hidden>
+                                <p>{{ __('koba.order.items_empty') }}</p>
+                                <a class="link" href="{{ route('menu') }}">{{ __('koba.order.browse_menu') }} <x-site.arrow /></a>
                             </div>
-                            <p class="field__error" id="cake-error" data-error-for="cake">@error('cake'){{ $message }}@enderror</p>
-                        </fieldset>
+                            <p class="field__error" id="items-error" data-error-for="items" role="alert"></p>
+                            <noscript><p class="body-copy">{{ __('koba.order.aside_body') }}</p></noscript>
+                        </div>
 
-                        <fieldset class="field" aria-describedby="size-error">
-                            <legend class="field__label">{{ $fields['size'] }}</legend>
-                            <div class="pills">
-                                @foreach (trans('koba.order.sizes') as $value => $label)
-                                    <label class="pill">
-                                        <input type="radio" name="size" value="{{ $value }}" required @checked(old('size') === $value)>
-                                        <span>{{ $label }}</span>
-                                    </label>
+                        <div class="field order-add" data-order-add>
+                            <p class="field__label" data-order-add-title data-title-none="{{ __('koba.order.add_cake') }}" data-title-more="{{ __('koba.order.add_another') }}">{{ __('koba.order.add_cake') }}</p>
+                            <p class="field__hint" data-order-add-hint>{{ __('koba.order.add_hint') }}</p>
+                            <div class="choices choices--cakes">
+                                @foreach ($catalogue as $cake)
+                                    <button class="choice" type="button" data-add-item="{{ $cake['slug'] }}">
+                                        <span class="choice__media media">
+                                            <x-site.img :src="$cakes[$cake['slug']]['image']" alt="" sizes="160px" position="50% 62%" />
+                                            <span class="choice__plus" aria-hidden="true">+</span>
+                                        </span>
+                                        <span class="choice__label">{{ $cake['title'] }} <small>{{ $cake['name'] }}</small></span>
+                                    </button>
                                 @endforeach
+                                <button class="choice choice--custom" type="button" data-add-item="custom">
+                                    <span class="choice__media choice__blank"><x-site.mark /><span class="choice__plus" aria-hidden="true">+</span></span>
+                                    <span class="choice__label">{{ $fields['custom'] }}</span>
+                                </button>
                             </div>
-                            <p class="field__error" id="size-error" data-error-for="size">@error('size'){{ $message }}@enderror</p>
-                        </fieldset>
+                        </div>
 
                         <div class="field">
                             <label class="field__label" for="branch">{{ $fields['branch'] }}</label>
@@ -139,24 +153,12 @@
                         </div>
                     </fieldset>
 
-                    {{-- 03 · Your Date --}}
+                    {{-- 03 · Your Request --}}
                     <fieldset class="ostep" data-ostep="2">
                         <legend class="ostep__legend display display--m">{{ $steps[2] }}</legend>
                         <div class="field">
-                            <label class="field__label" for="date">{{ $fields['date'] }}</label>
-                            <input class="field__input field__input--date" id="date" name="date" type="date" min="{{ $tomorrow }}" required
-                                   value="{{ old('date') }}" aria-describedby="{{ $describe('date', true) }}" @error('date') aria-invalid="true" @enderror>
-                            <p class="field__hint" id="date-hint">{{ $fields['date_hint'] }}</p>
-                            <p class="field__error" id="date-error" data-error-for="date">@error('date'){{ $message }}@enderror</p>
-                        </div>
-                    </fieldset>
-
-                    {{-- 04 · Your Request --}}
-                    <fieldset class="ostep" data-ostep="3">
-                        <legend class="ostep__legend display display--m">{{ $steps[3] }}</legend>
-                        <div class="field">
                             <label class="field__label" for="notes">{{ $fields['notes'] }}</label>
-                            <textarea class="field__input field__input--area" id="notes" name="notes" data-cart-intro="{{ __('koba.cart.from_cart') }}" rows="5" maxlength="1000"
+                            <textarea class="field__input field__input--area" id="notes" name="notes" rows="5" maxlength="1000"
                                       aria-describedby="{{ $describe('notes', true) }}" @error('notes') aria-invalid="true" @enderror>{{ old('notes') }}</textarea>
                             <p class="field__hint" id="notes-hint">{{ $fields['notes_hint'] }} <span class="field__count" data-count-for="notes">0 / 1000</span></p>
                             <p class="field__error" id="notes-error" data-error-for="notes">@error('notes'){{ $message }}@enderror</p>
@@ -164,10 +166,10 @@
                     </fieldset>
 
                     {{-- Review --}}
-                    <section class="ostep ostep--review" data-ostep="4" aria-labelledby="review-title">
+                    <section class="ostep ostep--review" data-ostep="3" aria-labelledby="review-title">
                         <h2 id="review-title" class="ostep__legend display display--m">{{ __('koba.order.review') }}</h2>
                         <dl class="review" data-review>
-                            @foreach ([['name', 0], ['phone', 0], ['cake', 1], ['size', 1], ['branch', 1], ['date', 2], ['notes', 3]] as [$field, $step])
+                            @foreach ([['name', 0], ['phone', 0], ['items', 1], ['branch', 1], ['notes', 2]] as [$field, $step])
                                 <div class="review__row">
                                     <dt>{{ $fields[$field] }}</dt>
                                     <dd data-review-for="{{ $field }}">—</dd>
