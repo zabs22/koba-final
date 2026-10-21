@@ -1146,7 +1146,30 @@
     translate: -50% 0;
     background: radial-gradient(closest-side, rgba(3, 35, 26, 0.22), transparent);
     z-index: -1;
+    
 }
+
+/* Chocolate run-off (drawn by cakes.js): drips hang off the glaze's two visible
+   faces, drops fall down planes anchored to the floor, and pool around the base */
+.ck-drip,
+.ck-fall { position: absolute; left: 0; width: 100%; transform-origin: 0 0; backface-visibility: hidden; pointer-events: none; }
+.ck-drip svg,
+.ck-pool svg { display: block; overflow: visible; }
+.ck-drip--front { top: 100%; transform: translateZ(var(--t)) rotateX(-90deg) translateZ(1.5px); }
+.ck-drip--left { top: 0; transform: translateZ(var(--t)) rotateZ(90deg) rotateX(-90deg) translateZ(1.5px); filter: brightness(0.78); }
+.ck-fall { height: 0; }
+.ck-fall--front { top: 100%; transform: rotateX(-90deg) translateZ(2px); }
+.ck-fall--left { top: 0; transform: rotateZ(90deg) rotateX(-90deg) translateZ(2px); filter: brightness(0.78); }
+.ck-pool { position: absolute; top: 0; left: -45%; width: 145%; height: 145%; transform: translateZ(0.5px); pointer-events: none; }
+.ck-drop {
+    position: absolute;
+    border-radius: 50% 50% 50% 50% / 62% 62% 40% 40%;
+    background:
+        radial-gradient(circle at 34% 30%, rgba(255, 238, 220, 0.85) 0 9%, transparent 26%),
+        linear-gradient(160deg, #3d1d0d, #150803 70%);
+}
+.ck-splash { position: absolute; top: 0; width: 4px; height: 4px; margin: -2px; border-radius: 50%; background: #2a130a; }
+.ck-ripple { position: absolute; width: 30px; height: 30px; margin: -15px; border-radius: 50%; border: 1.5px solid rgba(255, 226, 196, 0.55); }
 
 /* Pinned scroll mode (desktop, motion allowed) — enabled by JS */
 .ck-layers.is-pinned { height: 230vh; padding-block: 0; }
@@ -1284,7 +1307,11 @@
     .ck-slide { width: 60vw; }
     .ck-thumbs { margin-left: 0; width: 100%; }
     .ck-layers__copy, .ck-iso { grid-column: 1 / -1; }
-    .ck-iso { height: clamp(340px, 90vw, 460px); }
+    /* The cake is always 200px wide here, and the layers stack ~260px above the
+       world's centre, so give it a fixed box and lower it to keep it off the copy */
+    .ck-iso { height: 440px; }
+    .ck-iso__world { translate: 0 38%; }
+    .ck-iso__shadow { bottom: 4%; }
     .ck-gallery__grid { columns: 2; }
     .ck-tile__caption { display: none; }
     .ck-steps { grid-template-columns: minmax(0, 1fr); row-gap: 36px; }

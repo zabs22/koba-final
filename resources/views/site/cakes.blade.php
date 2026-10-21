@@ -119,8 +119,15 @@
                                 <div class="ck-iso__layer ck-iso__layer--{{ $layer }}" style="--k: {{ $loop->index }}">
                                     <span class="ck-iso__top"></span>
                                     <span class="ck-iso__side"></span>
+                                    @if ($layer === 'glaze')
+                                        <span class="ck-drip ck-drip--front" data-ck-drip="front"></span>
+                                        <span class="ck-drip ck-drip--left" data-ck-drip="left"></span>
+                                    @endif
                                 </div>
                             @endforeach
+                            <div class="ck-pool" data-ck-pool></div>
+                            <div class="ck-fall ck-fall--front" data-ck-fall="front"></div>
+                            <div class="ck-fall ck-fall--left" data-ck-fall="left"></div>
                         </div>
                         <div class="ck-iso__shadow"></div>
                     </div>
