@@ -3,7 +3,6 @@
 
     <div class="wrap grid intro__grid">
         <div class="intro__statement">
-            <span class="intro__glyph ethiopic" aria-hidden="true" data-reveal="fade">ኮባ</span>
             <x-site.heading id="intro-title" :text="__('koba.intro.title')" size="mega" />
             <p class="intro__label" data-reveal style="--d: 3">
                 <span class="eyebrow">{{ __('koba.intro.eyebrow') }}</span>

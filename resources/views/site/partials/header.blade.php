@@ -5,7 +5,7 @@
 
 <header class="header" data-header>
     <div class="wrap header__inner">
-        <a class="header__logo" href="{{ route('home') }}" aria-label="KOBA Patisserie and Bakery — {{ __('koba.nav.home') }}">
+        <a class="header__logo" href="{{ route('home') }}" aria-label="KOBA Patisserie and Bakery, {{ __('koba.nav.home') }}">
             <x-site.logo />
         </a>
 

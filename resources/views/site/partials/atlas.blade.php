@@ -175,7 +175,7 @@
                             <x-site.img :src="$branch['image']" alt="" sizes="120px" />
                         </div>
                         <div class="atlas__card-body">
-                            <p class="atlas__card-mood">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }} — {{ $branch['mood'] }}</p>
+                            <p class="atlas__card-mood">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }} · {{ $branch['mood'] }}</p>
                             <h4 class="atlas__card-name">{{ $branch['name'] }}</h4>
                             <p class="atlas__status" data-atlas-status hidden></p>
                             <div class="atlas__card-actions">

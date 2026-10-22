@@ -95,7 +95,7 @@
                                     @endif
                                 </p>
                                 @if ($l)
-                                    <a class="link" href="{{ $mapsUrl($l) }}" target="_blank" rel="noopener">{{ __('koba.voices.view_on_maps') }}<span class="sr-only"> — {{ $l['short'] }} {{ __('koba.voices.new_tab') }}</span> <x-site.arrow /></a>
+                                    <a class="link" href="{{ $mapsUrl($l) }}" target="_blank" rel="noopener">{{ __('koba.voices.view_on_maps') }}<span class="sr-only">, {{ $l['short'] }} {{ __('koba.voices.new_tab') }}</span> <x-site.arrow /></a>
                                 @endif
                             </footer>
                         </li>

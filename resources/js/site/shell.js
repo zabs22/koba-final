@@ -42,7 +42,12 @@ export function initCurtain() {
         requestAnimationFrame(() => {
             curtain.classList.add('is-leaving');
             root.classList.remove('from-transition');
-            curtain.addEventListener('transitionend', () => curtain.classList.remove('is-leaving'), { once: true });
+            const done = (event) => {
+                if (event.target !== curtain || event.propertyName !== 'transform') return;
+                curtain.removeEventListener('transitionend', done);
+                curtain.classList.remove('is-leaving');
+            };
+            curtain.addEventListener('transitionend', done);
         });
     }
 
@@ -65,7 +70,8 @@ export function initCurtain() {
         event.preventDefault();
         storage.set('koba:transition', '1');
         curtain.classList.add('is-covering');
-        setTimeout(() => { location.href = url.href; }, 620);
+        // Long enough for the tree to finish growing (see .curtain in base.css).
+        setTimeout(() => { location.href = url.href; }, 820);
     });
 }
 

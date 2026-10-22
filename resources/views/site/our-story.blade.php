@@ -81,13 +81,12 @@
         </div>
     </section>
 
-    {{-- The name: ኮባ --}}
+    {{-- The name --}}
     <section class="namesake section is-sand" aria-labelledby="namesake-title">
         <x-site.leaf class="namesake__leaf" data-parallax="0.08" />
         <div class="wrap grid namesake__grid">
             <div class="namesake__mark" data-reveal="draw">
                 <x-site.mark />
-                <span class="ethiopic namesake__glyph" aria-hidden="true">ኮባ</span>
             </div>
             <div class="namesake__copy">
                 <p class="eyebrow" data-reveal>{{ __('koba.story.leaf_eyebrow') }}</p>
@@ -199,7 +198,7 @@
                 <div class="koba-creator__frame">
                     <img
                         src="{{ asset('images/koba/15.png') }}"
-                        alt="A perfectly glazed KOBA éclair resting on a dark surface, its caramel coating flawlessly smooth and decorated with a single chocolate pearl — a study in precision pastry craft"
+                        alt="A perfectly glazed KOBA éclair resting on a dark surface, its caramel coating flawlessly smooth and decorated with a single chocolate pearl, a study in precision pastry craft"
                         width="1100"
                         height="1500"
                         loading="lazy"
@@ -252,7 +251,7 @@
                 <div class="koba-creator__closing" data-creator-closing>
                     <div class="koba-creator__closing-rule" aria-hidden="true"></div>
                     <p class="koba-creator__closing-text">
-                        Beauty is not decoration. It is discipline made visible&nbsp;—
+                        Beauty is not decoration. It is discipline made visible,
                         <em class="koba-creator__closing-em">an art form you can taste and experience.</em>
                     </p>
                 </div>

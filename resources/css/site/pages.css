@@ -362,15 +362,6 @@
 .namesake__grid { position: relative; align-items: center; row-gap: 56px; }
 .namesake__mark { grid-column: 2 / span 4; position: relative; display: grid; place-items: center; }
 .namesake__mark .mark { width: clamp(140px, 18vw, 260px); color: var(--g-900); stroke-width: 22; }
-.namesake__glyph {
-    position: absolute;
-    inset: auto 0 -0.4em;
-    text-align: center;
-    font-size: clamp(3rem, 6vw, 6rem);
-    font-weight: 300;
-    color: var(--g-900);
-    opacity: 0.18;
-}
 .namesake__copy { grid-column: 7 / span 5; display: grid; gap: 24px; justify-items: start; }
 .namesake__copy .body-copy { color: rgba(6, 46, 34, 0.84); }
 .namesake .display em { color: var(--g-600); }

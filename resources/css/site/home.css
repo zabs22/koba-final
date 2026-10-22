@@ -230,19 +230,6 @@
     --rib: var(--bg);
     transform: rotate(calc(196deg - var(--p, 0) * 16deg));
 }
-.rituals__glyph {
-    position: absolute;
-    left: 36%;
-    top: -0.2em;
-    font-size: clamp(8rem, 24vw, 24rem);
-    font-weight: 600;
-    line-height: 1;
-    color: transparent;
-    -webkit-text-stroke: 1px rgba(6, 46, 34, 0.08);
-    transform: translateX(calc(var(--p, 0) * 6%));
-    user-select: none;
-}
-
 .rituals__grid { position: relative; align-items: center; row-gap: 56px; }
 .rituals__copy { grid-column: 1 / span 5; display: grid; gap: clamp(18px, 2.6vh, 30px); justify-items: start; }
 .rituals__copy .display { max-width: 11ch; font-size: min(var(--t-xl), 10.5vh); }

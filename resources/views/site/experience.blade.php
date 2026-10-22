@@ -123,7 +123,7 @@
                 </header>
             </div>
 
-            <div class="xp-ring__stage" data-xp-ring-stage style="--n: {{ count($ring) }}" tabindex="0" role="group" aria-roledescription="carousel" aria-label="{{ $xp['atmosphere_eyebrow'] }} — {{ $xp['atmosphere_hint'] }}">
+            <div class="xp-ring__stage" data-xp-ring-stage style="--n: {{ count($ring) }}" tabindex="0" role="group" aria-roledescription="carousel" aria-label="{{ $xp['atmosphere_eyebrow'] }}. {{ $xp['atmosphere_hint'] }}">
                 <div class="xp-ring__spin" data-xp-ring-spin>
                     @foreach ($ring as $image)
                         <figure class="xp-ring__card media" style="--i: {{ $loop->index }}" data-xp-ring-card>
@@ -154,7 +154,7 @@
                             @endforeach
                         </p>
                     </blockquote>
-                    <p class="xp-quote__sign" data-reveal>— {{ $xp['hospitality_sign'] }}</p>
+                    <p class="xp-quote__sign" data-reveal>{{ $xp['hospitality_sign'] }}</p>
                 </div>
             </div>
             <svg width="0" height="0" aria-hidden="true" focusable="false">

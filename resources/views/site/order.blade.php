@@ -143,7 +143,7 @@
                             <label class="field__label" for="branch">{{ $fields['branch'] }}</label>
                             <div class="select">
                                 <select class="field__input" id="branch" name="branch" required aria-describedby="branch-error" @error('branch') aria-invalid="true" @enderror>
-                                    <option value="" disabled @selected(! old('branch'))>—</option>
+                                    <option value="" disabled @selected(! old('branch'))>{{ $fields['branch_placeholder'] }}</option>
                                     @foreach (trans('koba.locations.branches') as $key => $branch)
                                         <option value="{{ $key }}" @selected(old('branch') === $key)>{{ $branch['name'] }}</option>
                                     @endforeach
@@ -172,7 +172,7 @@
                             @foreach ([['name', 0], ['phone', 0], ['items', 1], ['branch', 1], ['notes', 2]] as [$field, $step])
                                 <div class="review__row">
                                     <dt>{{ $fields[$field] }}</dt>
-                                    <dd data-review-for="{{ $field }}">—</dd>
+                                    <dd data-review-for="{{ $field }}" data-empty="{{ __('koba.order.review_empty') }}">{{ __('koba.order.review_empty') }}</dd>
                                     <button class="review__edit link" type="button" data-goto="{{ $step }}">
                                         {{ __('koba.order.edit') }}<span class="sr-only"> {{ $fields[$field] }}</span>
                                     </button>

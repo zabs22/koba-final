@@ -7,7 +7,6 @@
         <div class="rituals__sky" aria-hidden="true">
             <x-site.leaf class="rituals__leaf rituals__leaf--a" />
             <x-site.leaf class="rituals__leaf rituals__leaf--b" />
-            <span class="rituals__glyph ethiopic">ኮባ</span>
         </div>
 
         <div class="wrap grid rituals__grid">
