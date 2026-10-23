@@ -37,18 +37,6 @@
 .intro__statement .display { position: relative; max-width: 11ch; }
 .intro__statement .display em { color: var(--g-600); }
 
-.intro__glyph {
-    position: absolute;
-    right: 0;
-    top: -0.32em;
-    font-size: clamp(6rem, 17vw, 17rem);
-    font-weight: 300;
-    line-height: 1;
-    color: var(--cream-2);
-    user-select: none;
-    z-index: -1;
-}
-
 .intro__figure { grid-column: 1 / span 5; align-self: start; }
 .intro__figure .media { aspect-ratio: 4 / 5; }
 

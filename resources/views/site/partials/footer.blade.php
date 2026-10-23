@@ -8,7 +8,7 @@
     <div class="wrap">
         <div class="footer__top grid">
             <div class="footer__brand">
-                <a href="{{ route('home') }}" aria-label="KOBA — {{ __('koba.nav.home') }}"><x-site.logo variant="light" /></a>
+                <a href="{{ route('home') }}" aria-label="KOBA, {{ __('koba.nav.home') }}"><x-site.logo variant="light" /></a>
                 <p class="footer__tagline">{{ __('koba.footer.tagline') }}</p>
             </div>
 

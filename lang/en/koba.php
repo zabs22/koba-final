@@ -15,7 +15,7 @@ return [
 
     'meta' => [
         'title' => 'KOBA Patisserie & Bakery | Addis Ababa',
-        'description' => 'KOBA Patisserie & Bakery — handcrafted pastries, cakes, bakery creations, breakfast, lunch and refined café experiences in Addis Ababa.',
+        'description' => 'KOBA Patisserie & Bakery: handcrafted pastries, cakes, bakery creations, breakfast, lunch and refined café experiences in Addis Ababa.',
         'pages' => [
             'our-story' => 'Our Story',
             'menu' => 'Menu',
@@ -76,7 +76,7 @@ return [
         'cta_menu' => 'Explore Our Menu',
         'cta_cake' => 'Order a Cake',
         'caption_no' => 'No. 01',
-        'caption' => 'The KOBA croissant — laminated in disciplined layers.',
+        'caption' => 'The KOBA croissant, laminated in disciplined layers.',
         'inset_caption' => 'Afternoon pause into ritual.',
         'badge' => 'Handcrafted in Addis Ababa · Since 2020 · ',
     ],
@@ -150,7 +150,7 @@ return [
         'categories' => [
             'cakes' => [
                 'label' => 'Cakes',
-                'line' => 'Layered, glazed, and finished by hand — for celebrations large and quiet.',
+                'line' => 'Layered, glazed, and finished by hand for celebrations large and quiet.',
                 'images' => ['cake-opera-caramel', 'opera-slice'],
                 'items' => ['Trio', 'Chocolate Fudge', 'Opera Caramel', 'Vanilla Éclair', 'Cheesecake'],
             ],
@@ -174,7 +174,7 @@ return [
             ],
             'breakfast' => [
                 'label' => 'Breakfast',
-                'line' => 'Morning light into ceremony — from Chechebsa to Eggs Benedict.',
+                'line' => 'Morning light into ceremony, from Chechebsa to Eggs Benedict.',
                 'images' => ['croissant', 'drink-flat-white'],
                 'items' => ['Eggs Benedict', 'Chechebsa', 'KOBA Croissant Sandwich', 'Fluffy Pancakes', 'Ful Medames'],
             ],
@@ -207,7 +207,7 @@ return [
     'menu_preview' => [
         'eyebrow' => 'The Menu',
         'title' => 'From Morning|*to Evening.*',
-        'body' => 'A curated taste of the KOBA kitchen. Breakfast, lunch, and everything in between — prepared with the same discipline as our pastry.',
+        'body' => 'A curated taste of the KOBA kitchen. Breakfast, lunch, and everything in between, prepared with the same discipline as our pastry.',
         'cta' => 'View Full Menu',
     ],
 
@@ -299,9 +299,9 @@ return [
             ],
         ],
         'hours' => [
-            ['where' => 'Sanford & 4 Killo', 'days' => 'Monday – Friday', 'time' => '7:00 AM – 9:00 PM'],
-            ['where' => 'Bole Atlas', 'days' => 'Monday – Friday', 'time' => '7:00 AM – 10:00 PM'],
-            ['where' => 'All branches', 'days' => 'Saturday & Sunday', 'time' => '6:00 AM – 11:00 PM'],
+            ['where' => 'Sanford & 4 Killo', 'days' => 'Monday to Friday', 'time' => '7:00 AM to 9:00 PM'],
+            ['where' => 'Bole Atlas', 'days' => 'Monday to Friday', 'time' => '7:00 AM to 10:00 PM'],
+            ['where' => 'All branches', 'days' => 'Saturday & Sunday', 'time' => '6:00 AM to 11:00 PM'],
         ],
         'atlas' => [
             'eyebrow' => 'The KOBA Atlas',
@@ -400,11 +400,11 @@ return [
             [
                 'no' => 'Today',
                 'title' => 'A destination, three times over.',
-                'body' => 'More than a bakery, KOBA has become a destination where taste, design, and experience come together to set a new standard — in Sanford, Bole Atlas, and 4 Killo.',
+                'body' => 'More than a bakery, KOBA has become a destination where taste, design, and experience come together to set a new standard in Sanford, Bole Atlas, and 4 Killo.',
                 'image' => 'drink-iced-latte',
             ],
         ],
-        'leaf_eyebrow' => 'ኮባ — The name',
+        'leaf_eyebrow' => 'The name',
         'leaf_title' => 'Inspired by|*the koba plant.*',
         'leaf_body' => [
             'The KOBA logo is inspired by the Ensete ventricosum plant, locally known as koba. Its design draws from the plant’s natural patterns, overlaid with the Ethiopian letters ኮባ, forming a continuous, harmonious cycle.',
@@ -419,14 +419,14 @@ return [
         'values_eyebrow' => 'What we hold to',
         'values_title' => 'What We|*Hold To.*',
         'values' => [
-            ['name' => 'Discipline in Craft', 'body' => 'We obsess over the details that matter — the layers of a croissant, the sheen of a glaze, the balance of flavors. Precision isn’t optional; it’s the foundation of every creation.'],
+            ['name' => 'Discipline in Craft', 'body' => 'We obsess over the details that matter: the layers of a croissant, the sheen of a glaze, the balance of flavors. Precision isn’t optional; it’s the foundation of every creation.'],
             ['name' => 'Intentional Luxury', 'body' => 'Everything we do is deliberate. No unnecessary decoration, no shortcuts, no filler. Luxury is in restraint, thought, and purpose.'],
             ['name' => 'Warmth Without Compromise', 'body' => 'Refinement doesn’t mean coldness. Every guest is welcomed, every service is thoughtful, and every interaction is human. Elegance and empathy go hand in hand.'],
             ['name' => 'Relentless Improvement', 'body' => 'We never settle. Every pastry, every sip, every service is an opportunity to get better, to refine, to surprise.'],
-            ['name' => 'Honest Indulgence', 'body' => 'Our desserts are rich, flavorful, and memorable — never gimmicky, never excessive.'],
+            ['name' => 'Honest Indulgence', 'body' => 'Our desserts are rich, flavorful, and memorable, never gimmicky, never excessive.'],
         ],
         'creator_eyebrow' => 'The Creator',
-        'creator' => 'KOBA crafts with imagination grounded in discipline. Every flavor is composed, every texture layered, every presentation intentional. Beauty is not decoration, it is discipline made visible — an art form you can taste and experience.',
+        'creator' => 'KOBA crafts with imagination grounded in discipline. Every flavor is composed, every texture layered, every presentation intentional. Beauty is not decoration, it is discipline made visible, an art form you can taste and experience.',
         // The pour: a scroll-driven coffee ritual between the hero and the chapters.
         'pour' => [
             'eyebrow' => 'The Pour',
@@ -447,7 +447,7 @@ return [
     'menu_page' => [
         'eyebrow' => 'The Menu',
         'title' => 'Something for|*Every Moment.*',
-        'lede' => 'Breakfast, lunch, pastries, and cakes — prepared in our kitchens across Addis Ababa.',
+        'lede' => 'Breakfast, lunch, pastries, and cakes, prepared in our kitchens across Addis Ababa.',
         'search' => 'Search the menu',
         'search_placeholder' => 'Try “croissant” or “salad”',
         'empty' => 'Nothing matches that yet. Try another word.',
@@ -637,14 +637,16 @@ return [
         'lede' => 'Four short steps. Our team will call you to confirm every detail.',
         'steps' => ['Your Details', 'Your Order', 'Your Request'],
         'review' => 'Review Your Order',
+        'review_empty' => 'Not added',
         'fields' => [
             'name' => 'Your name',
             'phone' => 'Phone number',
-            'phone_hint' => 'We call to confirm — e.g. +251 9XX XXX XXX',
+            'phone_hint' => 'We call to confirm, e.g. +251 9XX XXX XXX',
             'cake' => 'Cake',
-            'custom' => 'Something else — I’ll describe it',
+            'custom' => 'Something else (I’ll describe it)',
             'size' => 'Size',
             'branch' => 'Preferred branch for pickup',
+            'branch_placeholder' => 'Choose a branch',
             'date' => 'Preferred date',
             'date_hint' => 'Choose a date from tomorrow onwards.',
             'notes' => 'Special instructions',
@@ -656,7 +658,7 @@ return [
             'small' => 'Small',
             'medium' => 'Medium',
             'large' => 'Large',
-            'advise' => 'Not sure — please advise',
+            'advise' => 'Not sure, please advise',
         ],
         'items_empty' => 'Your cart is empty. Add a cake below, or browse the menu.',
         'items_required' => 'Add at least one item to your order.',
@@ -687,10 +689,10 @@ return [
     'experience_page' => [
         'eyebrow' => 'The Experience',
         'title' => 'More Than|*a Bakery.*',
-        'lede' => 'KOBA is a place to meet, relax, celebrate, and enjoy. A space that holds you — where a barista remembers, and every detail is composed.',
+        'lede' => 'KOBA is a place to meet, relax, celebrate, and enjoy. A space that holds you, where a barista remembers, and every detail is composed.',
         'intro_eyebrow' => 'The Ritual',
         'intro_title' => 'Every Moment Composed.|*Every Sense Invited.*',
-        'intro_body' => 'Koba is the Ethiopian name for the ensete plant — patient, resilient, rooted in tradition. We bring the same patience to every table: a morning croissant becomes a ceremony, an afternoon espresso becomes a pause, a slice of cake becomes memory.',
+        'intro_body' => 'Koba is the Ethiopian name for the ensete plant: patient, resilient, rooted in tradition. We bring the same patience to every table: a morning croissant becomes a ceremony, an afternoon espresso becomes a pause, a slice of cake becomes memory.',
         'intro_facts' => [
             ['value' => '2020', 'label' => 'Founded in Addis Ababa'],
             ['value' => '03', 'label' => 'Cafés across the city'],
@@ -707,18 +709,18 @@ return [
 
         'senses_eyebrow' => 'Five senses',
         'senses_title' => 'Details Tell|*the Story.*',
-        'senses_body' => 'Indulgence is never excess. It is thought, precision, and delight — in every bite, sip, and glance.',
+        'senses_body' => 'Indulgence is never excess. It is thought, precision, and delight in every bite, sip, and glance.',
         'senses' => [
             ['name' => 'Sight', 'line' => 'The shimmer of glaze, the curve of a plate.', 'image' => 'eclair'],
             ['name' => 'Sound', 'line' => 'The crack of a croissant, laminated in disciplined layers.', 'image' => 'craft-crumb'],
             ['name' => 'Scent', 'line' => 'The aroma of morning drifting through the café.', 'image' => 'drink-cappuccino'],
-            ['name' => 'Taste', 'line' => 'Flavor is language — of patience, choice, and care.', 'image' => 'pecan-tart'],
+            ['name' => 'Taste', 'line' => 'Flavor is a language of patience, choice, and care.', 'image' => 'pecan-tart'],
             ['name' => 'Touch', 'line' => 'A space that holds you, and room to stay a while.', 'image' => 'drink-iced-latte-terrace'],
         ],
 
         'atmosphere_eyebrow' => 'Atmosphere',
         'atmosphere_title' => 'Warm wood.|Green leaves.|*Quiet light.*',
-        'atmosphere_body' => 'Every KOBA is composed with the same calm presence — natural textures, generous light, and room to stay a while.',
+        'atmosphere_body' => 'Every KOBA is composed with the same calm presence: natural textures, generous light, and room to stay a while.',
         'atmosphere_hint' => 'Drag to turn',
 
         'hospitality_eyebrow' => 'Hospitality',
@@ -727,7 +729,7 @@ return [
 
         'craft_eyebrow' => 'Behind the counter',
         'craft_title' => 'Slow,|*thoughtful baking.*',
-        'craft_body' => 'We honor the art of slow, thoughtful baking — never rushed, never forced. Each product is given the time and care it deserves, creating moments that comfort, restore, and quiet the mind.',
+        'craft_body' => 'We honor the art of slow, thoughtful baking, never rushed, never forced. Each product is given the time and care it deserves, creating moments that comfort, restore, and quiet the mind.',
         'craft_steps' => [
             ['name' => 'Fold', 'line' => 'Butter folded into dough, layer by layer.', 'image' => 'craft-lamination'],
             ['name' => 'Proof', 'line' => 'Time given freely, never forced.', 'image' => 'craft-crumb'],
@@ -747,7 +749,7 @@ return [
     'contact' => [
         'eyebrow' => 'Contact',
         'title' => 'Let’s|*Talk.*',
-        'lede' => 'Questions, events, corporate orders, or a kind word — we would love to hear from you.',
+        'lede' => 'Questions, events, corporate orders, or a kind word. We would love to hear from you.',
         'by_phone' => 'By phone',
         'by_email' => 'By email',
         'form_title' => 'Send us a note',

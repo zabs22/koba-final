@@ -84,13 +84,12 @@
         </div>
     </section>
 
-    {{-- The name: ኮባ --}}
+    {{-- The name --}}
     <section class="namesake section is-sand" aria-labelledby="namesake-title">
         <x-site.leaf class="namesake__leaf" data-parallax="0.08" />
         <div class="wrap grid namesake__grid">
             <div class="namesake__mark" data-reveal="draw">
                 <x-site.mark />
-                <span class="ethiopic namesake__glyph" aria-hidden="true">ኮባ</span>
             </div>
             <div class="namesake__copy">
                 <p class="eyebrow" data-reveal>{{ __('koba.story.leaf_eyebrow') }}</p>
@@ -102,56 +101,24 @@
         </div>
     </section>
 
-    {{-- Purpose, mission, vision — interactive expanding cards --}}
-    @php
-        $pmvItems = [
-            'purpose' => ['img' => 'craft-lamination', 'icon' => '✦'],
-            'mission' => ['img' => 'almond-croissant',  'icon' => '◈'],
-            'vision'  => ['img' => 'cake-opera-caramel','icon' => '◉'],
-        ];
-    @endphp
-    <section class="pmv-section section is-dark" aria-label="{{ __('koba.story.purpose_eyebrow') }}">
+    {{-- Purpose, mission, vision: a quiet three-line creed --}}
+    <section class="creed section is-dark" aria-labelledby="creed-title">
         <div class="wrap">
-            <div class="pmv-deck" data-pmv-deck>
-                @foreach ($pmvItems as $key => $meta)
-                    @php($idx = $loop->index)
-                    <div class="pmv-panel {{ $loop->first ? 'is-open' : '' }}"
-                         data-pmv-panel
-                         role="button"
-                         tabindex="0"
-                         aria-expanded="{{ $loop->first ? 'true' : 'false' }}"
-                         style="--i: {{ $idx }}">
-
-                        {{-- collapsed label (visible when closed) --}}
-                        <div class="pmv-panel__label">
-                            <span class="pmv-panel__icon">{{ $meta['icon'] }}</span>
-                            <span class="pmv-panel__title-vert">{{ __("koba.story.{$key}_eyebrow") }}</span>
-                        </div>
-
-                        {{-- expanded content --}}
-                        <div class="pmv-panel__body">
-                            <div class="pmv-panel__media">
-                                <img class="pmv-panel__img"
-                                     src="/images/koba/{{ $meta['img'] }}-960.webp"
-                                     alt="{{ __("koba.story.{$key}_eyebrow") }}"
-                                     loading="lazy">
-                            </div>
-                            <div class="pmv-panel__content">
-                                <span class="pmv-panel__num">{{ str_pad($idx + 1, 2, '0', STR_PAD_LEFT) }}</span>
-                                <h3 class="pmv-panel__heading">{{ __("koba.story.{$key}_eyebrow") }}</h3>
-                                <div class="pmv-panel__rule"></div>
-                                <p class="pmv-panel__text">{{ __("koba.story.$key") }}</p>
-                            </div>
-                        </div>
-
-                    </div>
-                @endforeach
+            <div class="creed__head" data-reveal="draw">
+                <x-site.mark />
+                <h2 class="eyebrow eyebrow--plain" id="creed-title">{{ __('koba.story.purpose_eyebrow') }} · {{ __('koba.story.mission_eyebrow') }} · {{ __('koba.story.vision_eyebrow') }}</h2>
             </div>
+            <ol class="list-reset creed__list">
+                @foreach (['purpose', 'mission', 'vision'] as $key)
+                    <li class="creed__item grid" data-reveal style="--d: {{ $loop->index }}">
+                        <span class="creed__no" aria-hidden="true">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
+                        <h3 class="creed__label">{{ __("koba.story.{$key}_eyebrow") }}</h3>
+                        <p class="creed__text">{{ __("koba.story.$key") }}</p>
+                    </li>
+                @endforeach
+            </ol>
         </div>
     </section>
-
-    {{-- What We Stand For: the brand values as a scroll-driven track (resources/js/site/home.js → initPillarsSection) --}}
-    @include('site.sections.pillars')
 
     {{-- Values --}}
     <section class="values section" aria-labelledby="values-title">
@@ -173,6 +140,8 @@
             </ol>
         </div>
     </section>
+
+    {{-- What We Stand For (brand values) is saved in site.sections.pillars but not shown. --}}
 
     @include('site.sections.philosophy')
 
@@ -202,7 +171,7 @@
                 <div class="koba-creator__frame">
                     <img
                         src="{{ asset('images/koba/15.png') }}"
-                        alt="A perfectly glazed KOBA éclair resting on a dark surface, its caramel coating flawlessly smooth and decorated with a single chocolate pearl — a study in precision pastry craft"
+                        alt="A perfectly glazed KOBA éclair resting on a dark surface, its caramel coating flawlessly smooth and decorated with a single chocolate pearl, a study in precision pastry craft"
                         width="1100"
                         height="1500"
                         loading="lazy"
@@ -255,7 +224,7 @@
                 <div class="koba-creator__closing" data-creator-closing>
                     <div class="koba-creator__closing-rule" aria-hidden="true"></div>
                     <p class="koba-creator__closing-text">
-                        Beauty is not decoration. It is discipline made visible&nbsp;—
+                        Beauty is not decoration. It is discipline made visible,
                         <em class="koba-creator__closing-em">an art form you can taste and experience.</em>
                     </p>
                 </div>

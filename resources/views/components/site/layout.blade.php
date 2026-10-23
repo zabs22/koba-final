@@ -101,7 +101,17 @@
         </div>
     </div>
 
-    <div class="curtain" aria-hidden="true"><x-site.mark /></div>
+    <div class="curtain" aria-hidden="true">
+        <div class="curtain__stage">
+            <span class="curtain__glow"></span>
+            <span class="curtain__ripple"></span>
+            <x-site.mark />
+            <span class="curtain__ground"></span>
+            @foreach ([[-34, 0], [-14, 90], [8, 40], [26, 140], [42, 70], [-46, 180]] as [$x, $d])
+                <i class="curtain__mote" style="--x: {{ $x }}px; --d: {{ $d }}ms"></i>
+            @endforeach
+        </div>
+    </div>
 
     @include('site.partials.header', ['page' => $page])
 

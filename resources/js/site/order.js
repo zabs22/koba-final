@@ -192,7 +192,7 @@ export function initOrderForm() {
             if (control.tagName === 'SELECT') return control.selectedOptions[0]?.value ? control.selectedOptions[0].textContent : '';
             return control.value.trim();
         };
-        $$('[data-review-for]', form).forEach((dd) => { dd.textContent = text(dd.dataset.reviewFor) || '—'; });
+        $$('[data-review-for]', form).forEach((dd) => { dd.textContent = text(dd.dataset.reviewFor) || dd.dataset.empty; });
     };
 
     next.addEventListener('click', () => {
