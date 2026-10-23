@@ -19,11 +19,6 @@
             </ul>
         </nav>
 
-        <button class="header__cart" type="button" data-cart-open aria-controls="cart" aria-expanded="false" aria-label="{{ __('koba.cart.open') }}">
-            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8Z M9 8V6.5a3 3 0 0 1 6 0V8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
-            <span class="header__cart-count" data-cart-count hidden>0</span>
-        </button>
-
         <a class="btn header__cta" href="{{ route('order') }}" @if ($current('order')) aria-current="page" @endif>
             {{ __('koba.ui.order_cake') }}
         </a>
@@ -78,4 +73,24 @@
             <a class="btn btn--sand cart__checkout" href="{{ route('order') }}" data-cart-checkout>{{ __('koba.cart.checkout') }} <x-site.arrow /></a>
         </footer>
     </aside>
+</div>
+
+{{-- The mesob: the cart as a woven basket, docked bottom-right (drawn and animated by mesob.js). --}}
+<button class="mesob" type="button" data-mesob data-cart-open aria-controls="cart" aria-expanded="false" aria-label="{{ __('koba.cart.open') }}" hidden>
+    <span class="mesob__float">
+        <span class="mesob__shadow" aria-hidden="true"></span>
+        <span class="mesob__tilt">
+            <svg class="mesob__art" viewBox="0 0 160 200" aria-hidden="true" data-mesob-art></svg>
+            <span class="mesob__count" data-mesob-count aria-hidden="true" hidden>0</span>
+        </span>
+    </span>
+    <span class="mesob__label" aria-hidden="true">{{ __('koba.cart.title') }}</span>
+</button>
+
+<div class="mesob-toast" role="status" data-mesob-toast>
+    <img class="mesob-toast__img" alt="" data-mesob-toast-img hidden>
+    <span class="mesob-toast__text">
+        <span class="mesob-toast__kicker">{{ __('koba.cart.mesob_added') }}</span>
+        <span class="mesob-toast__title" data-mesob-toast-title></span>
+    </span>
 </div>

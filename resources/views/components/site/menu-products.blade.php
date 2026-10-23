@@ -52,7 +52,11 @@
                     @if (in_array($product['slug'], $cakeSlugs, true)) data-cake @endif
                     aria-label="{{ __('koba.cart.add') }}: {{ $title }}">
                 <span class="menu-product__add-label" data-cart-add-label>{{ __('koba.cart.add') }}</span>
-                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                {{-- A little mesob whose lid tips open --}}
+                <svg class="menu-product__mesob" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round">
+                    <path class="menu-product__mesob-lid" d="M12 2.5c.9 0 1.3 3 2.4 5 1.2 2.1 3.6 3.1 6.6 3.5H3c3-.4 5.4-1.4 6.6-3.5 1.1-2 1.5-5 2.4-5Z"/>
+                    <path d="M4.2 13h15.6c-.5 2.5-2.6 3.9-4.9 4.3l.9 4.2H8.2l.9-4.2C6.8 16.9 4.7 15.5 4.2 13Z"/>
+                </svg>
             </button>
         </li>
     @endforeach

@@ -427,6 +427,21 @@ return [
         ],
         'creator_eyebrow' => 'The Creator',
         'creator' => 'KOBA crafts with imagination grounded in discipline. Every flavor is composed, every texture layered, every presentation intentional. Beauty is not decoration, it is discipline made visible — an art form you can taste and experience.',
+        // The pour: a scroll-driven coffee ritual between the hero and the chapters.
+        'pour' => [
+            'eyebrow' => 'The Pour',
+            'title' => 'A cup of coffee, poured as a ritual.',
+            'alt' => 'A cream ceramic cup on its saucer, on a dark wooden table in warm afternoon light, waiting to be filled.',
+            'skip' => 'Skip',
+            'cue' => 'Addis Ababa · Since 2020',
+            'steps' => [
+                ['label' => 'The cup', 'title' => 'Every ritual|*begins empty.*', 'body' => 'A clean cup. A quiet table. Nothing hurried, nothing missing — the stillness every KOBA moment begins with.'],
+                ['label' => 'The pot', 'title' => 'Patience,|*carried by hand.*', 'body' => 'In Ethiopia, coffee is never simply served. It is brewed slowly and brought to the table with intention — the same patience we give every dough and every glaze.'],
+                ['label' => 'The pour', 'title' => 'One deliberate|*pour.*', 'body' => 'A single, unbroken stream from a steady hand. Precision you can watch — the discipline we fold into every layer of a croissant.'],
+                ['label' => 'The aroma', 'title' => 'Aroma, before|*the first sip.*', 'body' => 'Details tell the story: warmth rising from the cup, the aroma of morning drifting through the café. Every sense invited.'],
+                ['label' => 'The ritual', 'title' => 'An afternoon cup|*becomes a pause.*', 'body' => 'This is what we mean by ritual: the ordinary, made deliberate. It is how KOBA began — and how every visit should feel.'],
+            ],
+        ],
     ],
 
     'menu_page' => [
@@ -585,6 +600,7 @@ return [
     'cart' => [
         'add' => 'Add to cart',
         'added' => 'Added',
+        'mesob_added' => 'Added to your mesob',
         'open' => 'Open your cart',
         'title' => 'Your Cart',
         'empty' => 'Your cart is empty. Add something from the menu.',

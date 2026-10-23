@@ -6,6 +6,9 @@
         'slides' => [['croissant', '50% 55%'], ['craft-almond', '50% 45%'], ['craft-crumb', '50% 50%'], ['opera-slice', '50% 60%']],
     ])
 
+    {{-- The pour: a cup filled as you scroll (resources/js/site/pour.js) --}}
+    @include('site.sections.pour')
+
     {{-- Chapters --}}
     @php
         $seals = ['Est. 2020 · Addis Ababa · KOBA Patisserie & Bakery ·', 'Laminated · Glazed · Finished by hand ·', 'Sanford · Bole Atlas · 4 Killo · KOBA ·'];

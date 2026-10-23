@@ -1,0 +1,503 @@
+/* ==========================================================================
+   OUR STORY — The pour (resources/views/site/sections/pour.blade.php)
+   One photograph cut into layers that share its 764 × 1024 frame. Every
+   position below is a percentage of that frame. Static by default (the cup
+   mid-pour beside all five steps); .is-live is set by resources/js/site/pour.js.
+   ========================================================================== */
+
+.pour {
+    --frame-ratio: 0.7461;
+    --pivot: 94.241% 2.93%; /* the hand on the pot's handle */
+    --cup: 54.45% 62.5%;    /* the camera leans in here */
+    position: relative;
+    background: var(--g-950);
+    color: var(--on-dark);
+}
+
+.pour__stage {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    display: grid;
+    min-height: 100vh;
+    min-height: 100svh;
+}
+
+/* ---- The room ------------------------------------------------------------ */
+
+.pour__backdrop { position: absolute; inset: -6%; z-index: -3; }
+.pour__backdrop img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 62% 40%;
+    filter: blur(14px) saturate(1.15) brightness(0.7);
+    transform: translate3d(calc(var(--mx, 0) * -14px), calc(var(--my, 0) * -10px), 0) scale(1.08);
+}
+
+/* KOBA green holds the type; the photograph breathes on the right (as in the page hero). */
+.pour__shade {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background:
+        radial-gradient(90% 80% at 64% 46%, rgba(3, 35, 26, 0) 40%, rgba(3, 35, 26, 0.62) 100%),
+        linear-gradient(90deg, rgba(3, 35, 26, 0.97) 0%, rgba(6, 46, 34, 0.9) 30%, rgba(10, 61, 45, 0.42) 50%, rgba(10, 61, 45, 0) 66%);
+}
+.pour__shade::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--pattern-sand) 0 0 / 88px auto;
+    opacity: 0.045;
+    -webkit-mask-image: linear-gradient(90deg, #000 0%, transparent 46%);
+    mask-image: linear-gradient(90deg, #000 0%, transparent 46%);
+}
+
+/* ቡና — coffee, written large and barely there */
+.pour__ghost {
+    position: absolute;
+    z-index: -1;
+    left: calc(var(--gutter) * 0.6);
+    bottom: -0.24em;
+    font-size: clamp(11rem, 27vw, 30rem);
+    font-weight: 600;
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(230, 190, 126, 0.1);
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+    translate: 0 calc(var(--pour-p, 0) * -9%);
+}
+
+/* ---- The photograph ------------------------------------------------------- */
+
+.pour__window {
+    --frame-h: min(112vh, 150vw);
+    --frame-h: min(112svh, 150vw);
+    --frame-w: calc(var(--frame-h) * var(--frame-ratio));
+    position: absolute;
+    top: -3vh;
+    top: -3svh;
+    left: calc(63% - var(--frame-w) * 0.545);
+    width: var(--frame-w);
+    height: var(--frame-h);
+    perspective: 1600px;
+    -webkit-mask-image:
+        linear-gradient(90deg, transparent 0%, #000 17%, #000 82%, transparent 100%),
+        linear-gradient(180deg, transparent 0%, #000 8%, #000 86%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-image:
+        linear-gradient(90deg, transparent 0%, #000 17%, #000 82%, transparent 100%),
+        linear-gradient(180deg, transparent 0%, #000 8%, #000 86%, transparent 100%);
+    mask-composite: intersect;
+}
+
+.pour__frame {
+    position: absolute;
+    inset: 0;
+    transform-origin: var(--cup);
+    transform: rotateY(calc(var(--mx, 0) * 2.2deg)) rotateX(calc(var(--my, 0) * -1.6deg)) scale(var(--cam, 1.02));
+}
+.pour__frame > * { position: absolute; }
+.pour__frame img { max-width: none; }
+
+.pour__base { inset: 0; width: 100%; height: 100%; }
+
+/* The room warms as the cup fills: lamp-light on the cup, sun from the window. */
+.pour__glow {
+    inset: 0;
+    background:
+        radial-gradient(30% 20% at 54% 60%, rgba(255, 184, 108, 0.5), rgba(255, 184, 108, 0) 72%),
+        radial-gradient(34% 46% at 14% 26%, rgba(255, 206, 150, 0.32), rgba(255, 206, 150, 0) 70%);
+    mix-blend-mode: soft-light;
+    opacity: 0.85;
+    pointer-events: none;
+}
+
+/* The liquid lives inside the rim; below the rim's front edge, the cup wall hides it. */
+.pour__cup {
+    left: 34.424%;
+    top: 55.078%;
+    width: 35.995%;
+    height: 7.227%;
+    clip-path: ellipse(54.909% 47.297% at 55.636% 47.297%);
+}
+.pour__liquid { position: absolute; inset: 0; transform-origin: 55% 40%; }
+.pour__coffee { position: absolute; inset: 0; width: 100%; height: 100%; }
+.pour__coffee--still { opacity: 0; }
+
+.pour__ripples {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    fill: none;
+    stroke: rgba(222, 170, 112, 0.55);
+    stroke-width: 1;
+    pointer-events: none;
+}
+.pour__ripples ellipse {
+    vector-effect: non-scaling-stroke;
+    transform-box: fill-box;
+    transform-origin: center;
+    opacity: 0;
+}
+.pour:not(.is-live) .pour__ripples ellipse,
+.pour.is-pouring .pour__ripples ellipse { animation: pour-ripple 1.9s var(--ease-out) infinite; }
+.pour__ripples ellipse:nth-child(2) { animation-delay: 0.63s; }
+.pour__ripples ellipse:nth-child(3) { animation-delay: 1.26s; }
+
+/* Steam from the photograph — it sways while the shader breathes around it. */
+.pour__steam-photo {
+    left: 25.262%;
+    top: 5.664%;
+    width: 39.529%;
+    height: auto;
+    opacity: 0.85;
+    transform-origin: 62% 100%;
+    animation: pour-waft 7s ease-in-out infinite alternate;
+    pointer-events: none;
+}
+
+.pour__hand { inset: 0; transform-origin: var(--pivot); }
+.pour.is-pouring .pour__hand { animation: pour-hold 3.4s ease-in-out infinite; }
+
+.pour__stream {
+    --from: 0%;
+    --to: 92.55%; /* the surface of the full cup */
+    position: absolute;
+    left: 47.382%;
+    top: 28.223%;
+    width: 13.351%;
+    aspect-ratio: 102 / 349;
+    -webkit-mask-image: linear-gradient(180deg, transparent var(--from), #000 calc(var(--from) + 1.6%), #000 calc(var(--to) - 3.2%), transparent var(--to));
+    mask-image: linear-gradient(180deg, transparent var(--from), #000 calc(var(--from) + 1.6%), #000 calc(var(--to) - 3.2%), transparent var(--to));
+}
+.pour__stream img { display: block; width: 100%; height: 100%; }
+/* Light travelling down the stream, kept inside its silhouette. */
+.pour__stream::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(180deg, rgba(255, 214, 160, 0) 0, rgba(255, 214, 160, 0) 22px, rgba(255, 222, 176, 0.75) 30px, rgba(255, 214, 160, 0) 38px, rgba(255, 214, 160, 0) 56px);
+    background-size: 100% 56px;
+    -webkit-mask: var(--src) center / 100% 100% no-repeat;
+    mask: var(--src) center / 100% 100% no-repeat;
+    mix-blend-mode: screen;
+    opacity: 0.4;
+    animation: pour-flow 0.55s linear infinite;
+}
+.pour.is-live:not(.is-pouring) .pour__stream::after { animation-play-state: paused; opacity: 0; }
+
+.pour__pot {
+    position: absolute;
+    inset: 0;
+    transform-origin: var(--pivot);
+    translate: calc(var(--mx, 0) * 9px) calc(var(--my, 0) * 6px);
+}
+.pour__pot img { position: absolute; left: 56.283%; top: 0; width: 43.717%; height: auto; }
+
+.pour__steam {
+    left: 20.942%;
+    top: 2.93%;
+    width: 68.063%;
+    height: 57.813%;
+    display: none;
+    pointer-events: none;
+    translate: calc(var(--mx, 0) * 5px) calc(var(--my, 0) * 3px);
+}
+.pour.has-steam .pour__steam { display: block; }
+
+/* Dust in the window light */
+.pour__motes { inset: 0; display: none; pointer-events: none; }
+.pour.is-live .pour__motes { display: block; }
+.pour__motes i {
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: rgba(255, 228, 186, 0.9);
+    box-shadow: 0 0 6px 1px rgba(255, 206, 140, 0.55);
+    opacity: 0;
+    animation: pour-mote var(--t) linear var(--d) infinite;
+}
+.pour__motes i:nth-child(1) { --x: 8%; --y: 44%; --t: 17s; --d: -2s; }
+.pour__motes i:nth-child(2) { --x: 18%; --y: 30%; --t: 21s; --d: -9s; }
+.pour__motes i:nth-child(3) { --x: 12%; --y: 18%; --t: 19s; --d: -14s; width: 2px; height: 2px; }
+.pour__motes i:nth-child(4) { --x: 26%; --y: 40%; --t: 24s; --d: -5s; width: 2px; height: 2px; }
+.pour__motes i:nth-child(5) { --x: 5%; --y: 26%; --t: 16s; --d: -11s; }
+.pour__motes i:nth-child(6) { --x: 22%; --y: 12%; --t: 22s; --d: -17s; width: 2px; height: 2px; }
+.pour__motes i:nth-child(7) { --x: 30%; --y: 24%; --t: 26s; --d: -7s; }
+
+/* ---- Copy ----------------------------------------------------------------- */
+
+.pour__inner {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    align-items: center;
+    padding-block: calc(var(--header-h) + 40px) 64px;
+    pointer-events: none;
+}
+.pour__copy {
+    display: grid;
+    gap: clamp(22px, 2.6vw, 34px);
+    justify-items: start;
+    width: min(100%, 36rem);
+    pointer-events: auto;
+}
+.pour__eyebrow { color: var(--sand); }
+.pour__eyebrow .ethiopic { font-size: 1.2em; letter-spacing: 0.08em; }
+
+.pour__steps { display: grid; gap: 40px; }
+.pour__step { display: grid; gap: 18px; justify-items: start; }
+
+.pour__label {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    color: var(--on-dark-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.24em;
+}
+.pour__label span { color: var(--sand); font-weight: 800; letter-spacing: 0.14em; }
+
+.pour__title { font-size: var(--t-m); color: var(--cream); }
+.pour .display em { color: var(--sand); }
+
+.pour__body {
+    max-width: 40ch;
+    color: var(--on-dark-soft);
+    font-size: var(--t-lede);
+    line-height: 1.55;
+}
+
+.pour__cue {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 6px;
+    color: var(--sand);
+    text-transform: uppercase;
+    letter-spacing: 0.24em;
+}
+.pour__cue .mark { width: 11px; flex: none; stroke-width: 34; }
+
+.pour__meter { display: none; }
+
+/* ---- Rail & skip (scroll-driven mode only) -------------------------------- */
+
+.pour__rail,
+.pour__skip { display: none; }
+
+/* ==========================================================================
+   Static: the cup mid-pour beside the five steps
+   ========================================================================== */
+
+@media (min-width: 900px) {
+    .pour:not(.is-live) .pour__inner { min-height: 100vh; min-height: 100svh; }
+    .pour:not(.is-live) .pour__steps { gap: 30px; }
+    .pour:not(.is-live) .pour__title { font-size: var(--t-s); }
+    .pour:not(.is-live) .pour__body { font-size: var(--t-body); }
+}
+
+/* ==========================================================================
+   Live: pinned for the length of the pour
+   ========================================================================== */
+
+.pour.is-live {
+    height: calc(var(--steps) * 84vh + 100vh);
+    height: calc(var(--steps) * 84svh + 100svh);
+}
+.pour.is-live .pour__stage {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    height: 100svh;
+}
+.pour.is-live .pour__frame { will-change: transform; }
+.pour.is-live .pour__pot,
+.pour.is-live .pour__liquid,
+.pour.is-live .pour__stream { will-change: transform, opacity; }
+
+.pour.is-live .pour__steps { gap: 0; }
+.pour.is-live .pour__step {
+    grid-area: 1 / 1;
+    visibility: hidden;
+    transition: visibility 0s linear 0.9s;
+}
+.pour.is-live .pour__step.is-current { visibility: visible; transition-delay: 0s; }
+.pour.is-live .pour__title { font-size: clamp(2.4rem, 4.3vw, 4.9rem); }
+
+.pour.is-live .pour__step .line > span {
+    transform: translate3d(0, 112%, 0);
+    transition: transform 1s var(--ease-out);
+    transition-delay: calc(var(--l, 0) * 0.08s);
+}
+.pour.is-live .pour__step.is-past .line > span { transform: translate3d(0, -112%, 0); transition-duration: 0.6s; transition-delay: 0s; }
+.pour.is-live .pour__step.is-current .line > span { transform: none; transition-delay: calc(0.12s + var(--l, 0) * 0.08s); }
+
+.pour.is-live .pour__label,
+.pour.is-live .pour__body,
+.pour.is-live .pour__cue {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+    transition: opacity 0.5s var(--ease), transform 0.8s var(--ease-out);
+}
+.pour.is-live .pour__step.is-past .pour__label,
+.pour.is-live .pour__step.is-past .pour__body,
+.pour.is-live .pour__step.is-past .pour__cue { transform: translate3d(0, -14px, 0); }
+.pour.is-live .pour__step.is-current .pour__label { opacity: 1; transform: none; transition-delay: 0.05s; }
+.pour.is-live .pour__step.is-current .pour__body { opacity: 1; transform: none; transition-delay: 0.32s; }
+.pour.is-live .pour__step.is-current .pour__cue { opacity: 1; transform: none; transition-delay: 0.5s; }
+
+.pour.is-live .pour__meter {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-top: clamp(4px, 1vw, 14px);
+    color: var(--on-dark-soft);
+}
+.pour__count b { color: var(--cream); font-weight: 800; }
+.pour__bar { width: clamp(110px, 12vw, 180px); height: 1px; background: var(--line-dark); overflow: hidden; }
+.pour__bar i { display: block; height: 100%; background: var(--sand); transform-origin: left; transform: scaleX(var(--pour-p, 0)); }
+
+.pour.is-live .pour__rail {
+    position: absolute;
+    right: var(--gutter);
+    top: 50%;
+    z-index: 2;
+    display: grid;
+    gap: 16px;
+    justify-items: end;
+    translate: 0 -50%;
+}
+.pour__tick {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: rgba(255, 245, 230, 0.4);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: color 0.5s var(--ease);
+}
+.pour__tick i { position: relative; width: 26px; height: 1px; background: rgba(255, 245, 230, 0.22); overflow: hidden; }
+.pour__tick i::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--sand);
+    transform-origin: left;
+    transform: scaleX(var(--f, 0));
+}
+.pour__tick.is-past { color: var(--on-dark-soft); }
+.pour__tick.is-current { color: var(--sand); }
+
+.pour.is-live .pour__skip {
+    position: absolute;
+    top: calc(var(--header-h) + 20px);
+    right: var(--gutter);
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 16px;
+    border: 1px solid var(--line-dark);
+    color: var(--on-dark);
+    font-size: var(--t-micro);
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    transition: background-color 0.4s var(--ease), color 0.4s var(--ease), border-color 0.4s var(--ease), opacity 0.5s var(--ease);
+}
+.pour__skip-icon { width: 16px; height: 16px; transform: rotate(90deg); transition: transform 0.5s var(--ease-out); }
+.pour__skip:hover,
+.pour__skip:focus-visible { background: var(--sand); border-color: var(--sand); color: var(--g-900); }
+.pour__skip:hover .pour__skip-icon,
+.pour__skip:focus-visible .pour__skip-icon { transform: rotate(90deg) translateX(3px); }
+.pour.is-done .pour__skip { opacity: 0; pointer-events: none; }
+.pour :focus-visible { outline-color: var(--sand); }
+
+/* ==========================================================================
+   Phones & small tablets: the photograph above, the words below
+   ========================================================================== */
+
+@media (max-width: 899px) {
+    .pour__shade {
+        background:
+            linear-gradient(180deg, rgba(3, 35, 26, 0.35) 0%, rgba(3, 35, 26, 0) 22%, rgba(3, 35, 26, 0) 44%, rgba(3, 35, 26, 0.9) 62%, var(--g-950) 78%);
+    }
+    .pour__shade::after { display: none; }
+    .pour__ghost { left: auto; right: -0.08em; bottom: auto; top: 46%; font-size: 52vw; }
+
+    .pour__window {
+        --frame-h: min(136vw, 64vh);
+        --frame-h: min(136vw, 64svh);
+        top: 0;
+        left: calc(50% - var(--frame-w) * 0.5);
+        -webkit-mask-image:
+            linear-gradient(90deg, transparent 0%, #000 10%, #000 90%, transparent 100%),
+            linear-gradient(180deg, transparent 0%, #000 6%, #000 78%, transparent 100%);
+        mask-image:
+            linear-gradient(90deg, transparent 0%, #000 10%, #000 90%, transparent 100%),
+            linear-gradient(180deg, transparent 0%, #000 6%, #000 78%, transparent 100%);
+    }
+
+    .pour__inner {
+        align-items: end;
+        padding-top: calc(min(136vw, 64vh) * 0.82);
+        padding-top: calc(min(136vw, 64svh) * 0.82);
+        padding-bottom: 36px;
+    }
+    .pour.is-live .pour__inner { padding-top: 0; padding-bottom: max(28px, env(safe-area-inset-bottom)); }
+    .pour__copy { gap: 18px; }
+    .pour__eyebrow { display: none; }
+    .pour.is-live .pour__title { font-size: clamp(2rem, 8.6vw, 3rem); }
+    .pour__body { font-size: var(--t-body); }
+    .pour.is-live .pour__step { gap: 12px; }
+
+    .pour.is-live .pour__rail { display: none; }
+    .pour.is-live .pour__skip { top: auto; bottom: max(28px, env(safe-area-inset-bottom)); padding: 9px 12px; }
+}
+
+@media (max-width: 899px) and (max-height: 640px) {
+    .pour.is-live .pour__body { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+}
+
+/* ---- Keyframes ------------------------------------------------------------ */
+
+@keyframes pour-ripple {
+    0% { opacity: 0; transform: scale(0.12); }
+    18% { opacity: 0.9; }
+    100% { opacity: 0; transform: scale(1.7); }
+}
+@keyframes pour-waft {
+    from { transform: translate3d(0, 0, 0) skewX(0deg) scaleY(1); }
+    to { transform: translate3d(-1.6%, -2.4%, 0) skewX(-3deg) scaleY(1.05); }
+}
+@keyframes pour-hold {
+    0%, 100% { rotate: 0deg; }
+    50% { rotate: 0.45deg; }
+}
+@keyframes pour-flow { to { background-position: 0 56px; } }
+@keyframes pour-mote {
+    0% { opacity: 0; transform: translate3d(0, 0, 0); }
+    15% { opacity: 0.8; }
+    55% { opacity: 0.35; }
+    80% { opacity: 0.7; }
+    100% { opacity: 0; transform: translate3d(38px, -120px, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pour__steam-photo,
+    .pour__stream::after,
+    .pour__ripples ellipse,
+    .pour__hand { animation: none !important; }
+}

@@ -1,4 +1,5 @@
 import { $, $$ } from './util';
+import { initMesob } from './mesob';
 
 /*
  * Cart: kept in this browser only (localStorage), no prices. Checkout hands the
@@ -31,9 +32,9 @@ export function initCart() {
     const foot = $('[data-cart-foot]', root);
     const panel = $('.cart__panel', root);
     const openers = $$('[data-cart-open]');
-    const counts = $$('[data-cart-count]');
     let items = load();
     let lastFocus = null;
+    const mesob = initMesob({ total: () => items.reduce((sum, item) => sum + item.qty, 0) });
 
     const el = (tag, cls, text) => {
         const node = document.createElement(tag);
@@ -43,8 +44,7 @@ export function initCart() {
     };
 
     const render = () => {
-        const total = items.reduce((sum, item) => sum + item.qty, 0);
-        counts.forEach((c) => { c.textContent = total; c.hidden = total === 0; });
+        mesob?.sync();
 
         list.replaceChildren(...items.map((item) => {
             const row = el('li', 'cart__item');
@@ -126,14 +126,16 @@ export function initCart() {
             const existing = items.find((item) => item.slug === slug);
             if (existing) existing.qty += 1;
             else items.push({ slug, name, title, image, cake: button.hasAttribute('data-cake'), qty: 1 });
+            // Into the mesob first, so its count waits for the item to land. The drawer stays
+            // shut so the basket can be seen catching it.
+            mesob?.drop(button, { title, image });
             save(items);
             render();
 
             button.classList.add('is-added');
             label.textContent = button.dataset.labelAdded || '✓';
             setTimeout(() => { button.classList.remove('is-added'); label.textContent = initial; }, 1600);
-            counts.forEach((c) => { c.classList.remove('is-bump'); void c.offsetWidth; c.classList.add('is-bump'); });
-            open();
+            if (!mesob) open();
         });
     });
 
