@@ -45,7 +45,9 @@
                     <span class="xp-day__sun" data-xp-sun></span>
                     <ol class="list-reset xp-day__marks">
                         @foreach ($xp['day'] as $moment)
-                            <li class="{{ $loop->first ? 'is-on' : '' }}" data-xp-mark>{{ $moment['hour'] }} · {{ $moment['time'] }}</li>
+                            <li class="{{ $loop->first ? 'is-on is-now' : '' }}" data-xp-mark>
+                                <button class="xp-day__mark" type="button" tabindex="-1"><span class="xp-day__mark-hour">{{ $moment['hour'] }}</span><span class="xp-day__mark-dot"> · </span><span>{{ $moment['time'] }}</span></button>
+                            </li>
                         @endforeach
                     </ol>
                 </div>
@@ -70,12 +72,15 @@
                                         </figure>
                                     @endforeach
                                 </div>
+                                <button class="xp-act__shuffle" type="button" data-xp-shuffle aria-label="{{ $xp['day_shuffle'] }}">
+                                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M19 12a7 7 0 1 1-2.05-4.95M19 4v4h-4" /></svg>
+                                </button>
                             </div>
                         </article>
                     @endforeach
                 </div>
 
-                <p class="xp-day__hint" aria-hidden="true">{{ $xp['day_hint'] }}</p>
+                <p class="xp-day__hint" aria-hidden="true"><span class="xp-day__hint-scroll">{{ $xp['day_hint'] }}</span><span class="xp-day__hint-swipe">{{ $xp['day_swipe'] }} <x-site.arrow /></span></p>
             </div>
         </section>
 

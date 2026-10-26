@@ -701,6 +701,8 @@ return [
 
         'day_eyebrow' => 'A day at KOBA',
         'day_hint' => 'Scroll to move through the day',
+        'day_swipe' => 'Swipe through the day',
+        'day_shuffle' => 'Shuffle the photos',
         'day' => [
             ['time' => 'Morning', 'hour' => '07:00', 'title' => 'Morning light|*into ceremony.*', 'body' => 'Come for your morning coffee and pastry. The crack of a croissant, the aroma of morning drifting through the café.', 'images' => ['croissant', 'drink-flat-white', 'almond-croissant']],
             ['time' => 'Afternoon', 'hour' => '14:00', 'title' => 'Afternoon pause|*into ritual.*', 'body' => 'Stay for lunch. Meet your friends. Let an espresso become a pause, or a pot of tea become a conversation.', 'images' => ['drink-tea-pour', 'opera-slice', 'drink-iced-mocha']],

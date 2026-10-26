@@ -1583,6 +1583,117 @@
     color: var(--g-900);
     opacity: calc(0.7 - var(--p, 0) * 2);
 }
+.xp-day__mark { letter-spacing: inherit; text-transform: inherit; line-height: inherit; }
+.xp-day__hint-swipe,
+.xp-act__shuffle { display: none; }
+
+/* Small screens. Pinned (motion allowed, tall screen): scrolling moves the day
+   sideways as on desktop, each act fitted to one screen. Otherwise the acts
+   swipe sideways under a sticky sky. Either way the hours jump on tap and the
+   photos shuffle. */
+@media (max-width: 899px) {
+    .xp-act__copy { grid-column: 1 / -1; grid-row: 2; }
+    .xp-stack { grid-column: 1 / -1; grid-row: 1; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+    .xp-act__hour { left: 0; }
+
+    /* Swipe mode */
+    .xp-day:not(.is-pinned) .xp-day__sticky { position: relative; }
+    .xp-day:not(.is-pinned) .xp-day__track {
+        display: flex;
+        overflow-x: auto;
+        overscroll-behavior-x: contain;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+    }
+    .xp-day__track::-webkit-scrollbar { display: none; }
+    .xp-day:not(.is-pinned) .xp-act { flex: 0 0 100%; padding-block: 28px 92px; scroll-snap-align: start; scroll-snap-stop: always; }
+    .xp-day:not(.is-pinned) .xp-act__grid { height: auto; align-items: start; row-gap: 36px; }
+    .xp-day:not(.is-pinned) .xp-act__copy { gap: 22px; }
+    .xp-day:not(.is-pinned) .xp-stack { height: clamp(300px, 86vw, 440px); }
+    .xp-day:not(.is-pinned) .xp-day__sky {
+        display: block;
+        position: sticky;
+        top: var(--header-h);
+        left: auto;
+        right: auto;
+        height: 84px;
+        background: var(--sky-bg, var(--cream));
+        transition: color 0.8s var(--ease), top 0.7s var(--ease-out);
+    }
+    .header-hidden .xp-day:not(.is-pinned) .xp-day__sky { top: 0; }
+
+    /* Pinned mode — the bottom padding keeps content clear of the browser bars;
+       --stack-h (set by JS) is the room the words leave for the photos. */
+    .xp-day.is-pinned { height: calc(var(--acts) * 100vh + 20vh); }
+    .xp-day.is-pinned .xp-day__sticky { touch-action: pan-y pinch-zoom; }
+    .xp-day.is-pinned .xp-act { padding: calc(var(--header-h) + 92px) 0 60px; padding-bottom: calc(60px + 100lvh - 100svh); }
+    .xp-day.is-pinned .xp-act__grid { height: auto; row-gap: 24px; }
+    .xp-day.is-pinned .xp-act__copy { gap: 14px; }
+    .xp-day.is-pinned .xp-act .display--l { font-size: clamp(1.75rem, 7.6vw, 2.6rem); }
+    .xp-day.is-pinned .xp-act .lede { font-size: 1rem; line-height: 1.5; }
+    .xp-day.is-pinned .xp-stack { height: var(--stack-h, 260px); width: min(100%, var(--stack-h, 260px) * 1.1); justify-self: center; }
+    .xp-day.is-pinned .xp-day__sky { left: 0; right: 0; height: 84px; }
+
+    .xp-day__sky svg { left: var(--gutter); top: 10px; width: calc(100% - var(--gutter) * 2); height: 30px; }
+    .xp-day__sun { left: var(--gutter); top: 10px; width: 16px; height: 16px; margin: -8px 0 0 -8px; }
+    .xp-day__marks { left: var(--gutter); right: var(--gutter); top: 44px; }
+    .xp-day__mark { display: grid; gap: 2px; padding-block: 4px 8px; font-size: 9px; letter-spacing: 0.22em; text-align: left; pointer-events: auto; -webkit-tap-highlight-color: transparent; }
+    .xp-day__marks li:not(:first-child, :last-child) .xp-day__mark { justify-items: center; text-align: center; }
+    .xp-day__marks li:last-child .xp-day__mark { justify-items: end; text-align: right; }
+    .xp-day__mark-hour { font-size: 13px; letter-spacing: 0.06em; transition: color 0.6s var(--ease); }
+    .xp-day__mark-dot { display: none; }
+    .xp-day__marks li.is-now .xp-day__mark-hour { color: var(--brown); }
+    .xp-day[data-act="2"] .xp-day__marks li.is-now .xp-day__mark-hour { color: var(--sand); }
+
+    .xp-act__shuffle {
+        display: grid;
+        place-items: center;
+        grid-column: 1 / -1;
+        grid-row: 1;
+        justify-self: end;
+        align-self: start;
+        position: relative;
+        z-index: 3;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: var(--g-900);
+        color: var(--cream);
+        box-shadow: 0 12px 26px -12px rgba(3, 35, 26, 0.6);
+        transition: scale 0.3s var(--ease-out);
+        -webkit-tap-highlight-color: transparent;
+    }
+    .xp-act__shuffle:active { scale: 0.9; }
+    .xp-act__shuffle::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border: 1px solid var(--g-900);
+        border-radius: inherit;
+        animation: xp-ping 2.6s var(--ease-out) infinite;
+    }
+    .xp-act--3 .xp-act__shuffle { background: var(--sand); color: var(--g-950); }
+    .xp-act--3 .xp-act__shuffle::after { border-color: var(--sand); }
+    .xp-day.was-shuffled .xp-act__shuffle::after { display: none; }
+    /* Pinned, the stack is narrower and centred: keep the button on its corner. */
+    .xp-day.is-pinned .xp-act__shuffle { justify-self: start; margin-left: calc(50% + min(50%, var(--stack-h, 260px) * 0.55) - 44px); }
+
+    .xp-day__hint { bottom: 32px; width: max-content; }
+    .xp-day.is-pinned .xp-day__hint { left: var(--gutter); bottom: 24px; bottom: calc(24px + 100lvh - 100svh); translate: none; font-size: 10px; letter-spacing: 0.18em; }
+    .xp-day:not(.is-pinned) .xp-day__hint { display: block; }
+    .xp-day:not(.is-pinned) .xp-day__hint-scroll { display: none; }
+    .xp-day:not(.is-pinned) .xp-day__hint-swipe { display: inline-flex; align-items: center; gap: 10px; }
+    .xp-day__hint-swipe .icon-arrow { flex: none; animation: xp-nudge 1.8s var(--ease-in-out) infinite; }
+}
+
+@keyframes xp-ping {
+    from { scale: 1; opacity: 0.6; }
+    to { scale: 1.6; opacity: 0; }
+}
+@keyframes xp-nudge {
+    0%, 100% { translate: 0 0; }
+    50% { translate: 6px 0; }
+}
 
 /* ---- 03 · Five senses --------------------------------------------------- */
 
@@ -1775,6 +1886,7 @@
     .xp-leaf { animation: none !important; }
     .xp-word { opacity: 1; }
     .xp-stack__layer, .xp-sense__card { transform: none; }
+    .xp-act__shuffle::after, .xp-day__hint-swipe .icon-arrow { animation: none; }
 }
 
 @media (max-width: 899px) {
@@ -1782,10 +1894,7 @@
     .xp-leaf--1 { right: -42%; height: 58%; top: -6%; opacity: 0.22; }
     .xp-leaf--2 { right: -18%; bottom: -26%; height: 40%; opacity: 0.22; }
     .xp-leaf--3 { display: none; }
-    .xp-act__hour { left: 0; }
     .xp-facts dd { font-size: var(--t-s); }
-    .xp-act__copy, .xp-stack { grid-column: 1 / -1; }
-    .xp-stack { height: clamp(360px, 100vw, 520px); }
     .xp-senses__grid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; margin-inline: calc(var(--gutter) * -1); padding: 8px var(--gutter) 24px; scrollbar-width: none; }
     .xp-sense { flex: 0 0 68%; scroll-snap-align: center; }
     .xp-sense:nth-child(even) { margin-top: 0; }

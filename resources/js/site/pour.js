@@ -7,6 +7,7 @@ import { $, $$, clamp, pad, reduceMotion, finePointer, onFrame } from './util';
  * above the cup is drawn live in WebGL. Reduced motion keeps the static frame.
  */
 
+// eyob  talents 
 const STARTS = [0, 0.16, 0.36, 0.58, 0.8]; // where each step begins, as scroll progress
 
 // Frame geometry, in pixels of the photograph.
