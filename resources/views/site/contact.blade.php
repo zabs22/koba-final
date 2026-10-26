@@ -138,5 +138,5 @@
         </div>
     </section>
 
-    @include('site.sections.locations')
+    @include('site.sections.locations', ['lit' => true])
 </x-site.layout>

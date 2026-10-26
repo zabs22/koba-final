@@ -1,5 +1,5 @@
-{{-- Rituals: a day at KOBA, morning to evening. Pinned and scroll-driven on desktop
-     (resources/js/site/home.js → initRituals); a simple stack everywhere else. --}}
+{{-- Rituals: a day at KOBA, morning to evening. Scroll-driven (resources/js/site/home.js →
+     initRituals): pinned on desktop, linked to plain scrolling on small screens. --}}
 @php($moments = trans('koba.intro.moments'))
 
 <section class="rituals" id="intro" aria-labelledby="intro-title" data-rituals data-chapter="{{ __('koba.chapters.intro') }}" style="--n: {{ count($moments) }}">

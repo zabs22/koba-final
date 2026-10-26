@@ -13,7 +13,7 @@
     $largest = fn ($key) => asset("images/koba/$key-".last(config("koba.images.$key")[2]).'.webp');
 @endphp
 
-<section class="craft section is-white" aria-labelledby="craft-title" data-craft data-chapter="{{ __('koba.chapters.craft') }}">
+<section class="craft section is-white has-trees"aria-labelledby="craft-title" data-craft data-chapter="{{ __('koba.chapters.craft') }}">
     <div class="wrap">
         <header class="grid craft__head">
             <div class="craft__heading">

@@ -47,7 +47,7 @@
 .hero__title .line { padding-bottom: 0.1em; }
 .hero__title em { color: var(--sand); }
 .hero__lede { max-width: 30ch; color: var(--on-dark-soft); }
-.hero__copy .btn--ghost { color: var(--cream); --btn-fill: rgba(255, 245, 230, 0.08); box-shadow: inset 0 0 0 1px rgba(255, 245, 230, 0.32); }
+.hero__copy .btn--ghost { color: var(--cream); box-shadow: inset 0 0 0 1px rgba(255, 245, 230, 0.32); }
 
 /* Stage: the right of the screen, full height, its left edge melting into the green. */
 .hero__stage { position: absolute; top: 0; right: 0; bottom: 0; left: var(--stage-l); z-index: 1; }
@@ -186,8 +186,9 @@
     color: var(--ink-soft);
 }
 
-/* Rituals: a day at KOBA. Pinned on desktop (home.js adds .is-pinned and drives
-   --p, --sx/--sy and each card's --b/--f); a fanned, static deck elsewhere. */
+/* Rituals: a day at KOBA. home.js drives --p, --sx/--sy and each card's --b/--f
+   (.is-live): pinned on desktop (.is-pinned), linked to plain scrolling on small
+   screens; a fanned, static deck with reduced motion. */
 .rituals {
     --bg: var(--cream);
     position: relative;
@@ -290,14 +291,14 @@
     transform-origin: left;
     transition: transform 1s var(--ease-out);
 }
-.rituals.is-pinned .rituals__text,
-.rituals.is-pinned .rituals__time { opacity: 0.38; transition: opacity 0.6s var(--ease), font-weight 0.6s var(--ease); }
-.rituals.is-pinned .is-past .rituals__text,
-.rituals.is-pinned .is-past .rituals__time { opacity: 0.7; }
-.rituals.is-pinned .is-active .rituals__text,
-.rituals.is-pinned .is-active .rituals__time { opacity: 1; }
-.rituals.is-pinned .is-active .rituals__text { font-weight: 700; }
-.rituals.is-pinned .is-active .rituals__bar { transform: scaleX(1); }
+.rituals.is-live .rituals__text,
+.rituals.is-live .rituals__time { opacity: 0.38; transition: opacity 0.6s var(--ease), font-weight 0.6s var(--ease); }
+.rituals.is-live .is-past .rituals__text,
+.rituals.is-live .is-past .rituals__time { opacity: 0.7; }
+.rituals.is-live .is-active .rituals__text,
+.rituals.is-live .is-active .rituals__time { opacity: 1; }
+.rituals.is-live .is-active .rituals__text { font-weight: 700; }
+.rituals.is-live .is-active .rituals__bar { transform: scaleX(1); }
 
 /* Stage: the sun on its arc, and a deck of three photographs in 3D. */
 .rituals__stage { grid-column: 7 / -1; position: relative; height: min(66vh, 640px); perspective: 1600px; }
@@ -349,7 +350,7 @@
         rotateY(calc(var(--b) * -10deg));
     opacity: calc(1 - var(--f) * 1.2);
 }
-.rituals:not(.is-pinned) .rituals__card { transition: transform 1.2s var(--ease-out); }
+.rituals:not(.is-live) .rituals__card { transition: transform 1.2s var(--ease-out); }
 .rituals__photo {
     position: absolute;
     inset: 0;
@@ -1454,7 +1455,12 @@ nav.chapters { display: none; }
 .manifesto__skip:hover, .manifesto__skip:focus-visible { background: var(--sand); border-color: var(--sand); color: var(--g-900); }
 .manifesto__skip:hover .manifesto__skip-icon, .manifesto__skip:focus-visible .manifesto__skip-icon { transform: rotate(90deg) translateX(3px); }
 /* Skip sits top right, Back sits bottom right, level with the progress bar. */
-.manifesto.is-cinematic .manifesto__back { top: auto; bottom: 26px; }
+/* The floating mesob (base.css) holds the bottom-right corner, so Back clears it:
+   beside it on wide screens, above it on small ones. */
+.manifesto.is-cinematic .manifesto__back { top: auto; bottom: 26px; right: calc(clamp(14px, 2.2vw, 30px) + clamp(84px, 7.6vw, 112px) + 16px); }
+@media (max-width: 899px) {
+    .manifesto.is-cinematic .manifesto__back { right: var(--gutter); bottom: calc(clamp(14px, 2.2vw, 30px) + clamp(84px, 7.6vw, 112px) * 1.25 + 14px); }
+}
 .manifesto__back-icon { transform: rotate(-90deg); }
 .manifesto__back:hover .manifesto__back-icon, .manifesto__back:focus-visible .manifesto__back-icon { transform: rotate(-90deg) translateX(3px); }
 .manifesto__bar { width: clamp(120px, 16vw, 240px); height: 1px; background: var(--line-dark); overflow: hidden; }
@@ -1491,6 +1497,34 @@ nav.chapters { display: none; }
 .branch.is-active .branch__name a,
 .locations--full .branch__name a { font-weight: 800; color: var(--ink); }
 .branch__name a:hover { transform: translateX(8px); }
+
+/* Lit (Locations, Contact): a branch row lights up on hover, a soft green wash behind it and a sand rule at its edge. */
+@media (hover: hover) {
+    .locations--lit .branch { position: relative; isolation: isolate; }
+    .locations--lit .branch::before {
+        content: "";
+        position: absolute;
+        inset: 0 calc(var(--gutter) * -0.5);
+        z-index: -1;
+        background: rgba(6, 46, 34, 0.04);
+        box-shadow: inset 3px 0 0 var(--sand);
+        opacity: 0;
+        transform: scaleX(0.97);
+        transform-origin: left;
+        transition: opacity 0.5s var(--ease), transform 0.8s var(--ease-out);
+        pointer-events: none;
+    }
+    .locations--lit .branch:hover::before { opacity: 1; transform: none; }
+}
+/* Lit: the branch name stays put; it turns green and a sand rule draws in beneath it. */
+.locations--lit .branch__name a {
+    padding-bottom: 0.08em;
+    background: linear-gradient(var(--sand), var(--sand)) 0 100% / 0 2px no-repeat;
+    transition: font-weight 0.7s var(--ease), color 0.5s var(--ease), background-size 0.7s var(--ease-out);
+}
+.locations--lit .branch__name a:hover { transform: none; }
+.locations--lit .branch:hover .branch__name a,
+.locations--lit .branch__name a:focus-visible { color: var(--g-600); background-size: 100% 2px; }
 
 .branch__detail { display: grid; grid-template-rows: 1fr; transition: grid-template-rows 0.8s var(--ease-out); }
 .branch__detail > .branch__detail-inner { min-height: 0; }
