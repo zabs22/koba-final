@@ -701,6 +701,7 @@ return [
 
         'day_eyebrow' => 'A day at KOBA',
         'day_hint' => 'Scroll to move through the day',
+        'day_hint_phone' => 'Scroll through the day',
         'day_swipe' => 'Swipe through the day',
         'day_shuffle' => 'Shuffle the photos',
         'day' => [

@@ -1609,6 +1609,7 @@
     opacity: calc(0.7 - var(--p, 0) * 2);
 }
 .xp-day__mark { letter-spacing: inherit; text-transform: inherit; line-height: inherit; }
+.xp-day__hint-phone,
 .xp-day__hint-swipe,
 .xp-act__shuffle { display: none; }
 
@@ -1647,22 +1648,24 @@
     }
     .header-hidden .xp-day:not(.is-pinned) .xp-day__sky { top: 0; }
 
-    /* Pinned mode — the bottom padding keeps content clear of the browser bars;
-       --stack-h (set by JS) is the room the words leave for the photos. */
+    /* Pinned mode, zoomed out — the bottom padding keeps content clear of the
+       browser bars; JS sets --stack-h (the photos' height) and --fit (a scale
+       for screens too short to hold the act at full size). */
     .xp-day.is-pinned { height: calc(var(--acts) * 100vh + 20vh); }
     .xp-day.is-pinned .xp-day__sticky { touch-action: pan-y pinch-zoom; }
-    .xp-day.is-pinned .xp-act { padding: calc(var(--header-h) + 92px) 0 60px; padding-bottom: calc(60px + 100lvh - 100svh); }
-    .xp-day.is-pinned .xp-act__grid { height: auto; row-gap: 24px; }
-    .xp-day.is-pinned .xp-act__copy { gap: 14px; }
-    .xp-day.is-pinned .xp-act .display--l { font-size: clamp(1.75rem, 7.6vw, 2.6rem); }
-    .xp-day.is-pinned .xp-act .lede { font-size: 1rem; line-height: 1.5; }
+    .xp-day.is-pinned .xp-act { padding: calc(var(--header-h) + 96px) 0 52px; padding-bottom: calc(52px + 100lvh - 100svh); }
+    .xp-day.is-pinned .xp-act__grid { height: auto; row-gap: 24px; scale: var(--fit, 1); }
+    .xp-day.is-pinned .xp-act__copy { gap: 12px; }
+    .xp-day.is-pinned .xp-act .display--l { font-size: clamp(1.5rem, 6.4vw, 2.2rem); }
+    .xp-day.is-pinned .xp-act .lede { font-size: 0.9375rem; line-height: 1.5; }
+    .xp-day.is-pinned .xp-act__hour { font-size: clamp(3.25rem, 15vw, 5.5rem); }
     .xp-day.is-pinned .xp-stack { height: var(--stack-h, 260px); width: min(100%, var(--stack-h, 260px) * 1.1); justify-self: center; }
     .xp-day.is-pinned .xp-day__sky { left: 0; right: 0; height: 84px; }
 
     .xp-day__sky svg { left: var(--gutter); top: 10px; width: calc(100% - var(--gutter) * 2); height: 30px; }
     .xp-day__sun { left: var(--gutter); top: 10px; width: 16px; height: 16px; margin: -8px 0 0 -8px; }
     .xp-day__marks { left: var(--gutter); right: var(--gutter); top: 44px; }
-    .xp-day__mark { display: grid; gap: 2px; padding-block: 4px 8px; font-size: 9px; letter-spacing: 0.22em; text-align: left; pointer-events: auto; -webkit-tap-highlight-color: transparent; }
+    .xp-day__mark { display: grid; gap: 2px; padding-block: 4px 8px; font-size: 9px; letter-spacing: 0.22em; line-height: 1.25; text-align: left; pointer-events: auto; -webkit-tap-highlight-color: transparent; }
     .xp-day__marks li:not(:first-child, :last-child) .xp-day__mark { justify-items: center; text-align: center; }
     .xp-day__marks li:last-child .xp-day__mark { justify-items: end; text-align: right; }
     .xp-day__mark-hour { font-size: 13px; letter-spacing: 0.06em; transition: color 0.6s var(--ease); }
@@ -1700,13 +1703,14 @@
     .xp-act--3 .xp-act__shuffle { background: var(--sand); color: var(--g-950); }
     .xp-act--3 .xp-act__shuffle::after { border-color: var(--sand); }
     .xp-day.was-shuffled .xp-act__shuffle::after { display: none; }
-    /* Pinned, the stack is narrower and centred: keep the button on its corner. */
-    .xp-day.is-pinned .xp-act__shuffle { justify-self: start; margin-left: calc(50% + min(50%, var(--stack-h, 260px) * 0.55) - 44px); }
+    /* Pinned, the stack is narrower and centred: the button sits just off its right edge. */
+    .xp-day.is-pinned .xp-act__shuffle { justify-self: start; margin-left: min(50% + min(50%, var(--stack-h, 260px) * 0.55) + 6px, 100% - 44px); }
 
     .xp-day__hint { bottom: 32px; width: max-content; }
-    .xp-day.is-pinned .xp-day__hint { left: var(--gutter); bottom: 24px; bottom: calc(24px + 100lvh - 100svh); translate: none; font-size: 10px; letter-spacing: 0.18em; }
+    .xp-day__hint-scroll { display: none; }
+    .xp-day.is-pinned .xp-day__hint-phone { display: inline; }
+    .xp-day.is-pinned .xp-day__hint { left: var(--gutter); bottom: 20px; bottom: calc(20px + 100lvh - 100svh); translate: none; font-size: 10px; letter-spacing: 0.18em; }
     .xp-day:not(.is-pinned) .xp-day__hint { display: block; }
-    .xp-day:not(.is-pinned) .xp-day__hint-scroll { display: none; }
     .xp-day:not(.is-pinned) .xp-day__hint-swipe { display: inline-flex; align-items: center; gap: 10px; }
     .xp-day__hint-swipe .icon-arrow { flex: none; animation: xp-nudge 1.8s var(--ease-in-out) infinite; }
 }

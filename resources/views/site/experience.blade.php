@@ -80,7 +80,7 @@
                     @endforeach
                 </div>
 
-                <p class="xp-day__hint" aria-hidden="true"><span class="xp-day__hint-scroll">{{ $xp['day_hint'] }}</span><span class="xp-day__hint-swipe">{{ $xp['day_swipe'] }} <x-site.arrow /></span></p>
+                <p class="xp-day__hint" aria-hidden="true"><span class="xp-day__hint-scroll">{{ $xp['day_hint'] }}</span><span class="xp-day__hint-phone">{{ $xp['day_hint_phone'] }}</span><span class="xp-day__hint-swipe">{{ $xp['day_swipe'] }} <x-site.arrow /></span></p>
             </div>
         </section>
 
