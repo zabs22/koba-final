@@ -120,7 +120,7 @@
         </section>
 
         {{-- 04 · Gallery — tilt cards, opens the lightbox --}}
-        <section class="ck-gallery section is-cream-2" aria-labelledby="gallery-title">
+        <section class="ck-gallery section is-cream-2 has-trees"aria-labelledby="gallery-title">
             <div class="wrap">
                 <header class="grid ck-head">
                     <div class="ck-head__title">
@@ -182,7 +182,7 @@
         </section>
 
         {{-- 06 · How ordering works --}}
-        <section class="ck-order section is-sand" aria-labelledby="steps-title" data-ck-order>
+        <section class="ck-order section is-sand has-trees" aria-labelledby="steps-title" data-ck-order>
             <div class="wrap">
                 <h2 id="steps-title" class="eyebrow" data-reveal>{{ $page['steps_eyebrow'] }}</h2>
                 <div class="ck-steps-wrap">

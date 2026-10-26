@@ -78,11 +78,15 @@ function initChapters(flow) {
 function initRituals(section) {
     const items = $$('[data-ritual]', section);
     const cards = $$('[data-ritual-card]', section);
+    const stage = $('.rituals__stage', section);
     const n = cards.length;
     let step = -1;
 
+    const pinned = () => section.classList.contains('is-pinned');
+    section.classList.toggle('is-live', !reduceMotion);
+
     pinWhen(section, animated, () => {
-        if (section.classList.contains('is-pinned')) return;
+        if (pinned()) return;
         section.removeAttribute('data-step');
         ['--p', '--sx', '--sy'].forEach((prop) => section.style.removeProperty(prop));
         cards.forEach((card) => ['--b', '--f'].forEach((prop) => card.style.removeProperty(prop)));
@@ -91,11 +95,17 @@ function initRituals(section) {
     });
 
     onFrame((vh) => {
-        if (!section.classList.contains('is-pinned')) return;
+        if (reduceMotion) return;
         const rect = section.getBoundingClientRect();
         if (rect.bottom < 0 || rect.top > vh) return;
 
-        const p = pinProgress(rect, vh);
+        let p;
+        if (pinned()) p = pinProgress(rect, vh);
+        else {
+            // Unpinned (small screens): the day runs as the stage's centre crosses 85% → 25% of the viewport.
+            const box = stage.getBoundingClientRect();
+            p = clamp((vh * 0.85 - (box.top + box.height / 2)) / (vh * 0.6));
+        }
         const t = p * n;
         section.style.setProperty('--p', p.toFixed(4));
 

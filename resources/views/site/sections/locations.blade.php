@@ -1,10 +1,12 @@
 @php
     $branches = trans('koba.locations.branches');
     $full = $full ?? false;
+    // Lit: branch rows answer hover themselves (no "Explore" cursor). Always on the full page.
+    $lit = $full || ($lit ?? false);
     $mapsUrl = fn ($query) => 'https://www.google.com/maps/search/?api=1&query='.urlencode($query);
 @endphp
 
-<section class="locations section {{ $full ? 'locations--full' : '' }}" aria-labelledby="locations-title" data-locations data-chapter="{{ __('koba.chapters.locations') }}">
+<section class="locations section {{ $full ? 'locations--full' : '' }} {{ $lit ? 'locations--lit' : '' }}"aria-labelledby="locations-title" data-locations data-chapter="{{ __('koba.chapters.locations') }}">
     <div class="wrap">
         @unless ($full)
             <header class="grid locations__head">
@@ -27,7 +29,7 @@
                             <p class="branch__mood">{{ $branch['mood'] }}</p>
                         </div>
                         <h3 class="branch__name display display--m">
-                            <a href="{{ route('locations') }}#{{ $slug }}" data-cursor="{{ __('koba.ui.explore') }}">{{ $branch['short'] }}</a>
+                            <a href="{{ route('locations') }}#{{ $slug }}" @unless ($lit) data-cursor="{{ __('koba.ui.explore') }}" @endunless>{{ $branch['short'] }}</a>
                         </h3>
                         <div class="branch__detail">
                           <div class="branch__detail-inner">

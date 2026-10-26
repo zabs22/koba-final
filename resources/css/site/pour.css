@@ -464,7 +464,8 @@
     .pour.is-live .pour__step { gap: 12px; }
 
     .pour.is-live .pour__rail { display: none; }
-    .pour.is-live .pour__skip { top: auto; bottom: max(28px, env(safe-area-inset-bottom)); padding: 9px 12px; }
+    /* Top right, over the photograph: the floating mesob (base.css) holds the bottom corner. */
+    .pour.is-live .pour__skip { top: calc(var(--header-h) + 16px); padding: 9px 12px; }
 }
 
 @media (max-width: 899px) and (max-height: 640px) {

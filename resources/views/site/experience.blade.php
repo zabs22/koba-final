@@ -117,7 +117,7 @@
 
         {{-- 04 · Atmosphere — 3D gallery ring --}}
         @php($ring = ['drink-iced-mocha', 'cake-trio', 'drink-layered-terrace', 'bomboloni', 'drink-iced-americano', 'drink-macchiato', 'drink-mocha', 'drink-affogato', 'drink-pineapple-mojito', 'drink-red-juice'])
-        <section class="xp-ring section is-white" aria-labelledby="xp-ring-title" data-xp-ring>
+        <section class="xp-ring section is-white has-trees"aria-labelledby="xp-ring-title" data-xp-ring>
             <div class="wrap">
                 <header class="grid xp-head">
                     <div class="xp-head__title">
@@ -170,7 +170,7 @@
         </section>
 
         {{-- 06 · Behind the counter — expanding craft strip --}}
-        <section class="xp-craft section is-white" aria-labelledby="xp-craft-title" data-xp-craft>
+        <section class="xp-craft section is-white has-trees"aria-labelledby="xp-craft-title" data-xp-craft>
             <div class="wrap">
                 <header class="grid xp-head">
                     <div class="xp-head__title">
