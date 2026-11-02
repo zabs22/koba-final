@@ -8,12 +8,12 @@ const desktop = window.matchMedia('(min-width: 900px)');
 
 /* ---- A day at KOBA -------------------------------------------------------
  * Vertical scroll drives a horizontal journey: on desktop, and on phones with
- * each act fitted to one screen and a short hold at every hour. On a phone,
- * tap an hour or swipe sideways to jump. With reduced motion, or on a short
- * screen, phones swipe through the acts instead.
+ * each act zoomed out to fit one screen and a short hold at every hour. On a
+ * phone, tap an hour or swipe sideways to jump. With reduced motion, or on a
+ * phone held sideways, the acts swipe instead.
  */
 
-const tall = window.matchMedia('(min-height: 640px)');
+const tall = window.matchMedia('(min-height: 480px)');
 const EASE_IN_OUT = 'cubic-bezier(0.65, 0, 0.35, 1)';
 
 // Holds each act still for the first and last quarter of its stretch of scroll.
@@ -91,18 +91,22 @@ function initDay(section) {
         });
     };
 
-    // Pinned on a phone, each act has one screen: the photos take the room the words leave.
+    // Pinned on a phone, each act has one screen. The photos take the room the
+    // words leave, up to about half of it; on a short screen the act shrinks to fit.
     const fit = () => {
         screen = sticky.offsetHeight || window.innerHeight;
         if (desktop.matches || !pinned()) {
             section.style.removeProperty('--stack-h');
+            section.style.removeProperty('--fit');
             return;
         }
-        const room = Math.min(...acts.map((act) => {
-            const style = getComputedStyle(act);
-            return act.clientHeight - parseFloat(style.paddingTop) - parseFloat(style.paddingBottom) - $('.xp-act__copy', act).offsetHeight;
-        }));
-        section.style.setProperty('--stack-h', `${Math.round(clamp(room - 32, 160, 520))}px`);
+        const style = getComputedStyle(acts[0]);
+        const area = acts[0].clientHeight - parseFloat(style.paddingTop) - parseFloat(style.paddingBottom);
+        const copy = Math.max(...acts.map((act) => $('.xp-act__copy', act).offsetHeight));
+        const gap = parseFloat(getComputedStyle($('.xp-act__grid', acts[0])).rowGap) || 0;
+        const stack = Math.round(clamp(area - copy - gap, 160, Math.min(area * 0.48, 420)));
+        section.style.setProperty('--stack-h', `${stack}px`);
+        section.style.setProperty('--fit', Math.min(1, area / (stack + gap + copy)).toFixed(3));
     };
     window.addEventListener('resize', fit);
     document.fonts?.ready.then(fit);
