@@ -37,3 +37,4 @@ if ($('[data-cake-dialog]')) import('./site/cakes').then((m) => m.initCakes());
 if ($('[data-home]')) import('./site/home').then((m) => m.initHome());
 if ($('[data-pillars]')) import('./site/home').then((m) => m.initPillarsSection());
 if ($('[data-pour]')) import('./site/pour').then((m) => m.initPour());
+if ($('[data-moments]')) import('./site/story').then((m) => m.initStory());

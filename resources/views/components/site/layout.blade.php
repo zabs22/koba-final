@@ -10,11 +10,7 @@
     $metaDescription = $description ?? __('koba.meta.description');
     $ogImage = asset("images/koba/$image-960.webp");
     $branches = trans('koba.locations.branches');
-    $hours = [
-        'sanford' => '21:00',
-        'bole-atlas' => '22:00',
-        '4-killo' => '21:00',
-    ];
+    $closes = fn ($branch) => sprintf('%02d:00', $branch['open']['weekday'][1]);
     $schema = [
         '@context' => 'https://schema.org',
         '@type' => 'Organization',
@@ -25,14 +21,14 @@
         'foundingDate' => '2020',
         'foundingLocation' => 'Addis Ababa, Ethiopia',
         'sameAs' => array_values(config('koba.social')),
-        'subOrganization' => collect($branches)->map(fn ($branch, $key) => [
+        'subOrganization' => collect($branches)->map(fn ($branch) => [
             '@type' => 'Bakery',
             'name' => $branch['name'],
             'telephone' => str_replace(' ', '', $branch['phone']),
             'servesCuisine' => ['Patisserie', 'Bakery', 'Café'],
             'address' => ['@type' => 'PostalAddress', 'addressLocality' => 'Addis Ababa', 'addressCountry' => 'ET'],
             'openingHoursSpecification' => [
-                ['@type' => 'OpeningHoursSpecification', 'dayOfWeek' => ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], 'opens' => '07:00', 'closes' => $hours[$key]],
+                ['@type' => 'OpeningHoursSpecification', 'dayOfWeek' => ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], 'opens' => '07:00', 'closes' => $closes($branch)],
                 ['@type' => 'OpeningHoursSpecification', 'dayOfWeek' => ['Saturday', 'Sunday'], 'opens' => '06:00', 'closes' => '23:00'],
             ],
         ])->values()->all(),

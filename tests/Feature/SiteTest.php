@@ -146,7 +146,7 @@ class SiteTest extends TestCase
                 ['slug' => 'trio', 'name' => 'Trio', 'qty' => 1, 'size' => 'large'],
                 ['slug' => 'koba-croissant', 'name' => 'KOBA Croissant', 'qty' => 4],
             ],
-            'branch' => '4-killo',
+            'branch' => '4-kilo',
             ...$overrides,
         ];
     }

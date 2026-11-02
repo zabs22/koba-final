@@ -1,5 +1,6 @@
 import { $, $$ } from './util';
-import { initMesob } from './mesob';
+// import { initMesob } from './mesob';   // the woven-basket cart, set aside for the cake box
+import { initCakebox } from './cakebox';
 
 /*
  * Cart: kept in this browser only (localStorage), no prices. Checkout hands the
@@ -34,7 +35,7 @@ export function initCart() {
     const openers = $$('[data-cart-open]');
     let items = load();
     let lastFocus = null;
-    const mesob = initMesob({ total: () => items.reduce((sum, item) => sum + item.qty, 0) });
+    const mesob = initCakebox({ total: () => items.reduce((sum, item) => sum + item.qty, 0) });
 
     const el = (tag, cls, text) => {
         const node = document.createElement(tag);

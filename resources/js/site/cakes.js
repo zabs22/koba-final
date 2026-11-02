@@ -47,26 +47,52 @@ function initStage(stage) {
         if (event.key === 'ArrowRight') show(active + 1);
     });
 
-    // Swipe / drag on the scene; a plain click on a side cake brings it forward.
+    // Keep taps as real links; capture only horizontal drags so vertical scrolling still works.
     let start = null;
+    let suppressClick = false;
     scene.addEventListener('pointerdown', (event) => {
-        if (event.button !== 0) return;
-        start = { x: event.clientX, target: event.target.closest('[data-ck-slide]') };
-        scene.setPointerCapture(event.pointerId);
-        scene.classList.add('is-dragging');
+        if (!event.isPrimary || event.button !== 0) return;
+        suppressClick = false;
+        start = { x: event.clientX, y: event.clientY, id: event.pointerId };
     });
-    const release = (event) => {
-        if (!start) return;
+    scene.addEventListener('pointermove', (event) => {
+        if (!start || event.pointerId !== start.id) return;
         const dx = event.clientX - start.x;
-        if (Math.abs(dx) > 50) show(active + (dx < 0 ? 1 : -1));
-        else if (start.target) show(slides.indexOf(start.target));
+        const dy = event.clientY - start.y;
+        if (Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(dy)) {
+            scene.setPointerCapture(event.pointerId);
+            scene.classList.add('is-dragging');
+            suppressClick = true;
+        }
+    });
+    scene.addEventListener('pointerup', (event) => {
+        if (!start || event.pointerId !== start.id) return;
+        const dx = event.clientX - start.x;
+        const dy = event.clientY - start.y;
+        if (Math.abs(dx) > 32 && Math.abs(dx) > Math.abs(dy)) {
+            suppressClick = true;
+            show(active + (dx < 0 ? 1 : -1));
+        }
+        start = null;
+        scene.classList.remove('is-dragging');
+    });
+    const cancelDrag = () => {
         start = null;
         scene.classList.remove('is-dragging');
     };
-    scene.addEventListener('pointerup', release);
-    scene.addEventListener('pointercancel', () => {
-        start = null;
-        scene.classList.remove('is-dragging');
+    scene.addEventListener('pointercancel', cancelDrag);
+    scene.addEventListener('lostpointercapture', cancelDrag);
+    scene.addEventListener('click', (event) => {
+        if (suppressClick && event.detail !== 0) {
+            event.preventDefault();
+            suppressClick = false;
+            return;
+        }
+        const slide = event.target.closest('[data-ck-slide]');
+        if (slide && slides.indexOf(slide) !== active) {
+            event.preventDefault();
+            show(slides.indexOf(slide));
+        }
     });
 
     // Deep links from the menu: /cakes#cake-opera-caramel

@@ -385,6 +385,141 @@
     .rituals__leaf--b { width: 60vw; }
 }
 
+/* Our Story, quietly: one line that inks in word by word as it's read (home.js → initStory
+   sets --p, 0 → 1); each word's --t is how far the reading has reached it. Without the
+   script, --p stays 1 and the line is simply there. The photographs in the line open up
+   on hover, and each fact opens onto its own photograph. */
+.story-intro { position: relative; padding-block: clamp(80px, 9vw, 150px); background: var(--cream); overflow: clip; }
+.story-intro__leaf { right: -10%; top: 8%; width: min(620px, 42vw); color: var(--cream-2); --rib: var(--cream); transform: rotate(-24deg); }
+.story-intro .wrap { position: relative; }
+
+.story-intro__label { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 22px; margin-bottom: clamp(24px, 3vw, 44px); }
+.story-intro__est { display: inline-flex; align-items: center; gap: 22px; font-size: var(--t-micro); font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink-faint); }
+.story-intro__est::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--sand); }
+.story-intro__cta { margin-left: auto; }
+
+.story-intro__statement {
+    max-width: 30ch;
+    font-family: var(--f-display);
+    font-size: clamp(1.75rem, 3.1vw, 3.4rem);
+    font-weight: 700;
+    line-height: 1.22;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+}
+.story-intro__w,
+.story-intro__pic { --t: clamp(0, calc(var(--p, 1) * var(--n) - var(--i)), 1); }
+.story-intro__w { opacity: calc(0.14 + var(--t) * 0.86); transition: opacity 0.25s linear; }
+.story-intro__w.is-em { font-weight: 300; color: var(--g-600); }
+/* A photograph set into the line, the height of a lowercase word. */
+.story-intro__pic {
+    position: relative;
+    display: inline-block;
+    width: 1.8em;
+    height: 0.82em;
+    margin-inline: 0.04em 0.12em;
+    vertical-align: -0.06em;
+    border-radius: 999px;
+    overflow: hidden;
+    background: var(--cream-2);
+    opacity: calc(0.22 + var(--t) * 0.78);
+    filter: grayscale(calc(1 - var(--t)));
+    transform: scale(calc(0.8 + var(--t) * 0.2));
+    transition: opacity 0.4s var(--ease), filter 0.4s var(--ease), transform 0.6s var(--ease-out), box-shadow 0.6s var(--ease-out), border-radius 0.6s var(--ease-out);
+}
+.story-intro__pic img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--ease-out); }
+@media (hover: hover) {
+    .story-intro__pic:hover {
+        z-index: 2;
+        border-radius: 0.3em;
+        transform: scale(2.4);
+        box-shadow: 0 0.3em 0.6em -0.2em rgba(3, 35, 26, 0.45);
+    }
+    .story-intro__pic:hover img { transform: scale(1.15); }
+}
+
+/* Facts: quiet cards that open onto a photograph on hover or focus. */
+.story-intro__lede { max-width: 58ch; margin-top: clamp(18px, 2.4vw, 32px); font-size: var(--t-lede); color: var(--ink-soft); }
+.story-intro__facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--col-gap); margin-top: clamp(36px, 4.5vw, 72px); }
+.story-intro__fact dd.story-intro__body { margin-top: 2px; font-size: var(--t-small); line-height: 1.55; color: var(--ink-faint); }
+.story-intro__fact dd:not(.story-intro__body) { font-weight: 600; color: var(--ink); }
+.story-intro__fact {
+    position: relative;
+    display: grid;
+    align-content: start;
+    gap: 10px;
+    min-height: clamp(170px, 15vw, 230px);
+    padding: clamp(18px, 1.8vw, 28px);
+    border-top: 1px solid var(--line-strong);
+    border-radius: 4px;
+    overflow: hidden;
+    isolation: isolate;
+    outline: none;
+}
+.story-intro__fact > img {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    clip-path: inset(100% 0 0 0);
+    transform: scale(1.12);
+    transition: clip-path 0.8s var(--ease-in-out), transform 1.4s var(--ease-out);
+}
+.story-intro__fact::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(to top, rgba(3, 35, 26, 0.88), rgba(3, 35, 26, 0.15) 75%);
+    opacity: 0;
+    transition: opacity 0.6s var(--ease);
+}
+.story-intro__fact dt {
+    font-family: var(--f-display);
+    font-size: var(--t-m);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+    color: var(--g-600);
+    transition: color 0.5s var(--ease), transform 0.8s var(--ease-out);
+}
+.story-intro__fact dd { font-size: var(--t-small); color: var(--ink-soft); transition: color 0.5s var(--ease); }
+.story-intro__fact:hover > img,
+.story-intro__fact:focus-visible > img { clip-path: inset(0 0 0 0); transform: none; }
+.story-intro__fact:hover::after,
+.story-intro__fact:focus-visible::after { opacity: 1; }
+.story-intro__fact:hover dt,
+.story-intro__fact:focus-visible dt { color: var(--sand); transform: translateY(-6px); }
+.story-intro__fact:hover dd,
+.story-intro__fact:focus-visible dd,
+.story-intro__fact:hover dd:not(.story-intro__body),
+.story-intro__fact:focus-visible dd:not(.story-intro__body) { color: var(--on-dark); }
+.story-intro__fact:hover dd.story-intro__body,
+.story-intro__fact:focus-visible dd.story-intro__body { color: var(--on-dark-soft); }
+/* Touch screens have no hover: each card opens as it scrolls into view instead. */
+@media (hover: none) {
+    .story-intro__fact > img, .story-intro__fact::after, .story-intro__fact dt, .story-intro__fact dd { transition-delay: 0.5s; }
+    .story-intro__fact.is-in > img { clip-path: inset(0 0 0 0); transform: none; }
+    .story-intro__fact.is-in::after { opacity: 1; }
+    .story-intro__fact.is-in dt { color: var(--sand); }
+    .story-intro__fact.is-in dd,
+    .story-intro__fact.is-in dd:not(.story-intro__body) { color: var(--on-dark); }
+    .story-intro__fact.is-in dd.story-intro__body { color: var(--on-dark-soft); }
+}
+
+@media (max-width: 899px) {
+    .story-intro__cta { margin-left: 0; flex-basis: 100%; }
+    .story-intro__facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 599px) {
+    .story-intro__facts { grid-template-columns: minmax(0, 1fr); }
+    .story-intro__fact { min-height: 130px; }
+    .story-intro__leaf { width: 70vw; right: -30%; }
+}
+
 /* ==========================================================================
    03 — Philosophy
    ========================================================================== */
@@ -993,31 +1128,31 @@
    06 — Menu preview
    ========================================================================== */
 
-.menu-preview { overflow: hidden; padding-block: clamp(64px, 7vw, 112px); }
+/* The heading, three cards and their buttons fit one screen: photographs give up height first. */
+.menu-preview { overflow: hidden; padding-block: clamp(20px, 4vh, 80px); }
+.menu-preview .menu-product__media { max-height: max(150px, calc(71svh - 200px)); }
+.menu-preview .menu-product__name { font-size: min(clamp(1.75rem, 2.4vw, 2.375rem), 4.6vh); }
+.menu-preview__head .eyebrow { display: none; }
+/* A shorter card here: name, composition and the button (the kind and the full line are on
+   the menu page). The cakes are shown whole, so the photograph can give up height. */
+.menu-preview .menu-product__description,
+.menu-preview .menu-product__kind { display: none; }
+.menu-preview .menu-product__media + .menu-product__kind + .menu-product__details { margin-top: clamp(14px, 2.4vh, 24px); }
+.menu-preview .menu-product__notes { margin-top: 10px; padding-top: 10px; }
+.menu-preview .menu-product__notes + .menu-product__add { margin-top: clamp(12px, 2vh, 22px); }
 .menu-preview > .wrap { position: relative; }
 .menu-preview__leaf { left: -16%; top: 6%; width: min(760px, 54vw); color: var(--cream); --rib: var(--cream-2); transform: rotate(28deg); }
 
-/* Home: product photographs tilt toward the pointer (home.js → initTilt). */
-.menu-product__media.is-tilt {
-    transform: perspective(900px) rotateX(calc(var(--rx, 0) * 1deg)) rotateY(calc(var(--ry, 0) * 1deg));
-    transition: transform 0.6s var(--ease-out), box-shadow 0.6s var(--ease);
-}
-.menu-product__media.is-tilt::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    pointer-events: none;
-    background: radial-gradient(circle at var(--gx, 50%) var(--gy, 0%), rgba(255, 255, 255, 0.3), transparent 55%);
-    opacity: 0;
-    transition: opacity 0.5s var(--ease);
-}
-.menu-product:hover .menu-product__media.is-tilt::after { opacity: 1; }
-
 .menu-preview .grid { align-items: start; row-gap: 56px; }
-.menu-preview__head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 28px; margin-bottom: clamp(40px, 6vw, 88px); }
-.menu-preview__head > div { display: grid; gap: 18px; }
-.menu-preview__action { display: flex; justify-content: center; margin-top: clamp(32px, 4vw, 56px); }
+.menu-preview__head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 20px 28px; margin-bottom: clamp(24px, 4vh, 56px); }
+.menu-preview__head > div { display: grid; gap: clamp(8px, 1.6vh, 18px); }
+.menu-preview__head .display--l { font-size: min(var(--t-l), 8vh); }
+
+/* The full-menu button takes the next place in the grid, beside the last cake. */
+.menu-products__after { display: flex; align-items: center; justify-content: center; }
+@media (max-width: 899px) {
+    .menu-products__after { justify-content: flex-start; }
+}
 .mp__intro {
     grid-column: 1 / span 5;
     display: flex;
@@ -1094,17 +1229,27 @@
    07 — Cakes feature
    ========================================================================== */
 
-.cakes-feature { overflow: hidden; }
+/* The whole section — heading, ring, caption — fits one screen; the ring takes what's left. */
+.cakes-feature {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100svh;
+    padding-block: clamp(28px, 5vh, 64px) clamp(20px, 3vh, 40px);
+    overflow: hidden;
+}
 .cakes-feature__leaf { right: -16%; top: -12%; width: min(1000px, 70vw); color: var(--sand-300); --rib: var(--sand); transform: rotate(160deg); }
 
-.cakes-feature__head { position: relative; align-items: end; row-gap: 32px; }
-.cakes-feature__heading { grid-column: 1 / span 7; display: grid; gap: 28px; justify-items: start; }
-.cakes-feature__intro { grid-column: 8 / -1; display: grid; gap: 28px; }
+.cakes-feature__head { position: relative; align-items: end; row-gap: 20px; }
+.cakes-feature__heading { grid-column: 1 / span 7; display: grid; gap: clamp(12px, 2vh, 28px); justify-items: start; }
+.cakes-feature__heading .display--l { font-size: min(var(--t-l), 7.4vh); }
+.cakes-feature__intro { grid-column: 8 / -1; display: grid; gap: clamp(14px, 2.4vh, 28px); }
 .cakes-feature .display em { color: var(--g-600); }
 
-/* The cake ring: cards stand on a cylinder (radius --r, set by home.js) and the
-   whole ring turns by --angle. Each card's --f is how squarely it faces you (1 → -1). */
-.ring { --card: clamp(180px, 19vw, 300px); --r: calc(var(--card) * 1.7); position: relative; margin-top: clamp(32px, 4vw, 64px); }
+/* The cake ring: cakes stand on a cylinder (radius --r, set by home.js) and the whole
+   ring turns by --angle. Each stays turned to the viewer as it travels, since a cut-out
+   seen edge-on would vanish. --f is how near the front it is (1 → -1). */
+.ring { --card: clamp(180px, 19vw, 300px); --r: calc(var(--card) * 1.7); position: relative; flex: 1 1 auto; display: flex; flex-direction: column; margin-top: clamp(8px, 2vh, 32px); }
 .ring__backdrop {
     position: absolute;
     left: 50%;
@@ -1123,11 +1268,15 @@
     user-select: none;
 }
 /* The ring's tilt lifts the far side by about r·sin(10°) and drops the front by the same,
-   so the scene leaves that much room above and below the cards. */
+   so a cake needs about 1.6× its width in height (r ≈ 2.2 × width). The scene takes the
+   height left over, and the cakes shrink to fit it (--c). */
 .ring__scene {
     --lift: calc(var(--r) * 0.18);
     position: relative;
-    height: calc(var(--card) * 1.25 + var(--lift) * 2 + 40px);
+    flex: 1 1 0;
+    min-height: 260px;
+    max-height: calc(var(--card) * 1.6 + 40px);
+    container-type: size;
     perspective: 2000px;
     perspective-origin: 50% 25%;
     touch-action: pan-y;
@@ -1146,12 +1295,13 @@
     pointer-events: none;
 }
 .ring__spin {
+    --c: min(var(--card), calc((100cqh - 40px) / 1.6));
     position: absolute;
     left: 50%;
     top: calc(var(--lift) + 10px);
-    width: var(--card);
-    aspect-ratio: 4 / 5;
-    margin-left: calc(var(--card) / -2);
+    width: var(--c);
+    aspect-ratio: 5 / 4;
+    margin-left: calc(var(--c) / -2);
     transform-style: preserve-3d;
     transform: translateZ(calc(var(--r) * -1)) rotateX(-10deg) rotateY(var(--angle, 0deg));
 }
@@ -1159,28 +1309,53 @@
     --f: 1;
     position: absolute;
     inset: 0;
-    transform: rotateY(calc(var(--i) * 360deg / var(--n))) translateZ(var(--r));
+    transform: rotateY(calc(var(--i) * 360deg / var(--n))) translateZ(var(--r)) rotateY(calc(var(--i) * -360deg / var(--n) - var(--angle, 0deg))) rotateX(10deg);
 }
 .ring__card {
     position: absolute;
     inset: 0;
     display: block;
-    overflow: hidden;
-    border-radius: 999px 999px 20px 20px;
-    background: var(--sand-300);
-    box-shadow: 0 50px 80px -44px rgba(3, 35, 26, 0.7), inset 0 0 0 1px rgba(6, 46, 34, 0.08);
-    opacity: calc(0.3 + (var(--f) + 1) * 0.35);
-    filter: brightness(calc(0.5 + (var(--f) + 1) * 0.25));
+    border-radius: 12px;
+    opacity: clamp(0.28, calc(0.75 + var(--f) * 0.8), 1);
+    filter: brightness(calc(0.6 + (var(--f) + 1) * 0.2));
+    transition: scale 0.6s var(--ease-out);
     -webkit-user-drag: none;
 }
-.ring__card img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
-.ring__shine {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(115deg, transparent 32%, rgba(255, 255, 255, 0.3) 47%, transparent 60%);
-    transform: translateX(calc((1 - var(--f)) * 70%));
-    opacity: clamp(0, var(--f), 1);
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .ring__card:hover, .ring__card:focus-visible { scale: 1.18; }
+}
+.ring__card img {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
     pointer-events: none;
+    animation: ring-float 5.5s ease-in-out infinite;
+    animation-delay: calc(var(--i) * -1.3s);
+}
+/* A shadow on the ground, tightening as the cake rises away from it. */
+.ring__shadow {
+    position: absolute;
+    left: 14%;
+    right: 14%;
+    bottom: 2%;
+    height: 9%;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(3, 35, 26, 0.5), transparent);
+    animation: ring-shadow 5.5s ease-in-out infinite;
+    animation-delay: calc(var(--i) * -1.3s);
+    pointer-events: none;
+}
+@keyframes ring-float {
+    0%, 100% { transform: translateY(0) rotate(-0.6deg); }
+    50% { transform: translateY(-5%) rotate(0.6deg); }
+}
+@keyframes ring-shadow {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(0.8); opacity: 0.6; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .ring__card img, .ring__shadow { animation: none; }
 }
 .ring__card:focus-visible { outline: 2px solid var(--g-900); outline-offset: 4px; }
 
@@ -1200,7 +1375,7 @@
 .ring__caption .index { color: var(--brown); }
 .ring__caption p { max-width: 36ch; color: rgba(6, 46, 34, 0.78); }
 .ring__caption .link { margin-top: 6px; }
-.ring__hint { margin-top: 28px; text-align: center; font-size: var(--t-micro); letter-spacing: 0.14em; text-transform: uppercase; color: rgba(6, 46, 34, 0.6); }
+.ring__hint { margin-top: clamp(8px, 1.6vh, 28px); text-align: center; font-size: var(--t-micro); letter-spacing: 0.14em; text-transform: uppercase; color: rgba(6, 46, 34, 0.6); }
 
 .round-btn {
     display: grid;
@@ -1214,6 +1389,13 @@
 .round-btn:hover:not(:disabled) { background: var(--g-900); color: var(--cream); border-color: var(--g-900); }
 .round-btn:disabled { opacity: 0.35; cursor: default; }
 .flip { transform: scaleX(-1); }
+
+/* Short screens: a tighter caption, so the cakes keep their size. */
+@media (max-height: 820px) {
+    .ring__caption { gap: 4px; }
+    .ring__caption .display--m { font-size: min(var(--t-m), 5vh); }
+    .ring__hint { display: none; }
+}
 
 @media (max-width: 899px) {
     .cakes-feature__heading, .cakes-feature__intro { grid-column: 1 / -1; }
@@ -1455,7 +1637,7 @@ nav.chapters { display: none; }
 .manifesto__skip:hover, .manifesto__skip:focus-visible { background: var(--sand); border-color: var(--sand); color: var(--g-900); }
 .manifesto__skip:hover .manifesto__skip-icon, .manifesto__skip:focus-visible .manifesto__skip-icon { transform: rotate(90deg) translateX(3px); }
 /* Skip sits top right, Back sits bottom right, level with the progress bar. */
-/* The floating mesob (base.css) holds the bottom-right corner, so Back clears it:
+/* The floating cart (base.css) holds the bottom-right corner, so Back clears it:
    beside it on wide screens, above it on small ones. */
 .manifesto.is-cinematic .manifesto__back { top: auto; bottom: 26px; right: calc(clamp(14px, 2.2vw, 30px) + clamp(84px, 7.6vw, 112px) + 16px); }
 @media (max-width: 899px) {
@@ -1564,6 +1746,8 @@ nav.chapters { display: none; }
 .hours__where { font-weight: 700; }
 .hours__days { color: var(--ink-soft); font-size: var(--t-small); }
 .hours__row dd { font-weight: 200; font-variant-numeric: tabular-nums; }
+.hours__coming { display: flex; align-items: baseline; gap: 12px; font-size: var(--t-small); color: var(--ink-soft); }
+.hours__coming .hours__where { color: var(--ink); }
 
 /* ---------- The KOBA Atlas (Locations page map) ---------------------------
    Illustrated SVG city + HTML pins on one transformed canvas.
