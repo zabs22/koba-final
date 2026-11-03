@@ -18,7 +18,27 @@
     --font-sans:
         Figtree, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
         'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-display: 'Nexa', Montserrat, ui-sans-serif, system-ui, sans-serif;
+
+    /* KOBA brand (Brand Guideline 2026) for the sign-in screens and Jetstream pages */
+    --color-koba-950: #03231a;
+    --color-koba-900: #062e22;
+    --color-koba-800: #0a3d2d;
+    --color-koba-700: #0b4a36;
+    --color-koba-600: #006a47;
+    --color-koba-sand: #e6be7e;
+    --color-koba-sand-light: #f2d4a7;
+    --color-koba-brown: #7a4e22;
+    --color-koba-cream: #fff5e6;
 }
+
+/* KOBA lockup (x-site.logo), shared with the public site */
+.logo { --mark: var(--color-koba-sand); --glyph: #fff; --word: var(--color-koba-800); height: auto; overflow: visible; }
+.logo--sand { --mark: var(--color-koba-sand); --glyph: var(--color-koba-900); --word: var(--color-koba-sand); }
+.logo__mark { fill: var(--mark); }
+.logo__glyph { stroke: var(--glyph); }
+.logo__word { stroke: var(--word); }
+.logo__tag { fill: var(--word); font-family: Montserrat, sans-serif; }
 
 /*
  | v3 compatibility (from the official upgrade guide):

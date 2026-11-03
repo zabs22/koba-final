@@ -17,6 +17,10 @@ return Application::configure(basePath: dirname(__DIR__))
         // https:// URLs, so the browser doesn't block CSS/JS as mixed content.
         // TODO: Check if needed in prod
         $middleware->trustProxies(at: '*');
+
+        $middleware->alias([
+            'role' => \App\Http\Middleware\EnsureUserHasRole::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

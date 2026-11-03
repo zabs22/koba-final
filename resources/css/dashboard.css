@@ -1,0 +1,260 @@
+/* ==========================================================================
+   KOBA dashboards — design system
+   Brand tokens from the KOBA Brand Guideline 2026 (see resources/css/site/base.css):
+   Earthy Green, Earth Brown, Sand and Cream; Nexa/Montserrat display, Circular/Figtree body.
+   ========================================================================== */
+
+@import 'tailwindcss' source(none);
+
+@source '../views/admin';
+@source '../views/branch';
+@source '../views/customer';
+@source '../views/dashboard';
+@source '../views/layouts';
+@source '../views/components/dashboard';
+@source '../views/components/pickup';
+@source '../views/pickup';
+@source '../js/dashboard.js';
+@source '../js/dashboard';
+@source '../js/charts';
+
+@plugin '@tailwindcss/forms';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+    --font-sans: 'Circular Std', Figtree, ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Nexa', Montserrat, ui-sans-serif, system-ui, sans-serif;
+    --font-ethiopic: 'Shiromeda', 'Noto Sans Ethiopic', Figtree, sans-serif;
+
+    /* Earthy Green */
+    --color-forest-50: #eef5f0;
+    --color-forest-100: #d9e9df;
+    --color-forest-200: #b3d3c0;
+    --color-forest-300: #7fb398;
+    --color-forest-400: #3f8d68;
+    --color-forest-500: #0f7a52;
+    --color-forest-600: #006a47;
+    --color-forest-700: #0b4a36;
+    --color-forest-800: #0a3d2d;
+    --color-forest-900: #062e22;
+    --color-forest-950: #03231a;
+
+    /* Sand */
+    --color-sand-50: #fdf7ec;
+    --color-sand-100: #f8ead2;
+    --color-sand-200: #f2d4a7;
+    --color-sand-300: #eccb94;
+    --color-sand-400: #e6be7e;
+    --color-sand-500: #d39a2c;
+    --color-sand-600: #b07d22;
+
+    /* Earth Brown */
+    --color-brown-500: #9c5a1a;
+    --color-brown-600: #7a4e22;
+    --color-brown-700: #5e3a17;
+
+    --color-cream: #fff5e6;
+
+    --radius-xl: 0.875rem;
+    --shadow-card: 0 1px 2px rgb(6 46 34 / 0.04), 0 1px 1px rgb(6 46 34 / 0.03);
+    --shadow-pop: 0 12px 32px -12px rgb(6 46 34 / 0.28), 0 2px 6px rgb(6 46 34 / 0.06);
+}
+
+/* Semantic surfaces and ink: one name, a light and a dark value. */
+@theme inline {
+    --color-canvas: var(--canvas);
+    --color-panel: var(--panel);
+    --color-subtle: var(--subtle);
+    --color-line: var(--line);
+    --color-line-strong: var(--line-strong);
+    --color-ink: var(--ink);
+    --color-ink-soft: var(--ink-soft);
+    --color-ink-faint: var(--ink-faint);
+    --color-accent: var(--accent);
+    --color-accent-ink: var(--accent-ink);
+    --color-accent-soft: var(--accent-soft);
+    --color-success: var(--success);
+    --color-success-soft: var(--success-soft);
+    --color-warning: var(--warning);
+    --color-warning-soft: var(--warning-soft);
+    --color-danger: var(--danger);
+    --color-danger-soft: var(--danger-soft);
+    --color-info: var(--info);
+    --color-info-soft: var(--info-soft);
+    --color-rail: var(--rail);
+}
+
+:root {
+    --canvas: #f6f0e5;
+    --panel: #fffdf9;
+    --subtle: #f9f4ea;
+    --line: rgb(6 46 34 / 0.1);
+    --line-strong: rgb(6 46 34 / 0.2);
+    --ink: #062e22;
+    --ink-soft: rgb(6 46 34 / 0.7);
+    --ink-faint: rgb(6 46 34 / 0.5);
+    --accent: #0b4a36;
+    --accent-ink: #fff5e6;
+    --accent-soft: rgb(11 74 54 / 0.08);
+    --success: #0f7a52;
+    --success-soft: #e2f0e7;
+    --warning: #9a5b00;
+    --warning-soft: #fbedd3;
+    --danger: #b42318;
+    --danger-soft: #fbe7e4;
+    --info: #2f6496;
+    --info-soft: #e5eef7;
+    --rail: #062e22;
+    color-scheme: light;
+}
+
+.dark {
+    --canvas: #061710;
+    --panel: #0c241c;
+    --subtle: #0f2a21;
+    --line: rgb(255 245 230 / 0.08);
+    --line-strong: rgb(255 245 230 / 0.16);
+    --ink: #f6efe3;
+    --ink-soft: rgb(246 239 227 / 0.72);
+    --ink-faint: rgb(246 239 227 / 0.48);
+    --accent: #e6be7e;
+    --accent-ink: #062e22;
+    --accent-soft: rgb(230 190 126 / 0.12);
+    --success: #4cc08e;
+    --success-soft: rgb(76 192 142 / 0.13);
+    --warning: #e8b65a;
+    --warning-soft: rgb(232 182 90 / 0.13);
+    --danger: #f08070;
+    --danger-soft: rgb(240 128 112 / 0.13);
+    --info: #86b5e3;
+    --info-soft: rgb(134 181 227 / 0.13);
+    --rail: #03140d;
+    color-scheme: dark;
+}
+
+@layer base {
+    html { -webkit-text-size-adjust: 100%; }
+    body { font-feature-settings: 'cv11', 'ss01'; }
+    *, ::before, ::after { border-color: var(--line); }
+    button:not(:disabled), [role='button']:not(:disabled) { cursor: pointer; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+    ::selection { background: var(--color-sand-400); color: var(--color-forest-900); }
+    [x-cloak] { display: none !important; }
+    .tabular-nums, td, .kpi-value { font-variant-numeric: tabular-nums; }
+}
+
+@layer components {
+    /* Panels */
+    .card { @apply rounded-xl border border-line bg-panel shadow-[var(--shadow-card)]; }
+    .card-head { @apply flex flex-wrap items-start justify-between gap-3 px-5 pt-4 pb-2; }
+    .card-title { @apply font-display text-[15px] font-semibold tracking-tight text-ink; }
+    .card-sub { @apply mt-0.5 text-xs text-ink-faint; }
+    .eyebrow { @apply text-[11px] font-semibold uppercase tracking-[0.14em] text-brown-600 dark:text-sand-400; }
+
+    /* Buttons */
+    .btn, .btn-primary, .btn-secondary, .btn-ghost, .btn-danger, .btn-icon {
+        @apply inline-flex h-9 items-center justify-center gap-2 rounded-lg px-3.5 text-sm font-medium whitespace-nowrap transition-colors duration-150 disabled:pointer-events-none disabled:opacity-50;
+    }
+    .btn-primary { @apply bg-accent text-accent-ink hover:bg-forest-800 dark:hover:bg-sand-300; }
+    .btn-secondary { @apply border border-line-strong bg-panel text-ink hover:bg-subtle; }
+    .btn-ghost { @apply text-ink-soft hover:bg-accent-soft hover:text-ink; }
+    .btn-danger { @apply bg-danger text-white hover:opacity-90 dark:text-forest-950; }
+    .btn-icon { @apply size-9 px-0 text-ink-soft hover:bg-accent-soft hover:text-ink; }
+    .btn-sm { @apply h-8 px-2.5 text-[13px]; }
+
+    /* Forms */
+    .field { @apply block w-full rounded-lg border-line-strong bg-panel text-sm text-ink shadow-none placeholder:text-ink-faint focus:border-accent focus:ring-2 focus:ring-accent/20; }
+    .label { @apply mb-1.5 block text-[13px] font-medium text-ink-soft; }
+
+    /* Segmented control (date range, view toggles) */
+    .segmented { @apply inline-flex rounded-lg border border-line bg-subtle p-0.5; }
+    .segmented > button { @apply rounded-md px-2.5 py-1 text-[13px] font-medium text-ink-soft transition-colors hover:text-ink; }
+    .segmented > button[aria-pressed='true'] { @apply bg-panel text-ink shadow-[var(--shadow-card)] ring-1 ring-line; }
+
+    /* Tables */
+    .table { @apply w-full border-separate border-spacing-0 text-left text-sm; }
+    .table thead th { @apply sticky top-0 z-10 border-b border-line bg-subtle/95 px-4 py-2.5 text-xs font-medium whitespace-nowrap text-ink-faint backdrop-blur; }
+    .table tbody td { @apply border-b border-line px-4 py-3 align-middle text-ink; }
+    .table tbody tr { @apply transition-colors; }
+    .table tbody tr:hover td { @apply bg-subtle; }
+    .table tbody tr:last-child td { @apply border-b-0; }
+
+    /* Skeleton */
+    .skeleton { @apply animate-pulse rounded-md bg-ink/6; }
+
+    /* Sidebar navigation */
+    .nav-item { @apply relative flex h-9 items-center gap-3 rounded-lg px-3 text-[13.5px] text-cream/70 transition-colors hover:bg-white/5 hover:text-cream; }
+    .nav-item[aria-current='page'] { @apply bg-white/8 text-cream; }
+    .nav-item[aria-current='page']::before { content: ''; @apply absolute top-2 bottom-2 -left-3 w-[3px] rounded-r-full bg-sand-400; }
+
+    /* Live dot */
+    .live-dot { @apply relative inline-flex size-2 rounded-full bg-success; }
+    .live-dot::after { content: ''; @apply absolute inset-0 rounded-full bg-success; animation: live-ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite; }
+}
+
+@keyframes live-ping {
+    75%, 100% { transform: scale(2.4); opacity: 0; }
+}
+
+@keyframes arrive {
+    0% { box-shadow: 0 0 0 0 rgb(230 190 126 / 0.7); }
+    100% { box-shadow: 0 0 0 10px rgb(230 190 126 / 0); }
+}
+.is-fresh { animation: arrive 1.2s ease-out 3; }
+
+/* Pickup: QR viewfinder scan line, wrong-code shake, confirmed tick. */
+@keyframes scan-line {
+    0%, 100% { top: 12%; }
+    50% { top: 84%; }
+}
+.scan-line { animation: scan-line 2.4s ease-in-out infinite; }
+
+@keyframes shake {
+    10%, 90% { transform: translateX(-2px); }
+    20%, 80% { transform: translateX(4px); }
+    30%, 50%, 70% { transform: translateX(-6px); }
+    40%, 60% { transform: translateX(6px); }
+}
+.is-shaking { animation: shake 0.45s both; }
+
+@keyframes draw { to { stroke-dashoffset: 0; } }
+.tick-circle { stroke-dasharray: 152; stroke-dashoffset: 152; animation: draw 0.6s ease-out forwards; }
+.tick-mark { stroke-dasharray: 40; stroke-dashoffset: 40; animation: draw 0.35s 0.45s ease-out forwards; }
+
+/* Counter mode (pickup verification on a tablet): no sidebar, larger controls. */
+.counter-mode [data-shell-sidebar] { display: none; }
+.counter-mode [data-shell-main] { padding-left: 0 !important; }
+
+/* KOBA lockup (vector logo shared with the public site) */
+.logo { --mark: var(--color-sand-400); --glyph: #fff; --word: var(--color-forest-800); overflow: visible; }
+/* Layered, so size utilities on the logo (h-[30px] w-auto) win over this default. */
+@layer components { .logo { height: auto; } }
+.logo--light { --mark: #fff; --glyph: var(--color-forest-900); --word: #fff; }
+.logo--sand { --mark: var(--color-sand-400); --glyph: var(--color-forest-900); --word: var(--color-sand-400); }
+.dark .logo:not(.logo--sand, .logo--light) { --word: var(--color-cream); --glyph: var(--color-forest-900); }
+.logo__mark { fill: var(--mark); }
+.logo__glyph { stroke: var(--glyph); }
+.logo__word { stroke: var(--word); }
+.logo__tag { fill: var(--word); font-family: Montserrat, sans-serif; }
+
+/* The koba-leaf pattern, used sparingly (sidebar foot, customer greeting). */
+.brand-pattern { background-image: url('../images/brand/pattern-sand.svg'); background-size: 220px; background-repeat: repeat; }
+
+/* ApexCharts: match the dashboard type and tooltips */
+.apexcharts-tooltip { border-radius: 10px !important; border: 1px solid var(--line) !important; box-shadow: var(--shadow-pop) !important; }
+.apexcharts-tooltip.apexcharts-theme-light { background: var(--panel) !important; color: var(--ink); }
+.apexcharts-tooltip.apexcharts-theme-dark { background: #10261f !important; }
+.apexcharts-tooltip-title { font-family: Figtree, sans-serif !important; font-size: 12px !important; background: transparent !important; border-bottom-color: var(--line) !important; }
+.apexcharts-tooltip-text-y-value { font-variant-numeric: tabular-nums; font-weight: 600 !important; }
+.apexcharts-legend-text { font-family: Figtree, sans-serif !important; }
+.apexcharts-xaxistooltip { display: none !important; }
+
+@media print {
+    .no-print { display: none !important; }
+    body { background: #fff !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}

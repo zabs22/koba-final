@@ -250,6 +250,11 @@ export function initOrderForm() {
             const { ok, status, data } = await send(form);
             if (ok) {
                 saveCart([]);
+                // The order confirmation page: pickup code, QR and live status.
+                if (data.redirect) {
+                    window.location.assign(data.redirect);
+                    return;
+                }
                 form.hidden = true;
                 progress.forEach((item) => { item.classList.remove('is-current'); item.classList.add('is-done'); });
                 success.hidden = false;
