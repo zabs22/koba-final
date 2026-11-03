@@ -287,8 +287,8 @@ return [
                 'link' => 'https://share.google/nsOsygocgqXlWh0NE',
                 'maps' => 'KOBA Patisserie & Bakery Kebena Addis Ababa',
                 'area' => 'Kebena, Addis Ababa',
-                'pin' => [565, 395],
-                'coords' => [9.0351, 38.7722],
+                'pin' => [440, 205],
+                'coords' => [9.0377, 38.7739],
                 'open' => ['weekday' => [7, 21], 'weekend' => [6, 23]],
             ],
             'atlas' => [
@@ -317,8 +317,8 @@ return [
                 'link' => 'https://share.google/qd0pKa4npXzqeK4uI',
                 'maps' => 'KOBA Patisserie & Bakery 4 Kilo Branch Addis Ababa',
                 'area' => '4 Kilo, Addis Ababa',
-                'pin' => [395, 215],
-                'coords' => [9.0362, 38.7626],
+                'pin' => [300, 215],
+                'coords' => [9.0335, 38.7630],
                 'open' => ['weekday' => [7, 21], 'weekend' => [6, 23]],
             ],
             'peacock' => [
@@ -332,9 +332,9 @@ return [
                 'link' => 'https://maps.app.goo.gl/Mhff9MFgJXFjLg8D8',
                 'maps' => 'KOBA Roastery and Bakery Peacock Addis Ababa',
                 'area' => 'Peacock, Addis Ababa',
-                // Placed by hand near Peacock Park; adjust once the exact spot is confirmed.
-                'pin' => [640, 450],
-                'coords' => [9.0090, 38.7680],
+                // From the branch's Google Maps link.
+                'pin' => [655, 540],
+                'coords' => [8.9992, 38.7741],
                 'open' => ['weekday' => [7, 21], 'weekend' => [6, 23]],
             ],
         ],
@@ -642,36 +642,35 @@ return [
     ],
 
     /*
-    | Menu cards, keyed by item slug, in the manner of a pâtisserie collection:
-    | a creative "title" (the house name), the composition "notes", and one
-    | "line" describing it in the KOBA voice. The plain product name still
-    | shows above the title, so guests and staff recognise every item.
+    | Menu cards, keyed by item slug: the "kind" of item, its composition
+    | "notes", and one "line" describing it in the KOBA voice. Items are always
+    | shown under their real menu name (no invented house names).
     | Compositions are read from the photographs: confirm each with the kitchen.
     */
     'menu_notes' => [
-        'trio' => ['kind' => 'Signature cake', 'title' => 'Le Damier', 'notes' => ['Chocolate mousse', 'Cocoa velvet', 'Dark chocolate'], 'line' => 'Cocoa velvet, tied in dark chocolate.'],
-        'chocolate-fudge' => ['kind' => 'Signature cake', 'title' => 'Midnight Mirror', 'notes' => ['Fudge sponge', 'Mirror glaze', 'White chocolate lattice'], 'line' => 'Poured once, then left untouched.'],
-        'opera-caramel' => ['kind' => 'Signature cake', 'title' => 'Golden Hour', 'notes' => ['Almond sponge', 'Coffee cream', 'Caramel glaze'], 'line' => 'Fine layers, sealed in caramel.'],
-        'vanilla-eclair' => ['kind' => 'Signature cake', 'title' => 'Ivory', 'notes' => ['Vanilla cream', 'White glaze', 'Chocolate seals'], 'line' => 'Quiet vanilla, sealed in chocolate.'],
-        'cheesecake' => ['kind' => 'Signature cake', 'title' => 'First Light', 'notes' => ['Baked cream cheese', 'Biscuit base', 'Berry glaze'], 'line' => 'Baked slowly, brightened with berries.'],
+        'trio' => ['kind' => 'Signature cake', 'notes' => ['Chocolate mousse', 'Cocoa velvet', 'Dark chocolate'], 'line' => 'Cocoa velvet, tied in dark chocolate.'],
+        'chocolate-fudge' => ['kind' => 'Signature cake', 'notes' => ['Fudge sponge', 'Mirror glaze', 'White chocolate lattice'], 'line' => 'Poured once, then left untouched.'],
+        'opera-caramel' => ['kind' => 'Signature cake', 'notes' => ['Almond sponge', 'Coffee cream', 'Caramel glaze'], 'line' => 'Fine layers, sealed in caramel.'],
+        'vanilla-eclair' => ['kind' => 'Signature cake', 'notes' => ['Vanilla cream', 'White glaze', 'Chocolate seals'], 'line' => 'Quiet vanilla, sealed in chocolate.'],
+        'cheesecake' => ['kind' => 'Signature cake', 'notes' => ['Baked cream cheese', 'Biscuit base', 'Berry glaze'], 'line' => 'Baked slowly, brightened with berries.'],
 
-        'koba-croissant' => ['kind' => 'Viennoiserie', 'title' => 'The Fold', 'notes' => ['Butter', 'Laminated dough'], 'line' => 'A crisp shell, a tender crumb.'],
-        'almond-croissant' => ['kind' => 'Viennoiserie', 'title' => 'Amande', 'notes' => ['Almond cream', 'Toasted almonds', 'Icing sugar'], 'line' => 'Our croissant, filled with almond cream.'],
-        'pecan-tart' => ['kind' => 'Tart', 'title' => 'Harvest', 'notes' => ['Shortcrust', 'Pecans', 'Caramel'], 'line' => 'Toasted pecans in deep caramel.'],
-        'eclair' => ['kind' => 'Choux', 'title' => 'Buna', 'notes' => ['Choux', 'Coffee cream', 'Coffee glaze'], 'line' => 'Named for coffee in Amharic.'],
-        'white-dark-chocolate-muffins' => ['kind' => 'Bakery', 'title' => 'Light & Shade', 'notes' => ['White chocolate', 'Dark chocolate'], 'line' => 'Two chocolates, one generous crumb.'],
-        'vegetable-focaccia' => ['kind' => 'Bakery', 'title' => 'Garden Bread', 'notes' => ['Olive oil', 'Roasted vegetables'], 'line' => 'An open, golden crumb.'],
+        'koba-croissant' => ['kind' => 'Viennoiserie', 'notes' => ['Butter', 'Laminated dough'], 'line' => 'A crisp shell, a tender crumb.'],
+        'almond-croissant' => ['kind' => 'Viennoiserie', 'notes' => ['Almond cream', 'Toasted almonds', 'Icing sugar'], 'line' => 'Our croissant, filled with almond cream.'],
+        'pecan-tart' => ['kind' => 'Tart', 'notes' => ['Shortcrust', 'Pecans', 'Caramel'], 'line' => 'Toasted pecans in deep caramel.'],
+        'eclair' => ['kind' => 'Choux', 'notes' => ['Choux', 'Coffee cream', 'Coffee glaze'], 'line' => 'Coffee cream in a crisp choux shell.'],
+        'white-dark-chocolate-muffins' => ['kind' => 'Bakery', 'notes' => ['White chocolate', 'Dark chocolate'], 'line' => 'Two chocolates, one generous crumb.'],
+        'vegetable-focaccia' => ['kind' => 'Bakery', 'notes' => ['Olive oil', 'Roasted vegetables'], 'line' => 'An open, golden crumb.'],
 
-        'layered-espresso' => ['kind' => 'Coffee', 'title' => 'Strata', 'notes' => ['Espresso', 'Steamed milk'], 'line' => 'Poured in layers, left to settle.'],
-        'milk-coffee' => ['kind' => 'Coffee', 'title' => 'Morning Ceremony', 'notes' => ['Espresso', 'Steamed milk'], 'line' => 'A morning ritual, poured by hand.'],
-        'tea-poured-to-order' => ['kind' => 'Tea', 'title' => 'Shai', 'notes' => ['Black tea', 'Milk'], 'line' => 'Tea in Amharic, poured to order.'],
-        'iced-coffee' => ['kind' => 'Coffee', 'title' => 'Slow Ice', 'notes' => ['Espresso', 'Milk', 'Ice'], 'line' => 'Smooth, cold, and unhurried.'],
-        'hot-chocolate' => ['kind' => 'Chocolate', 'title' => 'The Melt', 'notes' => ['Chocolate sphere', 'Hot milk'], 'line' => 'Melting as you watch.'],
-        'affogato' => ['kind' => 'Coffee', 'title' => 'Hot & Cold', 'notes' => ['Espresso', 'Vanilla ice cream'], 'line' => 'Espresso over vanilla ice cream.'],
-        'lime-mint-cooler' => ['kind' => 'Cold drink', 'title' => 'Clear Mint', 'notes' => ['Lime', 'Fresh mint', 'Crushed ice'], 'line' => 'Bright, cold, and clean.'],
-        'green-mint' => ['kind' => 'Cold drink', 'title' => 'Koba Leaf', 'notes' => ['Fresh mint'], 'line' => 'Named for the koba leaf.'],
-        'layered-fresh-juice' => ['kind' => 'Fresh juice', 'title' => 'Sunset Layers', 'notes' => ['Seasonal fruit'], 'line' => 'Fresh fruit, layered by colour.'],
-        'strawberry-cooler' => ['kind' => 'Cold drink', 'title' => 'Strawberry Field', 'notes' => ['Strawberry', 'Mint', 'Ice'], 'line' => 'Strawberry and mint over ice.'],
+        'layered-espresso' => ['kind' => 'Coffee', 'notes' => ['Espresso', 'Steamed milk'], 'line' => 'Poured in layers, left to settle.'],
+        'milk-coffee' => ['kind' => 'Coffee', 'notes' => ['Espresso', 'Steamed milk'], 'line' => 'A morning ritual, poured by hand.'],
+        'tea-poured-to-order' => ['kind' => 'Tea', 'notes' => ['Black tea', 'Milk'], 'line' => 'Black tea with milk, poured to order.'],
+        'iced-coffee' => ['kind' => 'Coffee', 'notes' => ['Espresso', 'Milk', 'Ice'], 'line' => 'Smooth, cold, and unhurried.'],
+        'hot-chocolate' => ['kind' => 'Chocolate', 'notes' => ['Chocolate sphere', 'Hot milk'], 'line' => 'Melting as you watch.'],
+        'affogato' => ['kind' => 'Coffee', 'notes' => ['Espresso', 'Vanilla ice cream'], 'line' => 'Espresso over vanilla ice cream.'],
+        'lime-mint-cooler' => ['kind' => 'Cold drink', 'notes' => ['Lime', 'Fresh mint', 'Crushed ice'], 'line' => 'Bright, cold, and clean.'],
+        'green-mint' => ['kind' => 'Cold drink', 'notes' => ['Fresh mint'], 'line' => 'Fresh mint, bright and cold.'],
+        'layered-fresh-juice' => ['kind' => 'Fresh juice', 'notes' => ['Seasonal fruit'], 'line' => 'Fresh fruit, layered by colour.'],
+        'strawberry-cooler' => ['kind' => 'Cold drink', 'notes' => ['Strawberry', 'Mint', 'Ice'], 'line' => 'Strawberry and mint over ice.'],
     ],
 
     'cart' => [

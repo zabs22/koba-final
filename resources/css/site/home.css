@@ -24,11 +24,8 @@
     min-height: max(680px, 100svh);
     padding-top: var(--header-h);
     color: var(--cream);
-    /* Smooth green: deep at the edges, lit softly behind the cakes. */
-    background:
-        radial-gradient(60% 80% at 72% 50%, rgba(0, 106, 71, 0.55), transparent 70%),
-        radial-gradient(50% 60% at 10% 100%, rgba(230, 190, 126, 0.08), transparent 70%),
-        linear-gradient(160deg, var(--g-950) 0%, var(--g-900) 55%, var(--g-950) 100%);
+    /* The cakes fill the whole hero behind the words; plain green shows only while they load. */
+    background: var(--g-950);
     overflow: hidden;
 }
 
@@ -49,14 +46,9 @@
 .hero__lede { max-width: 30ch; color: var(--on-dark-soft); }
 .hero__copy .btn--ghost { color: var(--cream); box-shadow: inset 0 0 0 1px rgba(255, 245, 230, 0.32); }
 
-/* Stage: the right of the screen, full height, its left edge melting into the green. */
-.hero__stage { position: absolute; top: 0; right: 0; bottom: 0; left: var(--stage-l); z-index: 1; }
-.hero__slides {
-    position: absolute;
-    inset: 0;
-    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 22%);
-    mask-image: linear-gradient(90deg, transparent 0%, #000 22%);
-}
+/* Stage: the whole hero, edge to edge. */
+.hero__stage { position: absolute; inset: 0; z-index: 1; }
+.hero__slides { position: absolute; inset: 0; }
 
 /* Each new cake wipes in over the last; the outgoing one stays until the wipe ends. */
 .hero__slide { position: absolute; inset: 0; margin: 0; z-index: 1; opacity: 0; transition: opacity 0s linear 1.5s; }
@@ -64,12 +56,12 @@
 .hero__slide img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.06); }
 .hero__slide.is-active img { animation: hero-settle calc(var(--slide-ms) + 1500ms) var(--ease-out) both; }
 .hero.is-paused .hero__slide img { animation-play-state: paused; }
-/* A soft green floor so the caption and controls always read. */
+/* An even dark wash, no gradient, so the words read over any cake. */
 .hero__slide::after {
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(0deg, rgba(3, 35, 26, 0.82) 0%, rgba(3, 35, 26, 0) 38%), linear-gradient(180deg, rgba(3, 35, 26, 0.55) 0%, rgba(3, 35, 26, 0) 22%);
+    background: rgba(3, 35, 26, 0.5);
     pointer-events: none;
 }
 @keyframes hero-wipe {
@@ -81,10 +73,10 @@
     to { transform: scale(1.03) translateX(0); }
 }
 
-/* Caption: the cake's house name, rising in after the wipe. */
+/* Caption: the cake's name, rising in after the wipe. */
 .hero__caption {
     position: absolute;
-    left: 22%;
+    left: var(--stage-l);
     right: max(var(--gutter), calc((100vw - var(--max)) / 2 + var(--gutter)));
     bottom: 104px;
     z-index: 1;
@@ -102,7 +94,7 @@
 
 .hero__controls {
     position: absolute;
-    left: 22%;
+    left: var(--stage-l);
     bottom: 36px;
     z-index: 3;
     display: flex;
@@ -164,15 +156,20 @@
     .js .hero__stage { clip-path: none; transition: none; }
 }
 
+/* Small screens: the cake still fills the whole hero; the words sit over it, the cake's
+   name and the controls along the bottom. */
 @media (max-width: 899px) {
-    .hero { display: block; min-height: 0; padding-bottom: 0; }
-    .hero__copy { width: auto; margin: 0; padding: 40px var(--gutter) 32px; }
+    .hero { align-items: flex-start; min-height: 100svh; min-height: max(560px, 100svh); }
+    .hero__copy { width: auto; margin: 0; padding: clamp(32px, 8vh, 72px) var(--gutter) 200px; }
     .hero__title { font-size: clamp(2.6rem, 12vw, 4rem); }
-    .hero__stage { position: relative; inset: auto; height: min(118vw, 600px); }
-    .hero__slides { -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 14%); mask-image: linear-gradient(180deg, transparent 0%, #000 14%); }
+    .hero__slide::after { background: rgba(3, 35, 26, 0.58); }
     .hero__caption { left: var(--gutter); right: var(--gutter); bottom: 84px; }
     .hero__controls { left: var(--gutter); right: var(--gutter); bottom: 20px; }
     .hero__scroll { display: none; }
+}
+/* Narrow phones: the counter (01 / 05) shows the place, so the dashes give way to the cake box. */
+@media (max-width: 479px) {
+    .hero__dots { display: none; }
 }
 
 /* ==========================================================================
@@ -512,12 +509,34 @@
 
 @media (max-width: 899px) {
     .story-intro__cta { margin-left: 0; flex-basis: 100%; }
-    .story-intro__facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-@media (max-width: 599px) {
-    .story-intro__facts { grid-template-columns: minmax(0, 1fr); }
-    .story-intro__fact { min-height: 130px; }
     .story-intro__leaf { width: 70vw; right: -30%; }
+}
+/* Tablets and phones: no cards and no photographs, just the facts listed down the page:
+   the number on the left, its words beside it, a hairline between each. */
+@media (max-width: 899px) {
+    .story-intro__facts { display: block; margin-top: 36px; border-top: 1px solid var(--line-strong); }
+    .story-intro__fact {
+        grid-template-columns: 5.2rem minmax(0, 1fr);
+        column-gap: 18px;
+        row-gap: 4px;
+        align-items: center;
+        min-height: 0;
+        padding: 20px 0;
+        border-top: 0;
+        border-bottom: 1px solid var(--line);
+        border-radius: 0;
+        overflow: visible;
+    }
+    .story-intro__fact > img,
+    .story-intro__fact::after { display: none; }
+    .story-intro__fact dt { grid-row: 1 / span 2; align-self: center; font-size: 2rem; }
+    .story-intro__fact dt,
+    .story-intro__fact.is-in dt { color: var(--g-600); transform: none; }
+    .story-intro__fact dd,
+    .story-intro__fact.is-in dd,
+    .story-intro__fact.is-in dd:not(.story-intro__body) { grid-column: 2; color: var(--ink); }
+    .story-intro__fact dd.story-intro__body,
+    .story-intro__fact.is-in dd.story-intro__body { color: var(--ink-soft); }
 }
 
 /* ==========================================================================
@@ -1148,11 +1167,8 @@
 .menu-preview__head > div { display: grid; gap: clamp(8px, 1.6vh, 18px); }
 .menu-preview__head .display--l { font-size: min(var(--t-l), 8vh); }
 
-/* The full-menu button takes the next place in the grid, beside the last cake. */
-.menu-products__after { display: flex; align-items: center; justify-content: center; }
-@media (max-width: 899px) {
-    .menu-products__after { justify-content: flex-start; }
-}
+/* The full-menu button sits on its own row at the bottom, under all the cakes. */
+.menu-products__after { grid-column: 1 / -1; display: flex; justify-content: center; margin-top: clamp(4px, 1vw, 12px); }
 .mp__intro {
     grid-column: 1 / span 5;
     display: flex;

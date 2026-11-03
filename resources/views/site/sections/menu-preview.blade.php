@@ -14,7 +14,7 @@
             </div>
         </header>
 
-        {{-- The way to the full menu sits beside the last cake. --}}
+        {{-- The way to the full menu, on its own row under the cakes. --}}
         <x-site.menu-products :products="$featuredCakes->values()" id-prefix="preview-dish-" :reveal="true">
             <a class="btn" href="{{ route('menu') }}">Explore the Full Menu <x-site.arrow /></a>
         </x-site.menu-products>

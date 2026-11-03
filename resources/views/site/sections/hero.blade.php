@@ -1,6 +1,5 @@
 @php
     // The signature cakes, each named as on the menu. [cake slug, image, focal point]
-    $notes = trans('koba.menu_notes');
     $cakes = trans('koba.cakes');
     $slides = collect([
         ['chocolate-fudge', '50% 52%'],
@@ -12,8 +11,8 @@
         'slug' => $s[0],
         'image' => $cakes[$s[0]]['image'],
         'position' => $s[1],
-        'title' => $notes[$s[0]]['title'] ?? $cakes[$s[0]]['name'],
         'name' => $cakes[$s[0]]['name'],
+        'kind' => trans('koba.menu_notes.'.$s[0].'.kind'),
     ]);
 @endphp
 
@@ -34,7 +33,7 @@
         </div>
     </div>
 
-    {{-- The cakes: each slide wipes in over the last, with its house name. --}}
+    {{-- The cakes: each slide wipes in over the last, with its name. --}}
     <div class="hero__stage">
         <div class="hero__slides">
             @foreach ($slides as $i => $slide)
@@ -42,8 +41,8 @@
                     <x-site.img :src="$slide['image']" :eager="true" alt="" sizes="(min-width: 900px) 52vw, 100vw" :position="$slide['position']" />
                     <figcaption class="hero__caption">
                         <span class="hero__caption-no">{{ str_pad($i + 1, 2, '0', STR_PAD_LEFT) }} / {{ str_pad($slides->count(), 2, '0', STR_PAD_LEFT) }}</span>
-                        <a class="hero__caption-title" href="{{ route('cakes') }}#cake-{{ $slide['slug'] }}">{{ $slide['title'] }}</a>
-                        <span class="hero__caption-name">{{ $slide['name'] }}</span>
+                        <a class="hero__caption-title" href="{{ route('cakes') }}#cake-{{ $slide['slug'] }}">{{ $slide['name'] }}</a>
+                        <span class="hero__caption-name">{{ $slide['kind'] }}</span>
                     </figcaption>
                 </figure>
             @endforeach
