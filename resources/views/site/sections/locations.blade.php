@@ -42,7 +42,7 @@
                                 @unless ($full)
                                     <a class="link" href="{{ route('locations') }}#{{ $slug }}">{{ __('koba.ui.view_location') }}</a>
                                 @endunless
-                                <a class="link" href="{{ $mapsUrl($branch['maps']) }}" target="_blank" rel="noopener">{{ __('koba.ui.directions') }} <x-site.arrow /></a>
+                                <a class="link" href="{{ $branch['link'] ?? $mapsUrl($branch['maps']) }}" target="_blank" rel="noopener">{{ __('koba.ui.directions') }} <x-site.arrow /></a>
                             </div>
                           </div>
                         </div>
@@ -81,6 +81,7 @@
                     </div>
                 @endforeach
             </dl>
+            <p class="hours__coming"><span class="hours__where">{{ __('koba.locations.coming.name') }}</span> {{ __('koba.locations.coming.label') }}</p>
         </div>
     </div>
 </section>

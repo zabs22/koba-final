@@ -75,7 +75,7 @@ export function initOrderForm() {
             }
 
             const body = el('div', 'order-item__body');
-            body.append(el('p', 'order-item__title', item.title), el('p', 'order-item__name', item.name));
+            body.append(el('p', 'order-item__title', item.name));
 
             if (item.cake) {
                 const group = el('div', 'order-item__sizes');
@@ -111,7 +111,7 @@ export function initOrderForm() {
 
             row.append(body, side,
                 hidden(`items[${i}][slug]`, item.slug),
-                hidden(`items[${i}][name]`, item.title !== item.name ? `${item.title} (${item.name})` : item.name),
+                hidden(`items[${i}][name]`, item.name),
                 hidden(`items[${i}][qty]`, item.qty));
             return row;
         }));

@@ -45,7 +45,7 @@
                                 <span class="atlas__status" data-atlas-status hidden></span>
                             </span>
                         </button>
-                        <a class="atlas__go" href="https://www.google.com/maps/dir/?api=1&destination={{ urlencode($branch['maps']) }}" target="_blank" rel="noopener" aria-label="{{ $atlas['directions'] }}: {{ $branch['name'] }}">
+                        <a class="atlas__go" href="{{ $branch['link'] }}" target="_blank" rel="noopener" aria-label="{{ $atlas['directions'] }}: {{ $branch['name'] }}">
                             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6 21.4 12 12 21.4 2.6 12z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 14.2v-2.4c0-.9.7-1.6 1.6-1.6h4.2m-1.9-2 2 2-2 2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
                         </a>
                     </li>
@@ -180,7 +180,7 @@
                             <p class="atlas__status" data-atlas-status hidden></p>
                             <div class="atlas__card-actions">
                                 <a href="tel:{{ str_replace(' ', '', $branch['phone']) }}">{{ $atlas['call'] }}</a>
-                                <a href="https://www.google.com/maps/dir/?api=1&destination={{ urlencode($branch['maps']) }}" target="_blank" rel="noopener" data-atlas-embed="https://www.google.com/maps?q={{ urlencode($branch['maps']) }}&output=embed" data-atlas-title="{{ $branch['name'] }}">
+                                <a href="{{ $branch['link'] }}" target="_blank" rel="noopener" data-atlas-embed="https://www.google.com/maps?q={{ urlencode($branch['maps']) }}&output=embed" data-atlas-title="{{ $branch['name'] }}">
                                     {{ $atlas['directions'] }} <x-site.arrow />
                                 </a>
                             </div>

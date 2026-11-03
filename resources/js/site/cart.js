@@ -1,5 +1,6 @@
 import { $, $$ } from './util';
-import { initMesob } from './mesob';
+// import { initMesob } from './mesob';   // the woven-basket cart, set aside for the cake box
+import { initCakebox } from './cakebox';
 
 /*
  * Cart: kept in this browser only (localStorage), no prices. Checkout hands the
@@ -11,7 +12,10 @@ let memory = null;
 
 /** The cart's items: [{ slug, name, title, image, cake, qty, size? }]. */
 export const loadCart = () => {
-    try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) { return memory || []; }
+    let items;
+    try { items = JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) { items = memory || []; }
+    // Items are shown by their real menu name; carts saved before may hold an old house name.
+    return items.map((item) => ({ ...item, title: item.name }));
 };
 
 /** Saves the cart and tells every view of it (header drawer, order form) to refresh. */
@@ -34,7 +38,7 @@ export function initCart() {
     const openers = $$('[data-cart-open]');
     let items = load();
     let lastFocus = null;
-    const mesob = initMesob({ total: () => items.reduce((sum, item) => sum + item.qty, 0) });
+    const mesob = initCakebox({ total: () => items.reduce((sum, item) => sum + item.qty, 0) });
 
     const el = (tag, cls, text) => {
         const node = document.createElement(tag);
@@ -56,7 +60,7 @@ export function initCart() {
                 row.append(img);
             }
             const text = el('div', 'cart__text');
-            text.append(el('p', 'cart__name', item.title), el('p', 'cart__plain', item.name));
+            text.append(el('p', 'cart__name', item.name));
 
             const qty = el('div', 'cart__qty');
             const less = el('button', 'cart__step', '−');

@@ -391,9 +391,146 @@ function initCraft(section) {
     });
 }
 
+/* ---- Shows one of several stacked layers: the new one over the last ----- */
+
+function swap(layers, from, to) {
+    layers.forEach((layer, i) => {
+        layer.classList.toggle('is-on', i === to);
+        layer.classList.toggle('is-off', i === from && from !== to);
+    });
+}
+
+/* ---- How you feel: the sentence finishes itself until someone chooses ---- */
+
+const FEEL_DUR = 5000;
+
+function initFeel(section) {
+    const picks = $$('[data-xp-feel-pick]', section);
+    const phrases = $$('[data-xp-feel-phrase]', section);
+    const replies = $$('[data-xp-feel-reply]', section);
+    const scenes = $$('[data-xp-feel-scene]', section);
+    const chairs = $$('[data-xp-feel-scene-chairs]', section);
+    let current = 0;
+    let timer = 0;
+    let chosen = reduceMotion;
+
+    section.style.setProperty('--xp-feel-dur', `${FEEL_DUR}ms`);
+
+    const show = (i) => {
+        if (i === current) return;
+        [phrases, replies, scenes, chairs].forEach((layers) => swap(layers, current, i));
+        phrases.forEach((phrase, k) => phrase.setAttribute('aria-hidden', String(k !== i)));
+        picks.forEach((pick, k) => pick.setAttribute('aria-pressed', String(k === i)));
+        current = i;
+    };
+
+    const play = () => {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+            show((current + 1) % picks.length);
+            play();
+        }, FEEL_DUR);
+    };
+    const stop = () => {
+        clearTimeout(timer);
+        section.classList.remove('is-playing');
+    };
+
+    picks.forEach((pick, i) => pick.addEventListener('click', () => {
+        chosen = true;
+        stop();
+        show(i);
+    }));
+
+    if (chosen) return;
+    new IntersectionObserver(([entry]) => {
+        if (chosen) return;
+        section.classList.toggle('is-playing', entry.isIntersecting);
+        if (entry.isIntersecting) play();
+        else clearTimeout(timer);
+    }, { threshold: 0.4 }).observe(section);
+}
+
+/* ---- The third place: each drink pours into the cup ---------------------- */
+
+function initBar(section) {
+    const items = $$('[data-xp-bar-item]', section);
+    const pours = $$('[data-xp-bar-pour]', section);
+    let current = 0;
+
+    const show = (i) => {
+        if (i === current) return;
+        swap(pours, current, i);
+        items.forEach((item, k) => item.setAttribute('aria-pressed', String(k === i)));
+        current = i;
+    };
+    items.forEach((item, i) => {
+        item.addEventListener('click', () => show(i));
+        item.addEventListener('focus', () => show(i));
+        if (finePointer) item.addEventListener('pointerenter', () => show(i));
+    });
+}
+
+/* ---- Catering: a card's photograph opens out to fill the section ---------
+ * Hover (or tap) a card: its photograph grows from the card to the whole
+ * section behind the words. Each photograph waits clipped to its own card.
+ */
+
+function initCater(section) {
+    const hover = window.matchMedia('(hover: hover)');
+    const cards = $$('[data-xp-place]', section);
+    const bgs = $$('[data-xp-cater-bg]', section);
+    const list = $('.xp-cater__cards', section);
+    let current = -1;
+
+    const fit = () => {
+        const box = section.getBoundingClientRect();
+        cards.forEach((card, i) => {
+            const r = card.getBoundingClientRect();
+            const bg = bgs[i].style;
+            bg.setProperty('--t', `${(r.top - box.top).toFixed(1)}px`);
+            bg.setProperty('--r', `${(box.right - r.right).toFixed(1)}px`);
+            bg.setProperty('--b', `${(box.bottom - r.bottom).toFixed(1)}px`);
+            bg.setProperty('--l', `${(r.left - box.left).toFixed(1)}px`);
+        });
+    };
+    window.addEventListener('resize', fit);
+    document.fonts?.ready.then(fit);
+    fit();
+
+    const show = (i) => {
+        if (i === current) return;
+        if (i >= 0 && current < 0) fit();
+        current = i;
+        section.classList.toggle('is-showing', i >= 0);
+        bgs.forEach((bg, k) => bg.classList.toggle('is-on', k === i));
+        cards.forEach((card, k) => {
+            card.classList.toggle('is-shown', k === i);
+            card.setAttribute('aria-pressed', String(k === i));
+        });
+    };
+
+    cards.forEach((card, i) => {
+        card.addEventListener('pointerenter', () => { if (hover.matches) show(i); });
+        card.addEventListener('focus', () => show(i));
+        card.addEventListener('click', () => show(hover.matches || current !== i ? i : -1));
+    });
+    list.addEventListener('pointerleave', () => { if (hover.matches) show(-1); });
+    list.addEventListener('focusout', (event) => { if (!list.contains(event.relatedTarget)) show(-1); });
+}
+
 export function initExperience() {
     const root = $('[data-xp]');
     if (!root) return;
+
+    const feel = $('[data-xp-feel]', root);
+    if (feel) initFeel(feel);
+
+    const bar = $('[data-xp-bar]', root);
+    if (bar) initBar(bar);
+
+    const cater = $('[data-xp-cater]', root);
+    if (cater) initCater(cater);
 
     const day = $('[data-xp-day]', root);
     if (day) initDay(day);

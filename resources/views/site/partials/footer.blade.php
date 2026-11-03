@@ -26,10 +26,14 @@
                 <ul class="list-reset">
                     @foreach (trans('koba.locations.branches') as $branch)
                         <li>
-                            <span class="footer__branch">{{ $branch['short'] }}</span>
+                            <a class="footer__branch u-link" href="{{ $branch['link'] }}" target="_blank" rel="noopener">{{ $branch['short'] }}</a>
                             <a class="u-link" href="tel:{{ str_replace(' ', '', $branch['phone']) }}">{{ $branch['phone'] }}</a>
                         </li>
                     @endforeach
+                    <li>
+                        <span class="footer__branch">{{ __('koba.locations.coming.name') }}</span>
+                        <span>{{ __('koba.locations.coming.label') }}</span>
+                    </li>
                 </ul>
             </div>
 

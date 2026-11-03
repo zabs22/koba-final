@@ -2,13 +2,12 @@
     $cakes = trans('koba.cakes');
     $steps = trans('koba.order.steps');
     $fields = trans('koba.order.fields');
-    $notes = trans('koba.menu_notes');
     $thumb = fn ($key) => asset("images/koba/$key-".config("koba.images.$key")[2][0].'.webp');
     // The signature cakes, as the cart stores them, for the "add a cake" picker.
     $catalogue = collect($cakes)->map(fn ($cake, $slug) => [
         'slug' => $slug,
         'name' => $cake['name'],
-        'title' => $notes[$slug]['title'] ?? $cake['name'],
+        'title' => $cake['name'],
         'image' => $thumb($cake['image']),
         'cake' => true,
     ])->values();
@@ -129,7 +128,7 @@
                                             <x-site.img :src="$cakes[$cake['slug']]['image']" alt="" sizes="160px" position="50% 62%" />
                                             <span class="choice__plus" aria-hidden="true">+</span>
                                         </span>
-                                        <span class="choice__label">{{ $cake['title'] }} <small>{{ $cake['name'] }}</small></span>
+                                        <span class="choice__label">{{ $cake['name'] }}</span>
                                     </button>
                                 @endforeach
                                 <button class="choice choice--custom" type="button" data-add-item="custom">

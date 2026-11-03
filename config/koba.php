@@ -41,6 +41,13 @@ return [
         'cake-chocolate-fudge' => [1360, 2048, [480, 960, 1360], 'Round chocolate cake with a mirror glaze'],
         'cake-opera-cocoa' => [3960, 6074, [480, 960, 1600], 'Layered chocolate cake dusted with cocoa'],
 
+        // Background removed, for the floating cake ring on the home page.
+        'cutout-cake-trio' => [1145, 949, [480, 960], 'Square chocolate cake with glossy chocolate lines'],
+        'cutout-cake-chocolate-fudge' => [1008, 818, [480, 960], 'Round chocolate cake with a mirror glaze'],
+        'cutout-cake-opera-caramel' => [1413, 1072, [480, 960], 'Square caramel opera cake with piped detailing'],
+        'cutout-cake-vanilla' => [1366, 1147, [480, 960], 'Layered vanilla cake with a white glaze and chocolate seals'],
+        'cutout-cake-cheesecake' => [955, 785, [480, 960], 'Cheesecake with a glossy berry top, sliced'],
+
         'drink-layered' => [1600, 2000, [480, 960, 1600], 'Layered fresh juice in a glass mug'],
         'drink-pineapple-mojito' => [1600, 2000, [480, 960, 1600], 'Pineapple and mint cooler'],
         'drink-green-mint' => [1600, 2000, [480, 960, 1600], 'Green mint drink with a sprig of fresh mint'],
@@ -184,7 +191,7 @@ return [
         ],
     ],
 
-    'email' => 'hello@kobapatisserie.com',
+    'email' => 'kobapatisserie@gmail.com',
 
     // Replace with the official profile URLs.
     'social' => [

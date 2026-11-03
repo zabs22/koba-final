@@ -251,7 +251,7 @@ export function initAtlas() {
             observer.disconnect();
         }, { threshold: 0.3 }).observe(stage);
 
-        // Deep link: /locations#bole-atlas flies straight to that café.
+        // Deep link: /locations#atlas flies straight to that café.
         const fromHash = items.findIndex((item) => `#${item.dataset.slug}` === location.hash);
         if (fromHash > 0) activate(fromHash, { fly: false });
     });

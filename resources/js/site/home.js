@@ -73,6 +73,44 @@ function initChapters(flow) {
     });
 }
 
+/* ---- Our Story: the statement inks in as it's read ----------------------- */
+
+function initStory(section) {
+    const statement = $('[data-story-statement]', section);
+    if (reduceMotion || !('IntersectionObserver' in window)) return;
+
+    // Inked from when the line enters the lower part of the screen until it has
+    // risen to the upper third.
+    if (statement) {
+        onFrame((vh) => {
+            const rect = statement.getBoundingClientRect();
+            const p = clamp((vh * 0.9 - rect.top) / (rect.height + vh * 0.55));
+            statement.style.setProperty('--p', p.toFixed(3));
+        });
+    }
+
+    // Facts count up to their figure the first time they come into view.
+    const count = (el) => {
+        const to = Number(el.dataset.count);
+        const from = Number(el.dataset.countFrom || 0);
+        const suffix = el.dataset.countSuffix || '';
+        const start = performance.now();
+        const step = (now) => {
+            const k = clamp((now - start) / 1400);
+            el.textContent = Math.round(from + (to - from) * (1 - (1 - k) ** 3)) + suffix;
+            if (k < 1) requestAnimationFrame(step);
+        };
+        el.textContent = from + suffix;
+        requestAnimationFrame(step);
+    };
+    const io = new IntersectionObserver((entries) => entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        io.unobserve(entry.target);
+        count(entry.target);
+    }), { threshold: 0.2 });
+    $$('[data-count]', section).forEach((el) => io.observe(el));
+}
+
 /* ---- Rituals: morning → afternoon → evening ------------------------------ */
 
 function initRituals(section) {
@@ -281,28 +319,6 @@ function initCraft(section) {
     view.addEventListener('close', () => figures[current]?.focus());
 }
 
-/* ---- Menu preview: cards tilt toward the pointer ------------------------- */
-
-function initTilt(scope) {
-    if (!finePointer || reduceMotion) return;
-    $$('.menu-product__media', scope).forEach((media) => {
-        media.classList.add('is-tilt');
-        media.addEventListener('pointermove', (event) => {
-            const rect = media.getBoundingClientRect();
-            const x = (event.clientX - rect.left) / rect.width;
-            const y = (event.clientY - rect.top) / rect.height;
-            media.style.setProperty('--rx', ((0.5 - y) * 10).toFixed(2));
-            media.style.setProperty('--ry', ((x - 0.5) * 12).toFixed(2));
-            media.style.setProperty('--gx', `${(x * 100).toFixed(1)}%`);
-            media.style.setProperty('--gy', `${(y * 100).toFixed(1)}%`);
-        });
-        media.addEventListener('pointerleave', () => {
-            media.style.setProperty('--rx', 0);
-            media.style.setProperty('--ry', 0);
-        });
-    });
-}
-
 /* ---- Cakes: a 3D ring you can drag, spin, and step through --------------- */
 
 function initRing(ring) {
@@ -324,13 +340,15 @@ function initRing(ring) {
     let running = false;
     let last = 0;
 
-    // Radius so neighbouring cards sit edge to edge, with a little air between.
+    // Radius so neighbouring cakes keep some air between them.
     const measure = () => {
         const width = faces[0].offsetWidth;
-        ring.style.setProperty('--r', `${Math.round((width / 2 / Math.tan(Math.PI / n)) * 1.22)}px`);
+        ring.style.setProperty('--r', `${Math.round((width / 2 / Math.tan(Math.PI / n)) * 1.42)}px`);
     };
     measure();
-    window.addEventListener('resize', measure);
+    // Cards size to the room the section leaves them, which shifts with more than the window.
+    if ('ResizeObserver' in window) new ResizeObserver(measure).observe(faces[0]);
+    else window.addEventListener('resize', measure);
 
     const snap = (to) => {
         target = to;
@@ -356,7 +374,7 @@ function initRing(ring) {
         faces.forEach((face, i) => face.classList.toggle('is-front', i === best));
         captions.forEach((caption, i) => {
             caption.classList.toggle('is-active', i === index);
-            $('a', caption).tabIndex = i === index ? 0 : -1;
+            $('[data-cart-add]', caption).tabIndex = i === index ? 0 : -1;
         });
     };
 
@@ -475,11 +493,12 @@ export function initHome() {
     initChapters(flow);
     const rituals = $('[data-rituals]', flow);
     if (rituals) initRituals(rituals);
+    const story = $('[data-story]', flow);
+    if (story) initStory(story);
     const pillars = $('[data-pillars]', flow);
     if (pillars) initPillars(pillars);
     const craft = $('[data-craft]', flow);
     if (craft) initCraft(craft);
-    $$('[data-tilt-scope]', flow).forEach(initTilt);
     const ring = $('[data-ring]', flow);
     if (ring) initRing(ring);
 }

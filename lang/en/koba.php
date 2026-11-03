@@ -83,6 +83,24 @@ return [
         'badge' => 'Handcrafted in Addis Ababa · Since 2020 · ',
     ],
 
+    // Home introduction, from the "Our Story" and "About us" copy. In the statement,
+    // *word* is set light and green, and [image-key] places a small photograph in the line.
+    'story_intro' => [
+        'eyebrow' => 'Our Story',
+        'founded' => 'Est. 2020 · Addis Ababa',
+        'statement' => 'The *essence* of fine [croissant] pastries, [cake-chocolate-fudge] cakes, and [drink-macchiato] coffee.',
+        'lede' => 'Today, KOBA is one of Addis Ababa’s leading patisseries, loved for artisan pastries, signature breakfasts, and savory dishes. Every visit is an invitation to experience the true essence of fine patisserie.',
+        'facts_label' => 'KOBA at a glance',
+        // count: the number counts up to it as the card comes into view.
+        'facts' => [
+            ['value' => '2020', 'count' => 2020, 'from' => 2000, 'label' => 'Founded in Addis Ababa', 'body' => 'Founded with a passion for craftsmanship, quality, and excellence.', 'image' => 'craft-lamination'],
+            ['value' => '24h', 'count' => 24, 'from' => 0, 'suffix' => 'h', 'label' => 'A bakery that never sleeps', 'body' => 'Our bakery works around the clock, so every visit meets fresh creations.', 'image' => 'craft-dusting'],
+            ['value' => 'Local', 'label' => 'Ethiopian coffee from local farmers', 'body' => 'Carefully selected and ethically sourced, crafted into espresso and specialty brews.', 'image' => 'drink-tea-pour'],
+            ['value' => '4', 'count' => 4, 'from' => 0, 'label' => 'Cafés across Addis Ababa', 'body' => 'Kebena, Atlas, 4 Kilo, and Peacock, with Bisrate Gebriel coming soon.', 'image' => 'drink-iced-latte-terrace'],
+        ],
+        'cta' => 'Read Our Story',
+    ],
+
     'intro' => [
         'eyebrow' => 'The KOBA Experience',
         'title' => 'The Sweetest|Place in *Addis.*',
@@ -121,6 +139,7 @@ return [
     'chapters' => [
         'label' => 'Page sections',
         'intro' => 'Rituals',
+        'story' => 'Our Story',
         'pillars' => 'Values',
         'craft' => 'Craft',
         'menu' => 'Menu',
@@ -254,60 +273,82 @@ return [
     'locations' => [
         'eyebrow' => 'Locations',
         'title' => 'Find Your|*KOBA.*',
-        'body' => 'Three cafés across Addis Ababa, one standard.',
+        'body' => 'Four cafés across Addis Ababa, one standard.',
         'hours_title' => 'Opening Hours',
+        // Branches, from the website content: names, phones, Google Maps links ('link') and hours.
+        // 'maps' is the search used for the in-page live map; 'pin' sits on the illustrated map.
         'branches' => [
-            'sanford' => [
-                'name' => 'KOBA Sanford',
-                'short' => 'Sanford',
-                'tagline' => 'Get Cozy at KOBA Sanford.',
+            'kebena' => [
+                'name' => 'KOBA Patisserie & Bakery | Kebena',
+                'short' => 'Kebena',
+                'tagline' => 'Get Cozy at KOBA Kebena.',
                 'mood' => 'Get Cozy',
                 'body' => 'A welcoming space for breakfast, coffee, pastries, lunch, and relaxed conversations.',
                 'phone' => '+251 941 000 022',
                 'image' => 'drink-tea-pour',
-                'maps' => 'KOBA Patisserie Sanford Addis Ababa',
-                'area' => 'Sanford, Addis Ababa',
-                'pin' => [565, 395],
-                'coords' => [9.0351, 38.7722],
+                'link' => 'https://share.google/nsOsygocgqXlWh0NE',
+                'maps' => 'KOBA Patisserie & Bakery Kebena Addis Ababa',
+                'area' => 'Kebena, Addis Ababa',
+                'pin' => [440, 205],
+                'coords' => [9.0377, 38.7739],
                 'open' => ['weekday' => [7, 21], 'weekend' => [6, 23]],
             ],
-            'bole-atlas' => [
-                'name' => 'KOBA Bole Atlas',
-                'short' => 'Bole Atlas',
-                'tagline' => 'Go Social at KOBA Bole Atlas.',
+            'atlas' => [
+                'name' => 'KOBA Patisserie & Bakery | Atlas',
+                'short' => 'Atlas',
+                'tagline' => 'Go Social at KOBA Atlas.',
                 'mood' => 'Go Social',
                 'body' => 'A place to meet, share, and enjoy the KOBA experience.',
                 'phone' => '+251 900 989 898',
                 'image' => 'drink-iced-latte-terrace',
-                'maps' => 'KOBA Patisserie Bole Atlas Addis Ababa',
+                'link' => 'https://share.google/r17HQnLTiSuNdSofy',
+                'maps' => 'KOBA Patisserie & Bakery Atlas Branch Addis Ababa',
                 'area' => 'Bole, Addis Ababa',
                 'pin' => [735, 505],
                 'coords' => [9.0010, 38.7801],
                 'open' => ['weekday' => [7, 22], 'weekend' => [6, 23]],
             ],
-            '4-killo' => [
-                'name' => 'KOBA 4 Killo',
-                'short' => '4 Killo',
-                'tagline' => 'Take a Break at KOBA 4 Killo.',
+            '4-kilo' => [
+                'name' => 'KOBA Patisserie & Bakery | 4 Kilo',
+                'short' => '4 Kilo',
+                'tagline' => 'Take a Break at KOBA 4 Kilo.',
                 'mood' => 'Take a Break',
                 'body' => 'Fresh food, pastries, cakes, and drinks in the heart of Addis.',
                 'phone' => '+251 900 898 989',
                 'image' => 'drink-macchiato',
-                'maps' => 'KOBA Patisserie 4 Killo Addis Ababa',
-                'area' => '4 Killo, Addis Ababa',
-                'pin' => [395, 215],
-                'coords' => [9.0362, 38.7626],
+                'link' => 'https://share.google/qd0pKa4npXzqeK4uI',
+                'maps' => 'KOBA Patisserie & Bakery 4 Kilo Branch Addis Ababa',
+                'area' => '4 Kilo, Addis Ababa',
+                'pin' => [300, 215],
+                'coords' => [9.0335, 38.7630],
+                'open' => ['weekday' => [7, 21], 'weekend' => [6, 23]],
+            ],
+            'peacock' => [
+                'name' => 'KOBA Roastery & Bakery | Peacock',
+                'short' => 'Peacock',
+                'tagline' => 'Slow Down at KOBA Peacock.',
+                'mood' => 'Slow Down',
+                'body' => 'Our roastery and bakery: freshly roasted coffee beside the day’s bakes.',
+                'phone' => '+251 950 838 383',
+                'image' => 'drink-iced-americano',
+                'link' => 'https://maps.app.goo.gl/Mhff9MFgJXFjLg8D8',
+                'maps' => 'KOBA Roastery and Bakery Peacock Addis Ababa',
+                'area' => 'Peacock, Addis Ababa',
+                // From the branch's Google Maps link.
+                'pin' => [655, 540],
+                'coords' => [8.9992, 38.7741],
                 'open' => ['weekday' => [7, 21], 'weekend' => [6, 23]],
             ],
         ],
+        'coming' => ['name' => 'Bisrate Gebriel', 'label' => 'Coming soon'],
         'hours' => [
-            ['where' => 'Sanford & 4 Killo', 'days' => 'Monday to Friday', 'time' => '7:00 AM to 9:00 PM'],
-            ['where' => 'Bole Atlas', 'days' => 'Monday to Friday', 'time' => '7:00 AM to 10:00 PM'],
+            ['where' => 'Kebena, 4 Kilo & Peacock', 'days' => 'Monday to Friday', 'time' => '7:00 AM to 9:00 PM'],
+            ['where' => 'Atlas', 'days' => 'Monday to Friday', 'time' => '7:00 AM to 10:00 PM'],
             ['where' => 'All branches', 'days' => 'Saturday & Sunday', 'time' => '6:00 AM to 11:00 PM'],
         ],
         'atlas' => [
             'eyebrow' => 'The KOBA Atlas',
-            'title' => 'Three Cafés.|*One City.*',
+            'title' => 'Four Cafés.|*One City.*',
             'lede' => 'Pick a café to fly to it. Every pin is a table waiting for you.',
             'list_label' => 'KOBA cafés',
             'map_label' => 'Illustrated map of KOBA cafés in Addis Ababa',
@@ -370,7 +411,7 @@ return [
         'visit' => 'Visit',
         'contact' => 'Contact',
         'follow' => 'Follow',
-        'email' => 'hello@kobapatisserie.com',
+        'email' => 'kobapatisserie@gmail.com',
         'social' => ['Instagram', 'Facebook', 'TikTok'],
         'rights' => '© 2026 KOBA Patisserie & Bakery. All rights reserved.',
         'signoff' => 'Craft. Refinement. Warmth. Precision. Intention.',
@@ -385,7 +426,43 @@ return [
     'story' => [
         'eyebrow' => 'Our Story',
         'title' => 'Rooted in Addis.|*Shaped by craft.*',
-        'lede' => 'Founded in 2020 in Addis Ababa, Ethiopia, KOBA Patisserie and Bakery was created to elevate the city’s bakery and café culture.',
+        'lede' => 'Established in 2020. The essence of fine patisserie, made in Addis Ababa.',
+        // The story in three moments (from "Our Story").
+        'moments_eyebrow' => 'Since 2020',
+        'moments_title' => 'Three moments,|*one craft.*',
+        'moments' => [
+            ['no' => '2020', 'label' => 'The beginning', 'title' => 'A passion, opened in Addis.', 'line' => 'Founded for craftsmanship, quality, and excellence.', 'image' => 'croissant', 'position' => '50% 55%'],
+            ['no' => 'Growing', 'label' => 'Across the city', 'title' => 'Breakfasts, pastries, coffee.', 'line' => 'A welcoming café, across multiple locations.', 'image' => 'drink-iced-latte-terrace', 'position' => '50% 46%'],
+            ['no' => 'Today', 'label' => 'Among the best', 'title' => 'Timeless craft, modern creativity.', 'line' => 'One of the best patisseries in Addis Ababa.', 'image' => 'opera-slice', 'position' => '50% 58%'],
+        ],
+        // About us: what KOBA makes, and how (from "About us").
+        'about_eyebrow' => 'About us',
+        'about_title' => 'Quality at|*the heart of it.*',
+        'about_body' => 'Carefully selected ingredients from trusted local and global sources, in the hands of skilled pastry artisans who combine tradition with creativity.',
+        'about_hours' => '24h',
+        'about_hours_line' => 'Our bakery runs around the clock, so you meet fresh creations throughout the day.',
+        'about_makes' => [
+            ['name' => 'Freshly baked pastries', 'line' => 'Baked daily, from croissants to tarts.', 'image' => 'almond-croissant'],
+            ['name' => 'Handcrafted cakes', 'line' => 'For the table, and for every celebration.', 'image' => 'cake-opera-caramel'],
+            ['name' => 'Specialty coffee', 'line' => 'Ethiopian coffee, crafted with care.', 'image' => 'drink-flat-white'],
+            ['name' => 'Breakfast & dishes', 'line' => 'Breakfast favorites and carefully prepared dishes.', 'image' => 'croissant'],
+        ],
+        // The collections (from "Signature Collection" and "Seasonal collection").
+        'collections_eyebrow' => 'Our collections',
+        'collections_title' => 'Made to be|*remembered.*',
+        'collections' => [
+            ['name' => 'Signature Collection', 'body' => 'The creations our guests love most: our famous cheesecakes, rich chocolate cake, and artisan pastries prepared daily with time-honored techniques.', 'image' => 'cake-cheesecake', 'cta' => 'See the cakes', 'route' => 'cakes'],
+            ['name' => 'Seasonal Collection', 'body' => 'Elegant selections through the year, made to celebrate holidays and special occasions, so every milestone is made sweeter.', 'image' => 'cake-meringue', 'cta' => 'Order for an occasion', 'route' => 'order'],
+        ],
+        // What we value (from "Our Value" and "About us").
+        'details_eyebrow' => 'What we value',
+        'details_title' => 'True luxury lies|*in the details.*',
+        'details' => [
+            ['name' => 'Carefully selected ingredients'],
+            ['name' => 'Timeless techniques'],
+            ['name' => 'Genuine hospitality'],
+        ],
+        'closing' => 'Every visit is an invitation to experience the true essence of fine patisserie.',
         'chapters' => [
             [
                 'no' => '2020',
@@ -401,8 +478,8 @@ return [
             ],
             [
                 'no' => 'Today',
-                'title' => 'A destination, three times over.',
-                'body' => 'More than a bakery, KOBA has become a destination where taste, design, and experience come together to set a new standard in Sanford, Bole Atlas, and 4 Killo.',
+                'title' => 'A destination, four times over.',
+                'body' => 'More than a bakery, KOBA has become a destination where taste, design, and experience come together to set a new standard in Kebena, Atlas, 4 Kilo, and Peacock.',
                 'image' => 'drink-iced-latte',
             ],
         ],
@@ -567,42 +644,42 @@ return [
     ],
 
     /*
-    | Menu cards, keyed by item slug, in the manner of a pâtisserie collection:
-    | a creative "title" (the house name), the composition "notes", and one
-    | "line" describing it in the KOBA voice. The plain product name still
-    | shows above the title, so guests and staff recognise every item.
+    | Menu cards, keyed by item slug: the "kind" of item, its composition
+    | "notes", and one "line" describing it in the KOBA voice. Items are always
+    | shown under their real menu name (no invented house names).
     | Compositions are read from the photographs: confirm each with the kitchen.
     */
     'menu_notes' => [
-        'trio' => ['kind' => 'Signature cake', 'title' => 'Le Damier', 'notes' => ['Chocolate mousse', 'Cocoa velvet', 'Dark chocolate'], 'line' => 'Cocoa velvet, tied in dark chocolate.'],
-        'chocolate-fudge' => ['kind' => 'Signature cake', 'title' => 'Midnight Mirror', 'notes' => ['Fudge sponge', 'Mirror glaze', 'White chocolate lattice'], 'line' => 'Poured once, then left untouched.'],
-        'opera-caramel' => ['kind' => 'Signature cake', 'title' => 'Golden Hour', 'notes' => ['Almond sponge', 'Coffee cream', 'Caramel glaze'], 'line' => 'Fine layers, sealed in caramel.'],
-        'vanilla-eclair' => ['kind' => 'Signature cake', 'title' => 'Ivory', 'notes' => ['Vanilla cream', 'White glaze', 'Chocolate seals'], 'line' => 'Quiet vanilla, sealed in chocolate.'],
-        'cheesecake' => ['kind' => 'Signature cake', 'title' => 'First Light', 'notes' => ['Baked cream cheese', 'Biscuit base', 'Berry glaze'], 'line' => 'Baked slowly, brightened with berries.'],
+        'trio' => ['kind' => 'Signature cake', 'notes' => ['Chocolate mousse', 'Cocoa velvet', 'Dark chocolate'], 'line' => 'Cocoa velvet, tied in dark chocolate.'],
+        'chocolate-fudge' => ['kind' => 'Signature cake', 'notes' => ['Fudge sponge', 'Mirror glaze', 'White chocolate lattice'], 'line' => 'Poured once, then left untouched.'],
+        'opera-caramel' => ['kind' => 'Signature cake', 'notes' => ['Almond sponge', 'Coffee cream', 'Caramel glaze'], 'line' => 'Fine layers, sealed in caramel.'],
+        'vanilla-eclair' => ['kind' => 'Signature cake', 'notes' => ['Vanilla cream', 'White glaze', 'Chocolate seals'], 'line' => 'Quiet vanilla, sealed in chocolate.'],
+        'cheesecake' => ['kind' => 'Signature cake', 'notes' => ['Baked cream cheese', 'Biscuit base', 'Berry glaze'], 'line' => 'Baked slowly, brightened with berries.'],
 
-        'koba-croissant' => ['kind' => 'Viennoiserie', 'title' => 'The Fold', 'notes' => ['Butter', 'Laminated dough'], 'line' => 'A crisp shell, a tender crumb.'],
-        'almond-croissant' => ['kind' => 'Viennoiserie', 'title' => 'Amande', 'notes' => ['Almond cream', 'Toasted almonds', 'Icing sugar'], 'line' => 'Our croissant, filled with almond cream.'],
-        'pecan-tart' => ['kind' => 'Tart', 'title' => 'Harvest', 'notes' => ['Shortcrust', 'Pecans', 'Caramel'], 'line' => 'Toasted pecans in deep caramel.'],
-        'eclair' => ['kind' => 'Choux', 'title' => 'Buna', 'notes' => ['Choux', 'Coffee cream', 'Coffee glaze'], 'line' => 'Named for coffee in Amharic.'],
-        'white-dark-chocolate-muffins' => ['kind' => 'Bakery', 'title' => 'Light & Shade', 'notes' => ['White chocolate', 'Dark chocolate'], 'line' => 'Two chocolates, one generous crumb.'],
-        'vegetable-focaccia' => ['kind' => 'Bakery', 'title' => 'Garden Bread', 'notes' => ['Olive oil', 'Roasted vegetables'], 'line' => 'An open, golden crumb.'],
+        'koba-croissant' => ['kind' => 'Viennoiserie', 'notes' => ['Butter', 'Laminated dough'], 'line' => 'A crisp shell, a tender crumb.'],
+        'almond-croissant' => ['kind' => 'Viennoiserie', 'notes' => ['Almond cream', 'Toasted almonds', 'Icing sugar'], 'line' => 'Our croissant, filled with almond cream.'],
+        'pecan-tart' => ['kind' => 'Tart', 'notes' => ['Shortcrust', 'Pecans', 'Caramel'], 'line' => 'Toasted pecans in deep caramel.'],
+        'eclair' => ['kind' => 'Choux', 'notes' => ['Choux', 'Coffee cream', 'Coffee glaze'], 'line' => 'Coffee cream in a crisp choux shell.'],
+        'white-dark-chocolate-muffins' => ['kind' => 'Bakery', 'notes' => ['White chocolate', 'Dark chocolate'], 'line' => 'Two chocolates, one generous crumb.'],
+        'vegetable-focaccia' => ['kind' => 'Bakery', 'notes' => ['Olive oil', 'Roasted vegetables'], 'line' => 'An open, golden crumb.'],
 
-        'layered-espresso' => ['kind' => 'Coffee', 'title' => 'Strata', 'notes' => ['Espresso', 'Steamed milk'], 'line' => 'Poured in layers, left to settle.'],
-        'milk-coffee' => ['kind' => 'Coffee', 'title' => 'Morning Ceremony', 'notes' => ['Espresso', 'Steamed milk'], 'line' => 'A morning ritual, poured by hand.'],
-        'tea-poured-to-order' => ['kind' => 'Tea', 'title' => 'Shai', 'notes' => ['Black tea', 'Milk'], 'line' => 'Tea in Amharic, poured to order.'],
-        'iced-coffee' => ['kind' => 'Coffee', 'title' => 'Slow Ice', 'notes' => ['Espresso', 'Milk', 'Ice'], 'line' => 'Smooth, cold, and unhurried.'],
-        'hot-chocolate' => ['kind' => 'Chocolate', 'title' => 'The Melt', 'notes' => ['Chocolate sphere', 'Hot milk'], 'line' => 'Melting as you watch.'],
-        'affogato' => ['kind' => 'Coffee', 'title' => 'Hot & Cold', 'notes' => ['Espresso', 'Vanilla ice cream'], 'line' => 'Espresso over vanilla ice cream.'],
-        'lime-mint-cooler' => ['kind' => 'Cold drink', 'title' => 'Clear Mint', 'notes' => ['Lime', 'Fresh mint', 'Crushed ice'], 'line' => 'Bright, cold, and clean.'],
-        'green-mint' => ['kind' => 'Cold drink', 'title' => 'Koba Leaf', 'notes' => ['Fresh mint'], 'line' => 'Named for the koba leaf.'],
-        'layered-fresh-juice' => ['kind' => 'Fresh juice', 'title' => 'Sunset Layers', 'notes' => ['Seasonal fruit'], 'line' => 'Fresh fruit, layered by colour.'],
-        'strawberry-cooler' => ['kind' => 'Cold drink', 'title' => 'Strawberry Field', 'notes' => ['Strawberry', 'Mint', 'Ice'], 'line' => 'Strawberry and mint over ice.'],
+        'layered-espresso' => ['kind' => 'Coffee', 'notes' => ['Espresso', 'Steamed milk'], 'line' => 'Poured in layers, left to settle.'],
+        'milk-coffee' => ['kind' => 'Coffee', 'notes' => ['Espresso', 'Steamed milk'], 'line' => 'A morning ritual, poured by hand.'],
+        'tea-poured-to-order' => ['kind' => 'Tea', 'notes' => ['Black tea', 'Milk'], 'line' => 'Black tea with milk, poured to order.'],
+        'iced-coffee' => ['kind' => 'Coffee', 'notes' => ['Espresso', 'Milk', 'Ice'], 'line' => 'Smooth, cold, and unhurried.'],
+        'hot-chocolate' => ['kind' => 'Chocolate', 'notes' => ['Chocolate sphere', 'Hot milk'], 'line' => 'Melting as you watch.'],
+        'affogato' => ['kind' => 'Coffee', 'notes' => ['Espresso', 'Vanilla ice cream'], 'line' => 'Espresso over vanilla ice cream.'],
+        'lime-mint-cooler' => ['kind' => 'Cold drink', 'notes' => ['Lime', 'Fresh mint', 'Crushed ice'], 'line' => 'Bright, cold, and clean.'],
+        'green-mint' => ['kind' => 'Cold drink', 'notes' => ['Fresh mint'], 'line' => 'Fresh mint, bright and cold.'],
+        'layered-fresh-juice' => ['kind' => 'Fresh juice', 'notes' => ['Seasonal fruit'], 'line' => 'Fresh fruit, layered by colour.'],
+        'strawberry-cooler' => ['kind' => 'Cold drink', 'notes' => ['Strawberry', 'Mint', 'Ice'], 'line' => 'Strawberry and mint over ice.'],
     ],
 
     'cart' => [
         'add' => 'Add to cart',
         'added' => 'Added',
         'mesob_added' => 'Added to your mesob',
+        'box_added' => 'Added to your cake box',
         'open' => 'Open your cart',
         'title' => 'Your Cart',
         'empty' => 'Your cart is empty. Add something from the menu.',
@@ -692,13 +769,53 @@ return [
     'experience_page' => [
         'eyebrow' => 'The Experience',
         'title' => 'More Than|*a Bakery.*',
-        'lede' => 'KOBA is a place to meet, relax, celebrate, and enjoy. A space that holds you, where a barista remembers, and every detail is composed.',
+        'lede' => 'Great flavors, warm hospitality, and beautiful moments, together.',
+
+        // Why you came today: the sentence finishes itself three ways.
+        'feel_eyebrow' => 'Come as you are',
+        'feel_title' => 'More than coffee.|*It’s how you feel.*',
+        'feel_lead' => 'Today I’m here for',
+        'feel' => [
+            ['pick' => 'Friends', 'phrase' => 'catching up with friends.', 'reply' => 'A long table, another round, nobody in a hurry.', 'image' => 'drink-layered-terrace'],
+            ['pick' => 'A quiet break', 'phrase' => 'a quiet break.', 'reply' => 'A corner seat, a warm cup, the city slowing down.', 'image' => 'drink-cappuccino'],
+            ['pick' => 'A celebration', 'phrase' => 'something worth celebrating.', 'reply' => 'Cake, candles, and the people who matter.', 'image' => 'cake-trio'],
+        ],
+        'feel_close' => ['Great flavors', 'Warm hospitality', 'Beautiful moments'],
+
+        // Coffee & beverages: the third place.
+        'bar_eyebrow' => 'The third place',
+        'bar_title' => 'A reason|*to connect.*',
+        'bar_body' => 'Ethiopian coffee, ethically sourced from trusted local farmers. A place to relax, connect, and stay a while.',
+        'bar_ring' => 'Ethiopian coffee · From local farmers · Poured with care · ',
+        'bar' => [
+            ['name' => 'Espresso', 'image' => 'drink-macchiato'],
+            ['name' => 'Pressed coffee', 'image' => 'drink-flat-white'],
+            ['name' => 'Specialty brews', 'image' => 'drink-iced-mocha'],
+            ['name' => 'Premium teas', 'image' => 'drink-tea-pour'],
+            ['name' => 'Juices & mojitos', 'image' => 'drink-pineapple-mojito'],
+            ['name' => 'For the little ones', 'image' => 'drink-chocolate-pour'],
+        ],
+
+        // Catering & custom orders.
+        'cater_eyebrow' => 'We care, we cater',
+        'cater_title' => 'You order,|*we cater.*',
+        'cater_body' => 'Every celebration deserves exceptional food and impeccable service. We bring KOBA’s table to yours.',
+        'cater_events' => 'Plan an event',
+        'cater_order' => 'Order a cake',
+        'cater' => [
+            ['name' => 'Family gatherings', 'line' => 'Fresh artisan pastries and the dishes everyone reaches for.', 'image' => 'bomboloni'],
+            ['name' => 'Birthdays', 'line' => 'A handcrafted cake, made for the day.', 'image' => 'cake-red-velvet'],
+            ['name' => 'Weddings', 'line' => 'Elegant starters to luxury desserts, served with care.', 'image' => 'cake-vanilla'],
+            ['name' => 'Corporate events', 'line' => 'Coffee, pastries, and a complete menu, on time.', 'image' => 'croissant'],
+        ],
+
+        // Earlier sections, archived in site/partials/experience-classic.
         'intro_eyebrow' => 'The Ritual',
         'intro_title' => 'Every Moment Composed.|*Every Sense Invited.*',
         'intro_body' => 'Koba is the Ethiopian name for the ensete plant: patient, resilient, rooted in tradition. We bring the same patience to every table: a morning croissant becomes a ceremony, an afternoon espresso becomes a pause, a slice of cake becomes memory.',
         'intro_facts' => [
             ['value' => '2020', 'label' => 'Founded in Addis Ababa'],
-            ['value' => '03', 'label' => 'Cafés across the city'],
+            ['value' => '04', 'label' => 'Cafés across the city'],
             ['value' => '100%', 'label' => 'Made from scratch'],
         ],
 
@@ -749,7 +866,7 @@ return [
     'locations_page' => [
         'eyebrow' => 'Locations',
         'title' => 'Find Your|*KOBA.*',
-        'lede' => 'Three cafés across Addis Ababa. One standard of craft and warmth.',
+        'lede' => 'Four cafés across Addis Ababa. One standard of craft and warmth.',
     ],
 
     'contact' => [

@@ -10,13 +10,15 @@
     isolation: isolate;
     display: flex;
     align-items: flex-end;
-    min-height: max(620px, 88vh);
-    min-height: max(620px, 88svh);
+    /* Exactly one screen, so the next section waits below the fold. */
+    height: 100vh;
+    height: 100svh;
+    min-height: 480px;
     overflow: hidden;
     background: var(--g-950);
     color: var(--cream);
 }
-.page-hero--compact { min-height: max(500px, 66vh); min-height: max(500px, 66svh); }
+.page-hero--compact { height: auto; min-height: max(500px, 66vh); min-height: max(500px, 66svh); }
 
 .page-hero__slides { position: absolute; inset: 0; z-index: -3; }
 .page-hero__slide {
@@ -184,7 +186,7 @@
 .has-dark-hero .header:not(.is-scrolled) :focus-visible { outline-color: var(--sand); }
 
 @media (max-width: 899px) {
-    .page-hero { min-height: max(560px, 86svh); }
+    .page-hero { min-height: 520px; }
     .page-hero--compact { min-height: max(480px, 70svh); }
     .page-hero__shade {
         background:
@@ -619,6 +621,9 @@
 .menu-category__head { display: grid; gap: 14px; margin-bottom: 36px; }
 .menu-category__head .body-copy { font-size: var(--t-lede); }
 .menu-products { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px 32px; }
+/* A whole card — photograph, name, notes, Add to cart — fits on screen below the header
+   and the category bar: on shorter screens the photograph gives up height first. */
+.menu-product__media { max-height: max(220px, calc(100svh - 470px)); }
 .menu-product {
     min-width: 0;
     position: relative;
@@ -635,7 +640,7 @@
     background: var(--cream);
     transition: box-shadow 0.5s var(--ease-out);
 }
-.menu-product__media img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 58%; transition: transform 0.6s var(--ease-out); }
+.menu-product__media img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 58%; transition: transform 0.9s var(--ease-out); }
 .menu-product__shade {
     position: absolute;
     inset: 0;
@@ -713,22 +718,18 @@
 .menu-product__description + .menu-product__add,
 .menu-product__vegan + .menu-product__add { margin-top: 22px; }
 .menu-product__add.is-added { --btn-bg: var(--g-900); --btn-fg: var(--cream); box-shadow: none; }
-.menu-product__mesob { overflow: visible; }
-.menu-product__mesob-lid { transform-box: fill-box; transform-origin: 100% 100%; transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1); }
-.menu-product__add:hover .menu-product__mesob-lid,
-.menu-product__add:focus-visible .menu-product__mesob-lid,
-.menu-product__add.is-added .menu-product__mesob-lid { transform: translateY(-2px) rotate(16deg); }
+.menu-product__box { overflow: visible; }
+.menu-product__box-lid { transform-box: fill-box; transform-origin: 100% 100%; transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.menu-product__add:hover .menu-product__box-lid,
+.menu-product__add:focus-visible .menu-product__box-lid,
+.menu-product__add.is-added .menu-product__box-lid { transform: translateY(-2px) rotate(16deg); }
 .menu-product__vegan { display: inline-block; margin-top: 10px; color: var(--g-600); font-size: var(--t-small); }
 .menu-product__link:focus-visible, .menu-bar__link:focus-visible { outline: 2px solid var(--g-600); outline-offset: 5px; }
 .menu-product:target { outline: 2px solid var(--g-600); outline-offset: 8px; }
+/* Hover: a gentle zoom, kept inside the photograph's frame. */
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
-    .menu-product:hover { transform: translateY(-5px); }
-    .menu-product:hover .menu-product__media,
-    .menu-product:focus-within .menu-product__media { box-shadow: 0 20px 44px -26px rgba(6, 46, 34, 0.55); }
-    .menu-product:hover .menu-product__media img,
-    .menu-product:focus-within .menu-product__media img { transform: scale(1.05); }
-    .menu-product:hover .menu-product__shade,
-    .menu-product:focus-within .menu-product__shade { opacity: 1; }
+    .menu-product:hover .menu-product__media > img,
+    .menu-product:focus-within .menu-product__media > img { transform: scale(1.06); }
 }
 @media (max-width: 999px) {
     .menu-products { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 24px; }
@@ -894,7 +895,7 @@
     aspect-ratio: 4 / 5;
     transform:
         translate(-50%, -50%)
-        translateX(calc(var(--o) * 58%))
+        translateX(calc(var(--o) * 125%))
         translateZ(calc(var(--a) * -240px))
         rotateY(calc(var(--o) * -30deg));
     opacity: calc(1 - var(--a) * 0.32);
@@ -902,16 +903,17 @@
 }
 .ck-slide.is-far { opacity: 0; pointer-events: none; }
 .ck-slide__card {
+    display: block;
+    cursor: pointer;
     width: 100%;
     height: 100%;
     overflow: hidden;
-    border-radius: 999px 999px 26px 26px;
-    background: var(--g-800);
-    box-shadow: 0 70px 110px -45px rgba(0, 0, 0, 0.85), inset 0 0 0 1px rgba(255, 245, 230, 0.08);
+    /* Cutout treatment matches the home celebration cakes, without bobbing. */
+    background: transparent;
     filter: brightness(calc(1 - var(--a) * 0.35)) saturate(calc(1 - var(--a) * 0.25));
     transition: filter 0.8s var(--ease);
 }
-.ck-slide__card img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.08); transition: transform 1.6s var(--ease-out); }
+.ck-slide__card img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 24px 20px rgba(0, 0, 0, 0.3)); transform: scale(1.08); transition: transform 1.6s var(--ease-out); }
 .ck-slide.is-active .ck-slide__card img { transform: none; }
 .ck-stage__hint {
     position: absolute;
@@ -1186,7 +1188,7 @@
     .ck-stage__copy, .ck-stage__scene { grid-column: 1 / -1; }
     .ck-stage__scene { height: clamp(380px, 110vw, 520px); }
     .ck-stage__info { min-height: 0; }
-    .ck-slide { width: 60vw; }
+    .ck-slide { width: 48vw; }
     /* Heading above the cakes, the active cake's details below; the arrows sit
        either side of the carousel and the thumbnails step aside. */
     .ck-stage__grid { row-gap: 20px; }
@@ -1538,13 +1540,44 @@
     box-shadow: var(--xp-shadow);
     transform:
         translate3d(calc(var(--mx) * var(--k) + var(--lp, 0) * var(--drift, 0px)), calc(var(--my) * var(--k)), var(--z))
-        rotateY(calc(var(--mx) * 7deg - 6deg))
+        rotateY(calc(var(--mx) * 7deg))
         rotateX(calc(var(--my) * -6deg));
     transition: transform 0.9s var(--ease-out);
 }
-.xp-stack__layer--1 { right: 8%; top: 2%; width: 56%; aspect-ratio: 4 / 5; border-radius: 999px 999px 6px 6px; --drift: -40px; }
-.xp-stack__layer--2 { left: 0; bottom: 4%; width: 34%; aspect-ratio: 3 / 4; border-radius: 6px; --k: 26px; --z: 90px; --drift: 70px; box-shadow: 0 0 0 8px var(--act-bg), var(--xp-shadow); }
-.xp-stack__layer--3 { right: 0; bottom: -4%; width: 25%; aspect-ratio: 1; border-radius: 50%; --k: 38px; --z: 150px; --drift: 120px; box-shadow: 0 0 0 8px var(--act-bg), var(--xp-shadow); }
+/* Prints laid on a table: the main photo on a sand mat like the section above,
+   a white-bordered snapshot and a small landscape print, all square to the page. */
+.xp-stack__layer--1 {
+    right: 8%;
+    top: 2%;
+    width: 56%;
+    aspect-ratio: 4 / 5;
+    border-radius: 6px;
+    --drift: -40px;
+    box-shadow: 18px 18px 0 -1px var(--act-bg), 18px 18px 0 0 var(--sand), var(--xp-shadow);
+}
+.xp-stack__layer--2 {
+    left: 0;
+    bottom: 4%;
+    width: 34%;
+    aspect-ratio: 3 / 4;
+    padding: 10px 10px 34px;
+    border-radius: 3px;
+    background: var(--white);
+    --k: 26px;
+    --z: 90px;
+    --drift: 70px;
+}
+.xp-stack__layer--3 {
+    right: 0;
+    bottom: 2%;
+    width: 32%;
+    aspect-ratio: 4 / 3;
+    border: 6px solid var(--white);
+    border-radius: 3px;
+    --k: 38px;
+    --z: 150px;
+    --drift: 120px;
+}
 
 .xp-day__sky,
 .xp-day__hint { display: none; }
@@ -2559,4 +2592,591 @@
     .order-item { grid-template-columns: 64px minmax(0, 1fr); }
     .order-item__img { width: 64px; height: 78px; }
     .order-item__side { grid-column: 2; justify-items: start; grid-auto-flow: column; align-items: center; gap: 18px; }
+}
+
+/* ==========================================================================
+   Our Story — the short telling (resources/js/site/story.js)
+   ========================================================================== */
+
+/* Three moments: tall photo panels in a row; the open one widens and shows its line,
+   the others fold to a number and a label. Stacked on small screens. */
+.moments__head { display: grid; gap: 18px; justify-items: start; margin-bottom: clamp(32px, 4vw, 64px); }
+/* A soft, slow ease for the panels: gentle start, long settle. */
+.moments { --moment-ease: cubic-bezier(0.45, 0.05, 0.15, 1); }
+.moments__list { display: flex; gap: clamp(10px, 1vw, 16px); height: clamp(420px, 62vh, 620px); container-type: inline-size; }
+.moment {
+    position: relative;
+    flex: 1 1 0;
+    min-width: 0;
+    border-radius: 6px;
+    overflow: hidden;
+    background: var(--g-900);
+    color: var(--cream);
+    transition: flex-grow 2.4s var(--moment-ease);
+}
+.moment.is-active { flex-grow: 3.2; }
+.moment__media { position: absolute; inset: 0; overflow: hidden; }
+/* The photograph keeps the size of an open panel, so widening only reveals more of it
+   instead of re-cropping it every frame; a dark layer fades instead of an animated filter. */
+.moment__media img {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: max(100%, calc(100cqw * 3.2 / 5.2));
+    height: 100%;
+    object-fit: cover;
+    translate: -50% 0;
+    transform: scale(1.12);
+    transition: transform 3s var(--moment-ease);
+    will-change: transform;
+}
+.moment__media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(3, 35, 26, 0.5);
+    transition: opacity 2s var(--moment-ease);
+}
+.moment.is-active .moment__media img { transform: none; }
+.moment.is-active .moment__media::after { opacity: 0; }
+.moment::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(3, 35, 26, 0.9), rgba(3, 35, 26, 0.1) 55%);
+    pointer-events: none;
+}
+.moment__tab {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: clamp(18px, 2vw, 28px);
+    text-align: left;
+    color: inherit;
+    cursor: pointer;
+}
+.moment.is-active .moment__tab { cursor: default; }
+.moment__tab:focus-visible { outline: 2px solid var(--sand); outline-offset: -6px; }
+.moment__no { font-family: var(--f-display); font-size: var(--t-m); font-weight: 800; line-height: 1; letter-spacing: -0.03em; color: var(--sand); }
+.moment__label { font-size: var(--t-micro); font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--on-dark-soft); }
+.moment__body {
+    position: absolute;
+    left: clamp(18px, 2vw, 28px);
+    right: clamp(18px, 2vw, 28px);
+    bottom: clamp(18px, 2vw, 28px);
+    z-index: 3;
+    display: grid;
+    gap: 8px;
+    max-width: 26ch;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s var(--ease), transform 0.9s var(--ease-out);
+    pointer-events: none;
+}
+.moment.is-active .moment__body { opacity: 1; transform: none; transition-delay: 0.8s; }
+.moment.is-active .moment__label { opacity: 0; }
+.moment__title { font-family: var(--f-display); font-size: var(--t-s); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; }
+.moment__line { font-size: var(--t-small); color: var(--on-dark-soft); }
+
+@media (max-width: 899px) {
+    .moments__list { flex-direction: column; height: auto; }
+    .moment, .moment.is-active { flex: none; height: clamp(260px, 72vw, 380px); }
+    .moment__media img { left: 0; width: 100%; translate: none; transform: none; }
+    .moment__media::after { opacity: 0; }
+    .moment__body { opacity: 1; transform: none; }
+    .moment .moment__label { display: none; }
+}
+
+/* What we value: three details in large type, beside the koba leaf mark drawing itself in
+   (data-reveal="draw"). Hovering a detail tints the mark. */
+.details { position: relative; overflow: clip; }
+.details__grid { align-items: center; row-gap: 48px; }
+.details__copy { grid-column: 1 / span 8; }
+.details__title { margin-top: 18px; }
+.details__list { margin-top: clamp(32px, 4vw, 56px); border-top: 1px solid var(--line); }
+.detail {
+    display: grid;
+    grid-template-columns: 3rem minmax(0, 1fr);
+    align-items: center;
+    gap: 16px;
+    padding-block: clamp(16px, 2vw, 26px);
+    border-bottom: 1px solid var(--line);
+}
+.detail__no { font-size: var(--t-micro); font-weight: 600; letter-spacing: 0.2em; color: var(--brown); }
+.detail__name {
+    font-family: var(--f-display);
+    font-size: clamp(1.5rem, 3vw, 3rem);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--ink-soft);
+    transition: color 0.4s var(--ease), transform 0.6s var(--ease-out), font-weight 0.4s var(--ease);
+}
+.detail:hover .detail__name { color: var(--g-600); font-weight: 700; transform: translateX(14px); }
+.details__close { max-width: 34ch; margin-top: clamp(28px, 3vw, 44px); font-size: var(--t-lede); color: var(--ink-soft); }
+
+.details__mark { grid-column: 10 / span 3; display: grid; place-items: center; }
+.details__mark .mark { width: clamp(140px, 16vw, 240px); color: var(--g-900); stroke-width: 22; transition: color 0.6s var(--ease); }
+.details:has(.detail:hover) .details__mark .mark { color: var(--g-600); }
+
+@media (max-width: 899px) {
+    .details__copy, .details__mark { grid-column: 1 / -1; }
+    .details__mark { order: -1; justify-items: start; }
+    .details__mark .mark { width: 96px; }
+}
+
+/* About us: the words and the 24-hour bakery on the left, what KOBA makes on the right. */
+.about-us { background: var(--cream); }
+.about-us__grid { align-items: center; row-gap: 48px; }
+.about-us__copy { grid-column: 1 / span 5; display: grid; gap: clamp(18px, 2.4vw, 28px); justify-items: start; }
+.about-us__copy .display em { color: var(--g-600); }
+.about-us__hours { display: flex; align-items: center; gap: 18px; margin-top: 8px; padding-top: 22px; border-top: 1px solid var(--line); }
+.about-us__hours-value { font-size: var(--t-m); color: var(--brown); }
+.about-us__hours-line { max-width: 30ch; font-size: var(--t-small); color: var(--ink-soft); }
+.about-us__makes { grid-column: 7 / -1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(24px, 3vw, 40px) var(--col-gap); }
+.about-us__make:nth-child(even) { margin-top: clamp(28px, 4vw, 64px); }
+.about-us__photo { aspect-ratio: 4 / 3; border-radius: 6px; overflow: hidden; background: var(--cream-2); }
+.about-us__photo img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.9s var(--ease-out); }
+.about-us__name { margin-top: 16px; font-family: var(--f-display); font-size: var(--t-s); font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; }
+.about-us__line { margin-top: 6px; font-size: var(--t-small); color: var(--ink-soft); }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .about-us__make:hover .about-us__photo img { transform: scale(1.05); }
+}
+
+/* Collections: two large photographs, the second set lower, each with its words below. */
+.collections__head { display: grid; gap: 18px; justify-items: start; margin-bottom: clamp(36px, 5vw, 72px); }
+.collections__head .display em { color: var(--brown); }
+.collections__list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(28px, 4vw, 72px); align-items: start; }
+.collection:nth-child(2) { margin-top: clamp(48px, 8vw, 140px); }
+.collection__photo { display: block; aspect-ratio: 5 / 4; border-radius: 6px; overflow: hidden; background: var(--cream-2); }
+.collection__photo img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.9s var(--ease-out); }
+.collection__body { display: grid; gap: 12px; justify-items: start; max-width: 46ch; margin-top: 24px; }
+.collection__no { font-size: var(--t-micro); font-weight: 600; letter-spacing: 0.2em; color: var(--brown); }
+.collection__name { font-family: var(--f-display); font-size: var(--t-m); font-weight: 800; line-height: 1.05; letter-spacing: -0.025em; }
+.collection__text { color: var(--ink-soft); }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .collection:hover .collection__photo img { transform: scale(1.05); }
+}
+
+@media (max-width: 899px) {
+    .about-us__copy,
+    .about-us__makes { grid-column: 1 / -1; }
+    .collections__list { grid-template-columns: minmax(0, 1fr); }
+    .collection:nth-child(2) { margin-top: 0; }
+}
+@media (max-width: 479px) {
+    .about-us__make:nth-child(even) { margin-top: 0; }
+}
+
+.cakes-seasonal__copy { grid-column: 7 / -1; align-self: center; }
+@media (max-width: 899px) {
+    .cakes-seasonal__copy { grid-column: 1 / -1; }
+}
+
+/* Seasonal photographs open to occasion details using native keyboard-accessible disclosures. */
+.cakes-seasonal__head { display: flex; justify-content: space-between; align-items: end; gap: 32px; margin-bottom: clamp(32px, 5vw, 64px); }
+.cakes-seasonal__head .eyebrow { margin-bottom: 16px; }
+.cakes-seasonal__intro { max-width: 390px; }
+.cakes-seasonal__hint { margin-top: 16px; color: var(--ink-soft); font-size: var(--t-small); }
+.cakes-seasonal__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 3vw, 40px); align-items: start; }
+.cakes-seasonal__card { min-width: 0; border-bottom: 1px solid var(--line); }
+.cakes-seasonal__card summary { list-style: none; cursor: pointer; }
+.cakes-seasonal__card summary::-webkit-details-marker { display: none; }
+.cakes-seasonal__card summary:focus-visible { outline: 2px solid var(--g-600); outline-offset: 6px; }
+.cakes-seasonal__photo { display: block; position: relative; overflow: hidden; aspect-ratio: 4 / 5; border-radius: 100% 100% 4px 4px; background: var(--sand); }
+.cakes-seasonal__photo img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--ease-out); }
+.cakes-seasonal__number { position: absolute; left: 20px; bottom: 20px; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--cream); color: var(--g-900); font-size: var(--t-micro); }
+.cakes-seasonal__caption { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 22px; font-family: var(--f-display); font-size: clamp(1.3rem, 2vw, 1.8rem); font-weight: 700; line-height: 1.2; color: var(--g-900); }
+.cakes-seasonal__toggle { flex: none; display: grid; place-items: center; width: 32px; height: 32px; border: 1px solid var(--line); border-radius: 50%; font-family: var(--f-body); font-size: 1.25rem; transition: transform 0.3s var(--ease); }
+.cakes-seasonal__card[open] .cakes-seasonal__toggle { transform: rotate(45deg); }
+.cakes-seasonal__details { display: grid; justify-items: start; gap: 20px; padding-bottom: 24px; color: var(--ink-soft); }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .cakes-seasonal__card summary:hover img { transform: scale(1.06); }
+}
+@media (max-width: 899px) {
+    .cakes-seasonal__head { flex-direction: column; align-items: start; }
+    .cakes-seasonal__intro { max-width: 560px; }
+    .cakes-seasonal__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 599px) {
+    .cakes-seasonal__grid { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+    .cakes-seasonal__photo { aspect-ratio: 1; }
+}
+
+.ck-slide__card:focus-visible { outline: 2px solid var(--sand); outline-offset: 6px; }
+
+/* Original seasonal copy, with a spacious editorial layout. */
+.seasonal-note { position: relative; isolation: isolate; overflow: hidden; padding-block: clamp(64px, 9vw, 144px); }
+.seasonal-note__background { position: absolute; inset: 0 auto 0 0; width: 65%; height: 100%; object-fit: cover; object-position: center 58%; opacity: 0.18; mask-image: linear-gradient(to right, #000 30%, transparent 100%); pointer-events: none; }
+.seasonal-note > .wrap { position: relative; z-index: 1; }
+.seasonal-note__frame { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: clamp(36px, 6vw, 96px); padding-block: clamp(32px, 5vw, 72px); border-block: 1px solid var(--line); }
+.seasonal-note__heading { display: grid; gap: 24px; }
+.seasonal-note__heading .display { font-size: clamp(3rem, 6vw, 6.5rem); line-height: 0.98; }
+.seasonal-note__copy { position: relative; padding-left: clamp(24px, 3vw, 48px); border-left: 2px solid var(--sand); }
+.seasonal-note__copy p { max-width: 35ch; font-size: clamp(1.125rem, 1.6vw, 1.5rem); line-height: 1.7; color: var(--ink-soft); }
+.seasonal-note__finish { display: block; margin-top: 28px; font-family: var(--f-display); font-size: clamp(1.75rem, 2.8vw, 3rem); line-height: 1.15; font-style: italic; color: var(--g-900); }
+@media (max-width: 899px) {
+    .seasonal-note__frame { grid-template-columns: minmax(0, 1fr); }
+    .seasonal-note__copy p { max-width: 48ch; }
+}
+
+@media (max-width: 899px) {
+    .seasonal-note__background { width: 100%; opacity: 0.12; mask-image: linear-gradient(to bottom, #000, transparent 85%); }
+}
+
+/* ==========================================================================
+   Experience page — the shorter telling around the day journey (.xp-feel,
+   .xp-bar, .xp-cater). Each fits one screen. Behaviour: experience.js
+   ========================================================================== */
+
+.xp-feel,
+.xp-bar,
+.xp-cater {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 100svh;
+    padding-block: clamp(32px, 8vh, 96px);
+    overflow: clip;
+}
+.xp-feel .display--l,
+.xp-bar .display--l,
+.xp-cater .display--l { font-size: min(var(--t-l), 9vh); }
+
+/* ---- How you feel: the sentence finishes itself three ways --------------- */
+
+.xp-feel { background: var(--white); }
+.xp-feel__grid { align-items: center; row-gap: clamp(16px, 3vh, 32px); }
+.xp-feel__copy { grid-column: 1 / span 6; grid-row: 1; display: grid; gap: clamp(14px, 2.6vh, 28px); justify-items: start; }
+.xp-feel__copy .display em { color: var(--g-600); }
+.xp-feel__say {
+    display: grid;
+    font-family: var(--f-display);
+    font-size: clamp(1.4rem, min(2.5vw, 5vh), 2.5rem);
+    font-weight: 300;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--ink-soft);
+}
+.xp-feel__slot { display: grid; overflow: clip; padding-bottom: 0.12em; }
+.xp-feel__phrase {
+    grid-area: 1 / 1;
+    font-weight: 800;
+    color: var(--g-600);
+    opacity: 0;
+    transform: translateY(70%);
+    transition: opacity 0.5s var(--ease), transform 0.8s var(--ease-out);
+}
+.xp-feel__phrase.is-on { opacity: 1; transform: none; transition-delay: 0.12s; }
+.xp-feel__phrase.is-off { transform: translateY(-70%); }
+
+.xp-feel__picks { display: flex; flex-wrap: wrap; gap: 10px; }
+.xp-feel__pick {
+    position: relative;
+    overflow: hidden;
+    padding: 10px 20px;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    font-size: var(--t-small);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    transition: background-color 0.4s var(--ease), color 0.4s var(--ease), border-color 0.4s var(--ease);
+}
+.xp-feel__pick:hover { border-color: var(--g-900); }
+.xp-feel__pick[aria-pressed="true"] { background: var(--g-900); border-color: var(--g-900); color: var(--cream); }
+/* While the sentence plays by itself, the chosen pill fills like a timer. */
+.xp-feel__pick::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: var(--sand);
+    transform: scaleX(0);
+    transform-origin: left;
+}
+.xp-feel.is-playing .xp-feel__pick[aria-pressed="true"]::after { animation: xp-feel-timer var(--xp-feel-dur, 5s) linear forwards; }
+@keyframes xp-feel-timer { to { transform: scaleX(1); } }
+
+.xp-feel__replies { display: grid; max-width: 36ch; }
+.xp-feel__reply {
+    grid-area: 1 / 1;
+    font-size: var(--t-lede);
+    color: var(--ink-soft);
+    opacity: 0;
+    transition: opacity 0.5s var(--ease);
+}
+.xp-feel__reply.is-on { opacity: 1; transition-delay: 0.25s; }
+
+/* The table from above (partials/xp-table): chairs slide in, things are set down one by one. */
+.xp-feel__scene {
+    grid-column: 8 / -1;
+    grid-row: 1 / span 2;
+    justify-self: center;
+    width: min(100%, 72svh, 580px);
+    aspect-ratio: 1;
+}
+.xp-table { width: 100%; height: 100%; overflow: visible; }
+.xp-table__chair,
+.xp-table__item,
+.xp-table__aroma,
+.xp-table__flame,
+.xp-table__glow { transform-box: fill-box; transform-origin: center; }
+.xp-table__spin { transform-box: view-box; transform-origin: 200px 200px; animation: xp-table-turn 30s var(--ease-in-out) infinite alternate; }
+@keyframes xp-table-turn { from { rotate: -6deg; } to { rotate: 6deg; } }
+
+.xp-table__top { fill: var(--sand-200); stroke: var(--sand); stroke-width: 1.5; filter: drop-shadow(0 24px 30px rgba(122, 78, 34, 0.22)); }
+.xp-table__ring { fill: none; stroke: var(--sand-300); stroke-width: 1; }
+.xp-table__chair { fill: var(--g-900); opacity: 0; transform: translateY(26px); transition: opacity 0.5s var(--ease), transform 0.8s var(--ease-out); }
+.xp-table__chairs.is-on .xp-table__chair { opacity: 1; transform: none; transition-delay: calc(0.15s + var(--i) * 0.07s); }
+
+.xp-table__item { opacity: 0; transform: scale(0.6); transition: opacity 0.45s var(--ease), transform 0.7s var(--ease-out); }
+.xp-table__set.is-on .xp-table__item { opacity: 1; transform: none; transition-delay: calc(0.35s + var(--i) * 0.09s); }
+
+.xp-table__saucer,
+.xp-table__plate { fill: var(--white); stroke: var(--line); stroke-width: 1; }
+.xp-table__china,
+.xp-table__cup { fill: var(--white); stroke: var(--line-strong); stroke-width: 1; }
+.xp-table__coffee { fill: var(--brown); }
+.xp-table__art { fill: var(--cream); }
+.xp-table__aroma { fill: none; stroke: var(--sand); stroke-width: 1.2; animation: xp-table-aroma 3.2s var(--ease-out) infinite; }
+@keyframes xp-table-aroma { from { transform: scale(1); opacity: 0.7; } to { transform: scale(2.3); opacity: 0; } }
+.xp-table__bun { fill: var(--sand); stroke: var(--brown); stroke-width: 0.8; }
+.xp-table__sugar { fill: var(--white); opacity: 0.85; }
+.xp-table__book { fill: var(--g-600); }
+.xp-table__spine { fill: var(--g-800); }
+.xp-table__title { fill: var(--sand); }
+.xp-table__croissant { fill: var(--sand); stroke: var(--brown); stroke-width: 1; }
+.xp-table__fold { fill: none; stroke: var(--brown); stroke-width: 1; stroke-linecap: round; }
+.xp-table__fork { fill: var(--line-strong); }
+.xp-table__cake { fill: #5b3417; }
+.xp-table__drip { fill: none; stroke: #7a4a26; stroke-width: 5; stroke-dasharray: 9 5; }
+.xp-table__candle { fill: var(--cream); stroke: var(--sand); stroke-width: 1; }
+.xp-table__flame { fill: #f6b443; animation: xp-table-flicker 1.4s ease-in-out calc(var(--k) * -0.27s) infinite alternate; }
+.xp-table__glow { animation: xp-table-flicker 1.8s ease-in-out calc(var(--k) * -0.4s) infinite alternate; }
+@keyframes xp-table-flicker { from { transform: scale(0.8); opacity: 0.75; } to { transform: scale(1.15); opacity: 1; } }
+
+.xp-feel__close {
+    grid-column: 1 / span 6;
+    grid-row: 2;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 0;
+    padding-top: clamp(14px, 2.4vh, 24px);
+    border-top: 1px solid var(--line);
+    font-size: var(--t-micro);
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--brown);
+}
+.xp-feel__close span + span::before { content: "·"; margin-inline: 14px; color: var(--sand); }
+
+/* ---- The third place: drinks poured into one round cup ------------------- */
+
+.xp-bar { background: var(--g-900); color: var(--on-dark); }
+.xp-bar .eyebrow { color: var(--sand); }
+.xp-bar .display em { color: var(--sand); }
+.xp-bar__grid { align-items: center; row-gap: 40px; }
+.xp-bar__copy { grid-column: 1 / span 6; display: grid; gap: clamp(14px, 2.6vh, 28px); justify-items: start; }
+.xp-bar__body { max-width: 40ch; font-size: var(--t-lede); color: var(--on-dark-soft); }
+.xp-bar__list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--col-gap);
+    width: 100%;
+    max-width: 560px;
+}
+.xp-bar__item {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    width: 100%;
+    padding-block: clamp(8px, 1.6vh, 14px);
+    border-top: 1px solid var(--line-dark);
+    font-family: var(--f-display);
+    font-size: clamp(1rem, min(1.5vw, 3vh), 1.35rem);
+    font-weight: 300;
+    text-align: left;
+    color: var(--on-dark-soft);
+    transition: color 0.4s var(--ease), padding-left 0.5s var(--ease-out);
+}
+.xp-bar__no { font-family: var(--f-body); font-size: var(--t-micro); font-weight: 600; letter-spacing: 0.16em; color: var(--sand); opacity: 0.6; }
+.xp-bar__item:hover,
+.xp-bar__item[aria-pressed="true"] { color: var(--cream); padding-left: 8px; }
+.xp-bar__item[aria-pressed="true"] .xp-bar__no { opacity: 1; }
+
+.xp-bar__cup {
+    grid-column: 8 / -1;
+    position: relative;
+    justify-self: center;
+    width: min(100%, 68svh, 560px);
+    aspect-ratio: 1;
+}
+.xp-bar__ring { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; animation: xp-bar-turn 60s linear infinite; }
+.xp-bar__ring text { fill: var(--sand); font-size: 7.5px; font-weight: 600; letter-spacing: 0.2em; }
+@keyframes xp-bar-turn { to { rotate: 360deg; } }
+.xp-bar__well {
+    position: absolute;
+    inset: 11%;
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--g-950);
+    box-shadow: 0 0 0 10px rgba(255, 245, 230, 0.06), 0 40px 80px -30px rgba(0, 0, 0, 0.6);
+}
+/* A new drink pours in from the centre over the last one. */
+.xp-bar__pour { position: absolute; inset: 0; clip-path: circle(0 at 50% 50%); transition: clip-path 1s var(--ease-in-out); }
+.xp-bar__pour.is-on { z-index: 2; clip-path: circle(72% at 50% 50%); }
+.xp-bar__pour.is-off { z-index: 1; clip-path: circle(72% at 50% 50%); }
+.xp-bar__pour img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.08) rotate(-4deg); transition: transform 1.6s var(--ease-out); }
+.xp-bar__pour.is-on img { transform: none; }
+
+/* ---- Catering: occasions as place cards that turn over ------------------- */
+
+.xp-cater__grid { align-items: center; row-gap: 40px; }
+.xp-cater__copy { grid-column: 1 / span 5; display: grid; gap: clamp(14px, 2.6vh, 28px); justify-items: start; }
+.xp-cater__copy .display em { color: var(--brown); }
+.xp-cater__body { max-width: 36ch; font-size: var(--t-lede); color: var(--ink-soft); }
+.xp-cater__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; }
+
+.xp-cater__cards {
+    grid-column: 7 / -1;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: 1fr;
+    gap: clamp(10px, 1.2vw, 18px);
+    height: min(72svh, 620px);
+    min-height: 300px;
+}
+.xp-place { min-height: 0; }
+/* Hover (or tap) a photograph and its line rises in under the name. */
+.xp-place__card {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    width: 100%;
+    height: 100%;
+    padding: clamp(14px, 1.6vw, 22px);
+    border-radius: 6px;
+    overflow: hidden;
+    background: var(--g-900);
+    color: var(--cream);
+    text-align: left;
+}
+.xp-place__card > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 0.5s var(--ease); }
+.xp-place__card { transition: background-color 0.5s var(--ease), box-shadow 0.5s var(--ease); }
+
+/* The stage: each card's photograph waits clipped to its card (--t/--r/--b/--l, set by
+   experience.js) and opens out to fill the section when its card is hovered or tapped. */
+.xp-cater__grid { position: relative; z-index: 1; }
+.xp-cater__stage { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.xp-cater__bg {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    clip-path: inset(var(--t, 0) var(--r, 0) var(--b, 0) var(--l, 0) round 6px);
+    transition: clip-path 0.85s var(--ease-in-out), opacity 0.3s var(--ease) 0.55s;
+}
+.xp-cater__bg img { width: 100%; height: 100%; object-fit: cover; }
+.xp-cater__bg.is-on { opacity: 1; clip-path: inset(0 round 0); transition: clip-path 0.85s var(--ease-in-out), opacity 0s; }
+/* A light green wash from the left so the words stay readable; the photograph stays sharp. */
+.xp-cater__stage::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(3, 35, 26, 0.66), rgba(3, 35, 26, 0.36) 50%, rgba(3, 35, 26, 0.5));
+    opacity: 0;
+    transition: opacity 0.6s var(--ease);
+}
+.xp-cater.is-showing .xp-cater__stage::after { opacity: 1; transition-delay: 0.3s; }
+
+/* While a photograph fills the section, only words remain in front of it. */
+.xp-cater .eyebrow,
+.xp-cater .display,
+.xp-cater .display em,
+.xp-cater__body,
+.xp-cater__actions .link { transition: color 0.5s var(--ease); }
+.xp-cater.is-showing .eyebrow,
+.xp-cater.is-showing .display,
+.xp-cater.is-showing .xp-cater__actions .link { color: var(--cream); }
+.xp-cater.is-showing .display em { color: var(--sand); }
+.xp-cater.is-showing .xp-cater__body { color: var(--on-dark-soft); }
+.xp-cater.is-showing .xp-place__card { background: transparent; box-shadow: inset 0 0 0 1px rgba(255, 245, 230, 0.28); }
+.xp-cater.is-showing .xp-place__card > img,
+.xp-cater.is-showing .xp-place__card::after { opacity: 0; }
+.xp-cater.is-showing .xp-place__card:not(.is-shown) .xp-place__name { opacity: 0.8; }
+.xp-cater.is-showing .xp-place__card.is-shown { box-shadow: inset 0 0 0 1.5px var(--sand); }
+/* Over the photograph, each card's words move to the top and grow so they read clearly. */
+.xp-cater.is-showing .xp-place__card { align-items: flex-start; }
+.xp-cater.is-showing .xp-place__text { text-shadow: 0 1px 14px rgba(3, 35, 26, 0.55); }
+.xp-cater.is-showing .xp-place__name { font-size: clamp(1.3rem, min(2.1vw, 4.2vh), 2.1rem); }
+.xp-cater.is-showing .xp-place__line { font-size: clamp(0.95rem, min(1.15vw, 2.5vh), 1.2rem); color: var(--cream); }
+.xp-place__card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(3, 35, 26, 0.8), rgba(3, 35, 26, 0) 55%);
+    opacity: 0.85;
+    transition: opacity 0.5s var(--ease);
+}
+.xp-place__text { position: relative; z-index: 1; display: grid; }
+.xp-place__more { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.5s var(--ease-out); }
+.xp-place__line {
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.4s var(--ease), transform 0.5s var(--ease-out);
+}
+.xp-place__card[aria-pressed="true"]::after { opacity: 1; }
+.xp-place__card[aria-pressed="true"] .xp-place__more { grid-template-rows: 1fr; }
+.xp-place__card[aria-pressed="true"] .xp-place__line { opacity: 1; transform: none; transition-delay: 0.1s; }
+@media (hover: hover) {
+    .xp-place__card:hover::after,
+    .xp-place__card:focus-visible::after { opacity: 1; }
+    .xp-place__card:hover .xp-place__more,
+    .xp-place__card:focus-visible .xp-place__more { grid-template-rows: 1fr; }
+    .xp-place__card:hover .xp-place__line,
+    .xp-place__card:focus-visible .xp-place__line { opacity: 1; transform: none; transition-delay: 0.1s; }
+}
+.xp-place__card:focus-visible { outline: 2px solid var(--g-600); outline-offset: 4px; }
+.xp-place__name { font-family: var(--f-display); font-size: clamp(1.05rem, min(1.6vw, 3.2vh), 1.6rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; }
+.xp-place__line { padding-top: 8px; font-size: var(--t-small); line-height: 1.5; color: var(--on-dark-soft); }
+
+/* ---- Small screens & reduced motion ------------------------------------- */
+
+@media (max-width: 899px) {
+    .xp-feel,
+    .xp-bar,
+    .xp-cater { min-height: 0; padding-block: clamp(64px, 14vw, 96px); }
+    .xp-feel__copy,
+    .xp-feel__close,
+    .xp-bar__copy,
+    .xp-bar__cup,
+    .xp-cater__copy,
+    .xp-cater__cards { grid-column: 1 / -1; }
+    .xp-feel__scene { grid-column: 1 / -1; grid-row: 2; width: min(100%, 340px); }
+    .xp-feel__close { grid-row: 3; }
+    .xp-bar__cup { width: min(100%, 420px); }
+    .xp-cater__cards { height: auto; grid-auto-rows: auto; }
+    .xp-place__card { height: auto; aspect-ratio: 4 / 5; }
+}
+@media (max-width: 479px) {
+    .xp-bar__list { grid-template-columns: minmax(0, 1fr); }
+    .xp-place__line { font-size: 0.8125rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .xp-bar__ring { animation: none; }
+    .xp-bar__pour,
+    .xp-place__more,
+    .xp-place__line { transition-duration: 0.01s; }
+    .xp-cater__bg,
+    .xp-cater__bg.is-on { transition-duration: 0.01s; transition-delay: 0s; }
+    .xp-table__spin,
+    .xp-table__aroma,
+    .xp-table__flame,
+    .xp-table__glow { animation: none; }
 }

@@ -25,7 +25,7 @@
     </div>
 
     <div class="ring" data-ring style="--n: {{ $faces->count() }}">
-        <p class="ring__backdrop" aria-hidden="true">{{ __('koba.cakes_feature.backdrop') }}</p>
+        {{-- <p class="ring__backdrop" aria-hidden="true">{{ __('koba.cakes_feature.backdrop') }}</p> --}}
 
         <div class="ring__scene" data-ring-scene>
             <div class="ring__floor" aria-hidden="true"></div>
@@ -33,9 +33,9 @@
                 @foreach ($faces as $i => $cake)
                     @php($copy = $i >= $cakes->count())
                     <li class="ring__face" data-ring-face data-index="{{ $i % $cakes->count() }}" style="--i: {{ $i }}" @if ($copy) aria-hidden="true" @endif>
-                        <a class="ring__card" href="{{ route('cakes') }}#cake-{{ $cake['slug'] }}" draggable="false" data-cursor="{{ __('koba.ui.discover') }}" @if ($copy) tabindex="-1" @endif>
-                            <x-site.img :src="$cake['image']" :alt="$cake['name']" sizes="(min-width: 900px) 22vw, 52vw" position="50% 62%" draggable="false" />
-                            <span class="ring__shine" aria-hidden="true"></span>
+                        <a class="ring__card" href="{{ route('cakes') }}#cake-{{ $cake['slug'] }}" draggable="false" @if ($copy) tabindex="-1" @endif>
+                            <span class="ring__shadow" aria-hidden="true"></span>
+                            <x-site.img :src="'cutout-'.$cake['image']" :alt="$cake['name']" sizes="(min-width: 900px) 22vw, 52vw" draggable="false" />
                         </a>
                     </li>
                 @endforeach
@@ -51,7 +51,12 @@
                         <span class="index">{{ str_pad($i + 1, 2, '0', STR_PAD_LEFT) }} / {{ str_pad($cakes->count(), 2, '0', STR_PAD_LEFT) }}</span>
                         <h3 class="display display--m">{{ $cake['name'] }}</h3>
                         <p>{{ $cake['line'] }}</p>
-                        <a class="link" href="{{ route('order', ['cake' => $cake['slug']]) }}" @unless ($i === 0) tabindex="-1" @endunless>{{ __('koba.cakes_feature.order_this') }} <x-site.arrow /></a>
+                        <button class="link" type="button" data-cart-add data-cake data-label-added="{{ __('koba.cart.added') }}"
+                                data-slug="{{ $cake['slug'] }}" data-name="{{ $cake['name'] }}" data-title="{{ $cake['name'] }}"
+                                data-image="{{ asset('images/koba/'.$cake['image'].'-'.config('koba.images.'.$cake['image'])[2][0].'.webp') }}"
+                                aria-label="{{ __('koba.cart.add') }}: {{ $cake['name'] }}" @unless ($i === 0) tabindex="-1" @endunless>
+                            <span data-cart-add-label>{{ __('koba.cart.add') }}</span> <x-site.arrow />
+                        </button>
                     </div>
                 @endforeach
             </div>

@@ -332,7 +332,16 @@
     transition: visibility 0s linear 0.9s;
 }
 .pour.is-live .pour__step.is-current { visibility: visible; transition-delay: 0s; }
-.pour.is-live .pour__title { font-size: clamp(2.4rem, 4.3vw, 4.9rem); }
+.pour.is-live .pour__title { font-size: clamp(2.2rem, min(4.3vw, 7.2vh), 4.9rem); }
+
+/* The pinned frame is one screen tall, so the copy scales with the screen's height
+   too, keeping even room above (below the header) and below on shorter screens. */
+@media (min-width: 900px) {
+    .pour.is-live .pour__inner { padding-block: calc(var(--header-h) + clamp(16px, 4vh, 48px)) clamp(32px, 7vh, 72px); }
+    .pour.is-live .pour__copy { gap: clamp(14px, 2.8vh, 34px); }
+    .pour.is-live .pour__step { gap: clamp(10px, 2vh, 18px); }
+    .pour.is-live .pour__body { font-size: clamp(1rem, min(1.3vw, 2.4vh), 1.375rem); }
+}
 
 .pour.is-live .pour__step .line > span {
     transform: translate3d(0, 112%, 0);
@@ -464,7 +473,7 @@
     .pour.is-live .pour__step { gap: 12px; }
 
     .pour.is-live .pour__rail { display: none; }
-    /* Top right, over the photograph: the floating mesob (base.css) holds the bottom corner. */
+    /* Top right, over the photograph: the floating cart (base.css) holds the bottom corner. */
     .pour.is-live .pour__skip { top: calc(var(--header-h) + 16px); padding: 9px 12px; }
 }
 

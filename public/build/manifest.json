@@ -1,0 +1,152 @@
+{
+  "_forms-DqaYW5a5.js": {
+    "file": "assets/forms-DqaYW5a5.js",
+    "name": "forms",
+    "imports": [
+      "resources/js/site.js"
+    ]
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-qqJBGMsg.css",
+    "src": "resources/css/app.css",
+    "isEntry": true,
+    "name": "app",
+    "names": [
+      "app.css"
+    ]
+  },
+  "resources/css/site.css": {
+    "file": "assets/site-B1UvJI2T.css",
+    "src": "resources/css/site.css",
+    "isEntry": true,
+    "name": "site",
+    "names": [
+      "site.css"
+    ]
+  },
+  "resources/images/brand/pattern-green.svg": {
+    "file": "assets/pattern-green-DOJXc7yB.svg",
+    "src": "resources/images/brand/pattern-green.svg"
+  },
+  "resources/images/brand/pattern-sand.svg": {
+    "file": "assets/pattern-sand-CjN2nzWp.svg",
+    "src": "resources/images/brand/pattern-sand.svg"
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-DMsN-rLE.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true
+  },
+  "resources/js/site.js": {
+    "file": "assets/site-CTKzIXzz.js",
+    "name": "site",
+    "src": "resources/js/site.js",
+    "isEntry": true,
+    "dynamicImports": [
+      "resources/js/site/order.js",
+      "resources/js/site/enquiry.js",
+      "resources/js/site/menu.js",
+      "resources/js/site/reviews.js",
+      "resources/js/site/experience.js",
+      "resources/js/site/atlas.js",
+      "resources/js/site/cakes.js",
+      "resources/js/site/home.js",
+      "resources/js/site/home.js",
+      "resources/js/site/pour.js",
+      "resources/js/site/story.js"
+    ]
+  },
+  "resources/js/site/atlas.js": {
+    "file": "assets/atlas-DyDHDaTc.js",
+    "name": "atlas",
+    "src": "resources/js/site/atlas.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/site.js"
+    ]
+  },
+  "resources/js/site/cakes.js": {
+    "file": "assets/cakes-Cc8fxzTa.js",
+    "name": "cakes",
+    "src": "resources/js/site/cakes.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/site.js"
+    ]
+  },
+  "resources/js/site/enquiry.js": {
+    "file": "assets/enquiry-Bvnl0d1j.js",
+    "name": "enquiry",
+    "src": "resources/js/site/enquiry.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/site.js",
+      "_forms-DqaYW5a5.js"
+    ]
+  },
+  "resources/js/site/experience.js": {
+    "file": "assets/experience-B-DtVYzp.js",
+    "name": "experience",
+    "src": "resources/js/site/experience.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/site.js"
+    ]
+  },
+  "resources/js/site/home.js": {
+    "file": "assets/home-DxTUaIDe.js",
+    "name": "home",
+    "src": "resources/js/site/home.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/site.js"
+    ]
+  },
+  "resources/js/site/menu.js": {
+    "file": "assets/menu-ZodlW1_k.js",
+    "name": "menu",
+    "src": "resources/js/site/menu.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/site.js"
+    ]
+  },
+  "resources/js/site/order.js": {
+    "file": "assets/order-1g2D2V1S.js",
+    "name": "order",
+    "src": "resources/js/site/order.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/site.js",
+      "_forms-DqaYW5a5.js"
+    ]
+  },
+  "resources/js/site/pour.js": {
+    "file": "assets/pour-ClNrKfo3.js",
+    "name": "pour",
+    "src": "resources/js/site/pour.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/site.js"
+    ]
+  },
+  "resources/js/site/reviews.js": {
+    "file": "assets/reviews-yksNTUAj.js",
+    "name": "reviews",
+    "src": "resources/js/site/reviews.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/site.js"
+    ]
+  },
+  "resources/js/site/story.js": {
+    "file": "assets/story-BvR3Wbk6.js",
+    "name": "story",
+    "src": "resources/js/site/story.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/site.js"
+    ]
+  }
+}
