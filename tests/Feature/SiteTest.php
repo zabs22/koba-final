@@ -117,10 +117,13 @@ class SiteTest extends TestCase
 
     public function test_cake_order_works_without_javascript(): void
     {
-        $this->from('/order-a-cake')
+        $response = $this->from('/order-a-cake')
             ->post('/order-a-cake', $this->order())
-            ->assertRedirect('/order-a-cake')
             ->assertSessionHas('status');
+
+        // Straight to the confirmation page with the pickup code (signed link).
+        $this->assertStringContainsString('/order-confirmed/ORD-', $response->headers->get('Location'));
+        $this->get($response->headers->get('Location'))->assertOk()->assertSee('Order confirmed');
     }
 
     public function test_contact_message_is_accepted(): void

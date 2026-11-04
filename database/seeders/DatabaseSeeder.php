@@ -15,6 +15,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Dashboard test accounts (local only): php artisan db:seed --class=DemoUserSeeder
+        if (app()->environment('local')) {
+            $this->call(DemoUserSeeder::class);
+        }
+
         // User::factory(10)->create();
 
         User::factory()->create([

@@ -12,6 +12,9 @@ export default defineConfig({
                 // Public website (hand-written CSS, no Tailwind)
                 'resources/css/site.css',
                 'resources/js/site.js',
+                // Role dashboards (Tailwind CSS v4, Alpine via Livewire, ApexCharts)
+                'resources/css/dashboard.css',
+                'resources/js/dashboard.js',
             ],
             refresh: true,
         }),

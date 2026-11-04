@@ -19,6 +19,14 @@
             </ul>
         </nav>
 
+        {{-- Account: sign in (Jetstream) or straight to the signed-in user's dashboard. --}}
+        <a class="header__account" href="{{ auth()->check() ? route('dashboard') : route('login') }}">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="8" r="4"/><path d="M4.5 20.5c1.2-3.6 4.2-5.5 7.5-5.5s6.3 1.9 7.5 5.5"/>
+            </svg>
+            <span class="header__account-label">{{ auth()->check() ? __('koba.ui.account') : __('koba.ui.sign_in') }}</span>
+        </a>
+
         <a class="btn header__cta" href="{{ route('order') }}" @if ($current('order')) aria-current="page" @endif>
             {{ __('koba.ui.order_cake') }}
         </a>
@@ -44,6 +52,7 @@
         @endforeach
     </ul>
     <div class="overlay-menu__foot">
+        <a class="u-link" href="{{ auth()->check() ? route('dashboard') : route('login') }}">{{ auth()->check() ? __('koba.ui.account') : __('koba.ui.sign_in') }}</a>
         <a class="u-link" href="mailto:{{ config('koba.email') }}">{{ config('koba.email') }}</a>
         <span>{{ collect(trans('koba.locations.branches'))->pluck('short')->implode(' · ') }}</span>
     </div>
