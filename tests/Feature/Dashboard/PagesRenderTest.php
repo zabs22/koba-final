@@ -39,7 +39,7 @@ class PagesRenderTest extends DashboardTestCase
     #[DataProvider('branchPages')]
     public function test_branch_pages_render(string $route): void
     {
-        $this->actingAs($this->branchAdmin())->get(route($route))->assertOk()->assertSee('KOBA Bole Atlas');
+        $this->actingAs($this->branchAdmin())->get(route($route))->assertOk()->assertSee(trans('koba.locations.branches.atlas.name'));
     }
 
     #[DataProvider('customerPages')]
@@ -52,9 +52,9 @@ class PagesRenderTest extends DashboardTestCase
     {
         $admin = $this->superAdmin();
 
-        $this->actingAs($admin)->get(route('admin.branches.show', 'sanford'))->assertOk()->assertSee('KOBA Sanford');
+        $this->actingAs($admin)->get(route('admin.branches.show', 'kebena'))->assertOk()->assertSee(trans('koba.locations.branches.kebena.name'));
         $this->actingAs($admin)->get(route('admin.branches.show', 'nowhere'))->assertNotFound();
-        $this->actingAs($admin)->getJson(route('admin.dashboard.metrics', ['range' => '30d', 'branch' => 'bole-atlas']))
+        $this->actingAs($admin)->getJson(route('admin.dashboard.metrics', ['range' => '30d', 'branch' => 'atlas']))
             ->assertOk()->assertJsonStructure(['range', 'kpis' => ['revenue' => ['value', 'change', 'spark']], 'charts' => ['revenue', 'byBranch', 'status', 'heatmap', 'payments'], 'leaderboard']);
         $this->actingAs($admin)->getJson(route('admin.orders.data', ['range' => 'today']))->assertOk()->assertJsonStructure(['rows', 'total', 'pages']);
         $this->actingAs($admin)->get(route('admin.reports.export', 'orders'))->assertOk()->assertHeader('content-type', 'text/csv; charset=UTF-8');

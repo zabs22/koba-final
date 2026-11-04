@@ -39,9 +39,10 @@ return [
 
     'accounts' => [
         'superadmin@test.com' => ['role' => 'super_admin'],
-        'branchadmin@test.com' => ['role' => 'branch_admin', 'branch' => 'bole-atlas'],
-        'sanford@test.com' => ['role' => 'branch_admin', 'branch' => 'sanford'],
-        '4killo@test.com' => ['role' => 'branch_admin', 'branch' => '4-killo'],
+        'branchadmin@test.com' => ['role' => 'branch_admin', 'branch' => 'atlas'],
+        'kebena@test.com' => ['role' => 'branch_admin', 'branch' => 'kebena'],
+        '4kilo@test.com' => ['role' => 'branch_admin', 'branch' => '4-kilo'],
+        'peacock@test.com' => ['role' => 'branch_admin', 'branch' => 'peacock'],
     ],
 
 ];

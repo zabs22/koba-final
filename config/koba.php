@@ -199,4 +199,41 @@ return [
         'Facebook' => 'https://www.facebook.com/',
         'TikTok' => 'https://www.tiktok.com/',
     ],
+
+    /*
+    | "Find the nearest café" (/find-a-cafe). Café coordinates come from
+    | locations.branches in lang/en/koba.php.
+    */
+    'locator' => [
+        // OSRM-compatible routing for driving times and the route line. The public
+        // OSRM server is fine for the demo and light use (fair-use policy, no key);
+        // point this at KOBA's own OSRM before heavy traffic.
+        'routing_url' => env('LOCATOR_ROUTING_URL', 'https://router.project-osrm.org'),
+        'timeout' => 3,
+
+        // Map tiles (MapLibre style), free and keyless.
+        'style_url' => env('LOCATOR_STYLE_URL', 'https://tiles.openfreemap.org/styles/positron'),
+
+        // Farther than this from every café, the visitor isn't in Addis Ababa:
+        // show distances only, no driving times.
+        'service_radius_km' => 60,
+
+        // Hexagon grid (circumradius in metres) around the city centre, Meskel Square.
+        // Driving times are fetched per cell (from its centre) and cached, so nearby
+        // visitors share one lookup.
+        'grid' => ['origin' => [9.0106, 38.7613], 'size_m' => 200],
+        'cache_minutes' => 15,
+
+        // OSRM assumes empty roads; Addis traffic is slower. Multipliers by Addis hour.
+        'traffic' => ['peak' => 1.9, 'day' => 1.45, 'night' => 1.15],
+        'peak_hours' => [[7, 10], [16, 20]],
+
+        // Without routing: road ≈ straight line × circuity, at an average city speed.
+        'circuity' => 1.35,
+        'city_kmh' => 20,
+        'walk_kmh' => 4.8,
+
+        // Demo only (local/testing): a pretend location in Addis for visitors abroad.
+        'demo_location' => [9.0128, 38.7638],
+    ],
 ];

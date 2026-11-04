@@ -1403,6 +1403,35 @@
 .pill input:checked + span { background: var(--g-900); border-color: var(--g-900); color: var(--cream); }
 .pill input:focus-visible + span { outline: 2px solid var(--g-600); outline-offset: 3px; }
 
+/* Branch choice: "Choose myself" or "Find the nearest café" (resources/js/site/branch-finder.js) */
+.branch-finder { display: grid; gap: 10px; }
+.branch-finder__modes { display: flex; flex-wrap: wrap; gap: 8px; }
+.select + .branch-finder { margin-top: 4px; }
+.select + .branch-finder .branch-finder__mode { min-height: 38px; padding: 0 13px; font-size: var(--t-micro); }
+.branch-finder__mode {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    min-height: 42px;
+    padding: 0 16px;
+    border: 1px solid var(--line-strong);
+    border-radius: 2px;
+    background: none;
+    color: inherit;
+    font: inherit;
+    font-size: var(--t-small);
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.4s var(--ease), color 0.4s var(--ease), border-color 0.4s var(--ease);
+}
+.branch-finder__mode svg { flex: none; width: 17px; height: 17px; }
+.branch-finder__mode:hover { border-color: var(--g-900); }
+.branch-finder__mode.is-on { background: var(--g-900); border-color: var(--g-900); color: var(--cream); }
+.branch-finder__mode:focus-visible { outline: 2px solid var(--g-600); outline-offset: 3px; }
+.branch-finder__found { display: flex; gap: 8px; margin: 0; font-size: var(--t-small); color: var(--g-600); }
+.branch-finder__found::before { content: ""; flex: none; width: 8px; height: 8px; margin-top: 0.45em; border-radius: 50%; background: var(--g-600); box-shadow: 0 0 0 4px rgba(0, 106, 71, 0.15); }
+
 .review { display: grid; border-top: 1px solid var(--line); }
 .review__row {
     display: grid;

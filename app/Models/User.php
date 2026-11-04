@@ -80,7 +80,7 @@ class User extends Authenticatable
         return in_array($this->role(), $roles, true);
     }
 
-    /** The branch a branch admin manages (e.g. "bole-atlas"); null for everyone else. */
+    /** The branch a branch admin manages (e.g. "atlas"); null for everyone else. */
     public function branchKey(): ?string
     {
         return app(DemoAccounts::class)->branch($this);

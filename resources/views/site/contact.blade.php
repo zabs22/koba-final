@@ -1,4 +1,8 @@
-@php($fields = trans('koba.contact.fields'))
+@php
+    $fields = trans('koba.contact.fields');
+    // "Find the nearest café" comes back with ?branch=…
+    $chosenBranch = old('branch', array_key_exists((string) request('branch'), trans('koba.locations.branches')) ? request('branch') : null);
+@endphp
 
 <x-site.layout page="contact" :title="__('koba.meta.pages.contact')" :description="__('koba.contact.lede')"
     image="drink-cappuccino">
@@ -90,11 +94,13 @@
                                     aria-describedby="c-branch-error">
                                     <option value="">{{ __('koba.contact.any_branch') }}</option>
                                     @foreach (trans('koba.locations.branches') as $key => $branch)
-                                        <option value="{{ $key }}" @selected(old('branch') === $key)>{{ $branch['name'] }}
+                                        <option value="{{ $key }}" @selected($chosenBranch === $key)>{{ $branch['name'] }}
                                         </option>
                                     @endforeach
                                 </select>
                             </div>
+                            {{-- Below the select here: the column is narrow and shares its row with the phone. --}}
+                            @include('site.partials.branch-finder', ['for' => 'contact', 'select' => 'c-branch'])
                             <p class="field__error" id="c-branch-error" data-error-for="branch">
                                 @error('branch'){{ $message }}@enderror</p>
                         </div>

@@ -1875,6 +1875,23 @@ nav.chapters { display: none; }
 }
 .atlas__go svg { width: 22px; height: 22px; }
 .atlas__go:hover, .atlas__go:focus-visible { background: var(--sand); color: var(--g-900); transform: rotate(-8deg); }
+.atlas__near {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 22px;
+    padding: 14px 18px;
+    border: 1px solid rgba(230, 190, 126, 0.45);
+    border-radius: 14px;
+    color: var(--sand);
+    font-size: var(--t-small);
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.4s var(--ease), color 0.4s var(--ease);
+}
+.atlas__near svg { flex: none; width: 20px; height: 20px; }
+.atlas__near:hover,
+.atlas__near:focus-visible { background: var(--sand); color: var(--g-900); }
 .atlas__coords { margin-top: auto; padding-top: 28px; font-size: var(--t-micro); letter-spacing: 0.22em; color: var(--on-dark-soft); opacity: 0.6; }
 
 /* Stage */

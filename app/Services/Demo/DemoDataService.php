@@ -28,7 +28,16 @@ use Random\Randomizer;
  */
 class DemoDataService
 {
-    private const VERSION = 'v2';
+    private const VERSION = 'v3';
+
+    /**
+     * Order numbers: ORD-{year}-{day of year × 1000 + sequence}. Each branch
+     * gets a block of 100 generated orders a day (0–99, 100–199, …); orders
+     * placed during the day (website, demo buttons) start at 500.
+     */
+    private const PER_DAY = 1000;
+
+    private const EXTRA_FROM = 500;
 
     private const RANK = ['pending' => 0, 'preparing' => 1, 'ready' => 2, 'completed' => 3, 'cancelled' => 4];
 
@@ -252,7 +261,7 @@ class DemoDataService
             return null;
         }
 
-        $date = CarbonImmutable::create((int) $m[1], 1, 1, 0, 0, 0, config('dashboard.timezone'))->addDays(intdiv((int) $m[2], 400) - 1);
+        $date = CarbonImmutable::create((int) $m[1], 1, 1, 0, 0, 0, config('dashboard.timezone'))->addDays(intdiv((int) $m[2], self::PER_DAY) - 1);
         if ($date < $this->historyStart() || $date > $this->now()) {
             return null;
         }
@@ -299,7 +308,7 @@ class DemoDataService
         $prep = $this->prepMinutes($r, count($items), (int) $now->format('G'), $branch);
         $placed = $silent ? $now->subMinutes(9) : $now;
         $order = [
-            'id' => $this->orderNumber($now, 300 + count($extras)),
+            'id' => $this->orderNumber($now, self::EXTRA_FROM + count($extras)),
             'branch' => $branch,
             'customer' => $customer ?? $this->randomCustomer($r, $branch),
             'placed_at' => $placed->timestamp,
@@ -406,8 +415,8 @@ class DemoDataService
             $orders[] = $this->makeOrder($r, $date, $branch, $this->pick($r, $hours), $this->randomCustomer($r, $branch));
         }
 
-        // The demo customer (Selam) orders from Bole Atlas every few days, mostly breakfast.
-        if ($branch === 'bole-atlas' && $this->float($r) < 0.34) {
+        // The demo customer (Selam) orders from her home café every few days, mostly breakfast.
+        if ($branch === $this->catalog->customers()[0]['home'] && $this->float($r) < 0.34) {
             $orders[] = $this->makeOrder($r, $date, $branch, $r->getInt(7, 10), 0);
         }
 
@@ -500,7 +509,7 @@ class DemoDataService
 
     private function orderNumber(CarbonImmutable $date, int $seq): string
     {
-        return sprintf('ORD-%d-%06d', $date->year, $date->dayOfYear * 400 + $seq);
+        return sprintf('ORD-%d-%06d', $date->year, $date->dayOfYear * self::PER_DAY + $seq);
     }
 
     /* ------------------------------------------------------------------ */

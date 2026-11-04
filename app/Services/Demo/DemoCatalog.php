@@ -90,9 +90,10 @@ class DemoCatalog
 
     /** Demo-only branch figures: share of platform volume and kitchen speed. */
     private const BRANCH_PROFILE = [
-        'sanford' => ['volume' => 50, 'prep' => 0, 'status' => 'open', 'manager' => 'Hanna Girma'],
-        'bole-atlas' => ['volume' => 64, 'prep' => -1, 'status' => 'open', 'manager' => 'Abel Tesfaye'],
-        '4-killo' => ['volume' => 38, 'prep' => 2, 'status' => 'open', 'manager' => 'Dawit Alemu'],
+        'kebena' => ['volume' => 50, 'prep' => 0, 'status' => 'open', 'manager' => 'Hanna Girma'],
+        'atlas' => ['volume' => 64, 'prep' => -1, 'status' => 'open', 'manager' => 'Abel Tesfaye'],
+        '4-kilo' => ['volume' => 38, 'prep' => 2, 'status' => 'open', 'manager' => 'Dawit Alemu'],
+        'peacock' => ['volume' => 32, 'prep' => 1, 'status' => 'open', 'manager' => 'Rahel Bekele'],
     ];
 
     private const FIRST = [
@@ -127,6 +128,9 @@ class DemoCatalog
                 'area' => $b['area'],
                 'phone' => $b['phone'],
                 'maps' => 'https://www.google.com/maps/search/?api=1&query='.rawurlencode($b['maps']),
+                'link' => $b['link'] ?? null,
+                'coords' => $b['coords'] ?? null,
+                'mood' => $b['mood'] ?? null,
                 'image' => $b['image'],
                 'hours' => $b['open'],
                 ...self::BRANCH_PROFILE[$key] ?? ['volume' => 20, 'prep' => 0, 'status' => 'open', 'manager' => null],
@@ -201,7 +205,7 @@ class DemoCatalog
             ];
         }
 
-        $customers[0] = [...$customers[0], 'name' => 'Selam Tesfaye', 'email' => 'customer@test.com', 'home' => 'bole-atlas'];
+        $customers[0] = [...$customers[0], 'name' => 'Selam Tesfaye', 'email' => 'customer@test.com', 'home' => 'atlas'];
 
         return $this->customers = $customers;
     }

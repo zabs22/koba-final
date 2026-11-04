@@ -371,6 +371,64 @@ return [
                 ['Mexico', 290, 485], ['Megenagna', 820, 250], ['Bole', 845, 585], ['Gerji', 905, 410],
             ],
             'note' => 'Illustrative map, not to scale.',
+            'find_nearest' => 'Find my nearest café',
+        ],
+    ],
+
+    /*
+    | "Find the nearest café" (/find-a-cafe) and the branch choice on the forms.
+    */
+    'locator' => [
+        // On the order and contact forms
+        'how' => 'Choose a café',
+        'choose_myself' => 'Choose myself',
+        'find_nearest' => 'Find the nearest café',
+        'found' => 'Nearest to you: :branch — about :time by car (:distance).',
+        'found_estimated' => 'Nearest to you: :branch — about :distance away.',
+        'found_picked' => 'Chosen on the map: :branch.',
+
+        // The locator page
+        'title' => 'Find your nearest KOBA',
+        'back' => 'Back',
+        'locating' => 'Finding you…',
+        'locating_body' => 'Allow location when your browser asks. We only use it to find the café nearest to you.',
+        'accuracy' => 'Accurate to :distance',
+        'ranking' => 'Checking the roads to every café…',
+        'nearest' => 'Nearest KOBA to you',
+        'by_car' => 'by car',
+        'on_foot' => 'on foot',
+        'direction' => ':distance :compass',
+        'estimated' => 'Estimated — live road times aren’t available right now.',
+        'use' => 'Use this café',
+        'order_here' => 'Order a cake here',
+        'directions' => 'Directions',
+        'call' => 'Call',
+        'others' => 'Other cafés',
+        'paused' => 'Not taking pre-orders right now',
+        'skipped' => ':branch is closer, but isn’t taking pre-orders right now.',
+        'far' => 'You’re about :distance from Addis Ababa',
+        'far_body' => 'Every KOBA café is in Addis Ababa. Choose the one you’ll visit.',
+        'demo' => 'Try it from Addis (demo location)',
+        'retry' => 'Try again',
+        'pick' => 'Or choose a café yourself',
+        'view_3d' => '3D',
+        'view_2d' => '2D',
+        'recenter' => 'Show the route',
+        'privacy' => 'Your location is used once to find your nearest café and is never saved.',
+        'credits' => 'Map © OpenFreeMap, OpenMapTiles, OpenStreetMap contributors · Road times: OSRM, adjusted for Addis traffic.',
+        'map_unavailable' => 'The map can’t be shown in this browser, but the list works.',
+        'compass' => [
+            'north' => 'north', 'north-east' => 'north-east', 'east' => 'east', 'south-east' => 'south-east',
+            'south' => 'south', 'south-west' => 'south-west', 'west' => 'west', 'north-west' => 'north-west',
+        ],
+        // [title, body]
+        'errors' => [
+            'denied' => ['Location is off for this site', 'Allow location from the icon in your browser’s address bar and try again, or choose a café yourself.'],
+            'unavailable' => ['We couldn’t find your location', 'Check that location services are on for this device, then try again.'],
+            'timeout' => ['Finding you is taking too long', 'Turn on Wi-Fi or move near a window, then try again.'],
+            'insecure' => ['Location needs a secure connection', 'Open this page over https:// to find your nearest café.'],
+            'unsupported' => ['This browser can’t share its location', 'Choose a café yourself below.'],
+            'network' => ['Something went wrong', 'Please try again in a moment.'],
         ],
     ],
 

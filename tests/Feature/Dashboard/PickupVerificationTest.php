@@ -14,7 +14,7 @@ use App\Support\Dashboard\PickupCode;
  */
 class PickupVerificationTest extends DashboardTestCase
 {
-    private function readyOrder(string $branch = 'bole-atlas'): array
+    private function readyOrder(string $branch = 'atlas'): array
     {
         $data = app(DemoDataService::class);
         $order = $data->setStatus($data->placeOrder($branch), 'preparing');
@@ -22,9 +22,9 @@ class PickupVerificationTest extends DashboardTestCase
         return $data->setStatus($order, 'ready');
     }
 
-    private function sanfordAdmin(): User
+    private function kebenaAdmin(): User
     {
-        return User::factory()->create(['email' => 'sanford@test.com', 'name' => 'Hanna Girma']);
+        return User::factory()->create(['email' => 'kebena@test.com', 'name' => 'Hanna Girma']);
     }
 
     private function cakeOrder(array $overrides = []): array
@@ -32,8 +32,8 @@ class PickupVerificationTest extends DashboardTestCase
         return [
             'name' => 'Eyob Shemeles',
             'phone' => '+251 911 000 000',
-            'branch' => 'sanford',
-            'items' => [['slug' => 'trio', 'name' => 'Le Damier (Trio)', 'qty' => 1, 'size' => 'large']],
+            'branch' => 'kebena',
+            'items' => [['slug' => 'trio', 'name' => 'Trio', 'qty' => 1, 'size' => 'large']],
             'notes' => 'Happy birthday, Hana',
             ...$overrides,
         ];
@@ -44,7 +44,7 @@ class PickupVerificationTest extends DashboardTestCase
         $order = $this->readyOrder();
         $code = PickupCode::for($order);
 
-        $this->assertMatchesRegularExpression('/^KB-B['.PickupCode::ALPHABET.']{5}$/', $code);
+        $this->assertMatchesRegularExpression('/^KB-A['.PickupCode::ALPHABET.']{5}$/', $code);
         foreach ([$code, strtolower($code), substr($code, 3), ' '.substr($code, 3, 3).' '.substr($code, 6).' ', PickupCode::payload($order)] as $input) {
             $this->assertSame($code, PickupCode::normalize($input), "Input: $input");
         }
@@ -79,7 +79,7 @@ class PickupVerificationTest extends DashboardTestCase
 
     public function test_an_order_still_in_the_kitchen_cannot_be_confirmed(): void
     {
-        $order = app(DemoDataService::class)->placeOrder('bole-atlas');
+        $order = app(DemoDataService::class)->placeOrder('atlas');
         $admin = $this->branchAdmin();
 
         $this->actingAs($admin)->getJson(route('branch.verify.lookup', ['code' => PickupCode::for($order)]))->assertJsonPath('state', 'not_ready');
@@ -88,15 +88,15 @@ class PickupVerificationTest extends DashboardTestCase
 
     public function test_another_branchs_code_shows_where_to_collect_it_and_nothing_else(): void
     {
-        $order = $this->readyOrder('sanford');
+        $order = $this->readyOrder('kebena');
         $code = PickupCode::for($order);
-        $boleAtlas = $this->branchAdmin();
+        $atlas = $this->branchAdmin();
 
-        $this->actingAs($boleAtlas)->getJson(route('branch.verify.lookup', ['code' => $code]))
-            ->assertOk()->assertJsonPath('state', 'wrong_branch')->assertJsonPath('branch', 'KOBA Sanford')->assertJsonMissingPath('order');
-        $this->actingAs($boleAtlas)->postJson(route('branch.verify.confirm', $order['id']))->assertNotFound();
+        $this->actingAs($atlas)->getJson(route('branch.verify.lookup', ['code' => $code]))
+            ->assertOk()->assertJsonPath('state', 'wrong_branch')->assertJsonPath('branch', trans('koba.locations.branches.kebena.name'))->assertJsonMissingPath('order');
+        $this->actingAs($atlas)->postJson(route('branch.verify.confirm', $order['id']))->assertNotFound();
 
-        $this->actingAs($this->sanfordAdmin())->getJson(route('branch.verify.lookup', ['code' => $code]))->assertJsonPath('state', 'found');
+        $this->actingAs($this->kebenaAdmin())->getJson(route('branch.verify.lookup', ['code' => $code]))->assertJsonPath('state', 'found');
     }
 
     public function test_wrong_codes_are_reported(): void
@@ -104,7 +104,7 @@ class PickupVerificationTest extends DashboardTestCase
         $admin = $this->branchAdmin();
 
         $this->actingAs($admin)->getJson(route('branch.verify.lookup', ['code' => 'hello']))->assertJsonPath('state', 'invalid');
-        $this->actingAs($admin)->getJson(route('branch.verify.lookup', ['code' => 'KB-SZZZZZ']))->assertJsonPath('state', 'not_found');
+        $this->actingAs($admin)->getJson(route('branch.verify.lookup', ['code' => 'KB-KZZZZZ']))->assertJsonPath('state', 'not_found');
     }
 
     public function test_a_website_cake_order_reaches_the_branch_with_a_pickup_pass(): void
@@ -112,15 +112,15 @@ class PickupVerificationTest extends DashboardTestCase
         $response = $this->postJson(route('order.store'), $this->cakeOrder())->assertOk()->assertJsonStructure(['redirect', 'order']);
         $order = app(DemoDataService::class)->findOrder($response->json('order'));
 
-        $this->assertSame('sanford', $order['branch']);
+        $this->assertSame('kebena', $order['branch']);
         $this->assertSame('web', $order['source']);
-        $this->assertSame(3500.0, $order['total'], 'Le Damier, large: 250 × 14 slices (demo price)');
+        $this->assertSame(3500.0, $order['total'], 'Trio, large: 250 × 14 slices (demo price)');
 
         $this->get($response->json('redirect'))->assertOk()
-            ->assertSee(PickupCode::display(PickupCode::for($order)))->assertSee('Le Damier · Large')->assertSee('Happy birthday, Hana');
+            ->assertSee(PickupCode::display(PickupCode::for($order)))->assertSee('Trio · Large')->assertSee('Happy birthday, Hana');
         $this->get(route('order.confirmed', $order['id']))->assertForbidden();
 
-        $pending = $this->actingAs($this->sanfordAdmin())->getJson(route('branch.live-orders.feed'))->json('columns.pending');
+        $pending = $this->actingAs($this->kebenaAdmin())->getJson(route('branch.live-orders.feed'))->json('columns.pending');
         $this->assertContains($order['id'], array_column($pending, 'id'));
         $this->assertSame('Eyob Shemeles', collect($pending)->firstWhere('id', $order['id'])['customer']);
     }
@@ -128,7 +128,7 @@ class PickupVerificationTest extends DashboardTestCase
     public function test_a_signed_in_customer_finds_the_website_order_and_its_qr_on_the_dashboard(): void
     {
         $customer = $this->customer();
-        $id = $this->actingAs($customer)->postJson(route('order.store'), $this->cakeOrder(['branch' => 'bole-atlas']))->assertOk()->json('order');
+        $id = $this->actingAs($customer)->postJson(route('order.store'), $this->cakeOrder(['branch' => 'atlas']))->assertOk()->json('order');
 
         $this->actingAs($customer)->getJson(route('customer.orders.show', $id))
             ->assertOk()->assertJsonPath('status', 'pending')->assertJsonPath('pickup_code', PickupCode::for(app(DemoDataService::class)->findOrder($id)));
@@ -140,7 +140,7 @@ class PickupVerificationTest extends DashboardTestCase
 
     public function test_a_paused_branch_takes_no_website_orders(): void
     {
-        app(DemoState::class)->put('branch-status:sanford', 'paused');
+        app(DemoState::class)->put('branch-status:kebena', 'paused');
 
         $this->postJson(route('order.store'), $this->cakeOrder())->assertUnprocessable()->assertJsonValidationErrors('branch');
     }

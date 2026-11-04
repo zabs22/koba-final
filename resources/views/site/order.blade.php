@@ -15,6 +15,8 @@
     // "Order this cake" links arrive with ?cake=slug; that cake is added to the order.
     $preselect = array_key_exists(request('cake'), $cakes) ? request('cake') : null;
     $describe = fn ($field, $hint = false) => trim(($hint ? "$field-hint " : '')."$field-error");
+    // "Find the nearest café" comes back with ?branch=…
+    $chosenBranch = old('branch', array_key_exists((string) request('branch'), trans('koba.locations.branches')) ? request('branch') : null);
 @endphp
 
 <x-site.layout page="order" :title="__('koba.meta.pages.order')" :description="__('koba.order.lede')" image="cake-opera-caramel">
@@ -140,11 +142,12 @@
 
                         <div class="field">
                             <label class="field__label" for="branch">{{ $fields['branch'] }}</label>
+                            @include('site.partials.branch-finder', ['for' => 'order', 'select' => 'branch'])
                             <div class="select">
                                 <select class="field__input" id="branch" name="branch" required aria-describedby="branch-error" @error('branch') aria-invalid="true" @enderror>
-                                    <option value="" disabled @selected(! old('branch'))>{{ $fields['branch_placeholder'] }}</option>
+                                    <option value="" disabled @selected(! $chosenBranch)>{{ $fields['branch_placeholder'] }}</option>
                                     @foreach (trans('koba.locations.branches') as $key => $branch)
-                                        <option value="{{ $key }}" @selected(old('branch') === $key)>{{ $branch['name'] }}</option>
+                                        <option value="{{ $key }}" @selected($chosenBranch === $key)>{{ $branch['name'] }}</option>
                                     @endforeach
                                 </select>
                             </div>

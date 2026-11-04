@@ -8,7 +8,7 @@
             <div class="max-w-md">
                 <p class="text-[11px] font-semibold tracking-[0.18em] text-koba-sand uppercase">Pre-order · Pick up · Enjoy</p>
                 <p class="mt-3 font-display text-[40px] leading-[1.08] font-semibold tracking-tight">Your KOBA,<br>ready when you arrive.</p>
-                <p class="mt-4 text-sm text-koba-cream/70">Order ahead from Sanford, Bole Atlas or 4 Killo and follow it from the oven to the counter.</p>
+                <p class="mt-4 text-sm text-koba-cream/70">Order ahead from {{ collect(trans('koba.locations.branches'))->pluck('short')->join(', ', ' or ') }} and follow it from the oven to the counter.</p>
             </div>
         </div>
     </aside>

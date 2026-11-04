@@ -12,6 +12,7 @@ import tracker from './dashboard/tracker';
 import orderDrawer from './dashboard/order-drawer';
 import commandPalette from './dashboard/command-palette';
 import pickupVerification from './dashboard/pickup-verification';
+import locator from './dashboard/locator';
 import { pickupCode, pickupFullscreen } from './dashboard/pickup-pass';
 import { addToCart } from './dashboard/cart-bridge';
 import { badge, avatar, thumb } from './dashboard/cells';
@@ -56,6 +57,7 @@ Alpine.data('tracker', tracker);
 Alpine.data('orderDrawer', orderDrawer);
 Alpine.data('commandPalette', commandPalette);
 Alpine.data('pickupVerification', pickupVerification);
+Alpine.data('locator', locator);
 Alpine.data('pickupCode', pickupCode);
 Alpine.data('pickupFullscreen', pickupFullscreen);
 

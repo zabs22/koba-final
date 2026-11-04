@@ -52,6 +52,11 @@
                 @endforeach
             </ol>
 
+            <a class="atlas__near" href="{{ route('locator') }}">
+                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="3.2" fill="currentColor"/><circle cx="12" cy="12" r="7.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 1.8v3M12 19.2v3M1.8 12h3M19.2 12h3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+                {{ $atlas['find_nearest'] }}
+            </a>
+
             <p class="atlas__coords" aria-hidden="true" data-atlas-coords>{{ $coords(array_values($branches)[0]) }}</p>
         </aside>
 

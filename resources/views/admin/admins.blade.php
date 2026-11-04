@@ -9,7 +9,7 @@
             if (data) this.rows = data.rows;
         } }">
     <x-dashboard.page-header eyebrow="Operations" title="Branch admins"
-        description="Who runs each café's dashboard. Reassigning or deactivating applies at once — try it with the Bole Atlas demo login." />
+        description="Who runs each café's dashboard. Reassigning or deactivating applies at once — try it with the Atlas demo login." />
 
     <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         <template x-for="row in rows" :key="row.email">

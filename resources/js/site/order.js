@@ -1,6 +1,7 @@
 import { $, $$, reduceMotion } from './util';
 import { validate, clearOnInput, send, applyServerErrors, setBusy, setFieldError } from './forms';
 import { loadCart, saveCart } from './cart';
+import { initBranchFinder } from './branch-finder';
 
 /** Multi-step order: details → order (the cart, editable) → request → review. */
 export function initOrderForm() {
@@ -19,6 +20,8 @@ export function initOrderForm() {
 
     form.classList.add('is-enhanced');
     clearOnInput(form);
+    // Back from "Find the nearest café": typed details restored, café chosen.
+    const located = initBranchFinder(form);
 
     const stepOfField = (name) => {
         if (name === 'items') return 1;
@@ -281,7 +284,10 @@ export function initOrderForm() {
         }
     });
 
-    // Server-side errors (no-JS round trip) open on the first failing step.
+    // Server-side errors (no-JS round trip) open on the first failing step;
+    // back from the locator, the step with the café.
     const firstError = $$('[data-error-for]', form).find((el) => el.textContent.trim());
-    show(firstError ? stepOfField(firstError.dataset.errorFor) : 0, false);
+    if (firstError) show(stepOfField(firstError.dataset.errorFor), false);
+    else if (located) show(stepOfField('branch'));
+    else show(0, false);
 }

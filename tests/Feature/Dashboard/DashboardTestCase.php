@@ -15,7 +15,7 @@ abstract class DashboardTestCase extends TestCase
         return User::factory()->create(['email' => 'superadmin@test.com', 'name' => 'Meron Alemu']);
     }
 
-    /** Runs Bole Atlas (config/dashboard.php). */
+    /** Runs Atlas (config/dashboard.php). */
     protected function branchAdmin(): User
     {
         return User::factory()->create(['email' => 'branchadmin@test.com', 'name' => 'Abel Tesfaye']);

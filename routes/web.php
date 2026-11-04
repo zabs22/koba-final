@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeRedirectController;
 use App\Http\Controllers\Site\EnquiryController;
+use App\Http\Controllers\Site\LocatorController;
 use App\Http\Controllers\Site\OrderConfirmationController;
 use App\Http\Controllers\Site\SitemapController;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +25,12 @@ Route::view('/contact', 'site.contact')->name('contact');
 Route::post('/order-a-cake', [EnquiryController::class, 'cakeOrder'])
     ->middleware('throttle:6,1')
     ->name('order.store');
+
+// Find the nearest café: locate the visitor and rank the cafés by driving time.
+// POST, so coordinates never appear in URLs or server access logs.
+Route::get('/find-a-cafe', [LocatorController::class, 'show'])->name('locator');
+Route::post('/find-a-cafe/nearest', [LocatorController::class, 'nearest'])->middleware('throttle:30,1')->name('locator.nearest');
+Route::post('/find-a-cafe/route', [LocatorController::class, 'route'])->middleware('throttle:60,1')->name('locator.route');
 
 // Order confirmed: pickup code and QR (signed link, so guests can reopen it).
 Route::middleware('signed')->where(['order' => 'ORD-\d{4}-\d{6}'])->group(function () {

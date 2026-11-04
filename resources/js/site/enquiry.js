@@ -1,5 +1,6 @@
 import { $, $$ } from './util';
 import { validate, clearOnInput, send, applyServerErrors, setBusy } from './forms';
+import { initBranchFinder } from './branch-finder';
 
 export function initEnquiryForms() {
     $$('[data-enquiry-form]').forEach((form) => {
@@ -8,6 +9,8 @@ export function initEnquiryForms() {
         const success = form.parentElement.querySelector('[data-enquiry-success]');
 
         clearOnInput(form);
+        // Back from "Find the nearest café": typed details restored, café chosen.
+        if (initBranchFinder(form)) $('[data-branch-found]', form)?.scrollIntoView({ block: 'center' });
 
         form.addEventListener('submit', async (event) => {
             event.preventDefault();

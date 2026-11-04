@@ -9,8 +9,8 @@ use BaconQrCode\Renderer\RendererStyle\RendererStyle;
 use BaconQrCode\Writer;
 
 /**
- * Pickup codes: "KB-" + the branch letter + five characters, e.g. KB-B7F42X
- * (S = Sanford, B = Bole Atlas, K = 4 Killo).
+ * Pickup codes: "KB-" + the branch letter + five characters, e.g. KB-A7F42X
+ * (K = Kebena, A = Atlas, 4 = 4 Kilo, P = Peacock).
  *
  * Staff read codes aloud at a noisy counter, so the alphabet leaves out every
  * look-alike: no O or 0, no I, 1 or L. Codes are derived from the order number,
@@ -24,7 +24,7 @@ final class PickupCode
 {
     public const ALPHABET = '23456789ABCDEFGHJKMNPQRSTUVWXYZ';
 
-    private const BRANCH_LETTERS = ['sanford' => 'S', 'bole-atlas' => 'B', '4-killo' => 'K'];
+    private const BRANCH_LETTERS = ['kebena' => 'K', 'atlas' => 'A', '4-kilo' => '4', 'peacock' => 'P'];
 
     public static function for(array $order): string
     {
@@ -51,7 +51,7 @@ final class PickupCode
 
     /**
      * What staff type or scan, as a code: "kb-b7f 42x", "B7F42X" or the QR text
-     * "KOBA:bole-atlas:KB-B7F42X". Null when it cannot be a pickup code.
+     * "KOBA:atlas:KB-A7F42X". Null when it cannot be a pickup code.
      */
     public static function normalize(string $input): ?string
     {

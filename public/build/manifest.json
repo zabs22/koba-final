@@ -1,13 +1,23 @@
 {
-  "_forms-DqaYW5a5.js": {
-    "file": "assets/forms-DqaYW5a5.js",
-    "name": "forms",
+  "_branch-finder-CEioCTWP.js": {
+    "file": "assets/branch-finder-CEioCTWP.js",
+    "name": "branch-finder",
     "imports": [
       "resources/js/site.js"
     ]
   },
+  "_preload-helper-I4rgV-VL.js": {
+    "file": "assets/preload-helper-I4rgV-VL.js",
+    "name": "preload-helper"
+  },
+  "node_modules/apexcharts/dist/apexcharts.esm.js": {
+    "file": "assets/apexcharts.esm-Dtl8TsQU.js",
+    "name": "apexcharts.esm",
+    "src": "node_modules/apexcharts/dist/apexcharts.esm.js",
+    "isDynamicEntry": true
+  },
   "resources/css/app.css": {
-    "file": "assets/app-qqJBGMsg.css",
+    "file": "assets/app-BMYoNj8l.css",
     "src": "resources/css/app.css",
     "isEntry": true,
     "name": "app",
@@ -15,8 +25,17 @@
       "app.css"
     ]
   },
+  "resources/css/dashboard.css": {
+    "file": "assets/dashboard-DsXFP9Yd.css",
+    "src": "resources/css/dashboard.css",
+    "isEntry": true,
+    "name": "dashboard",
+    "names": [
+      "dashboard.css"
+    ]
+  },
   "resources/css/site.css": {
-    "file": "assets/site-B1UvJI2T.css",
+    "file": "assets/site-C4j5MNoP.css",
     "src": "resources/css/site.css",
     "isEntry": true,
     "name": "site",
@@ -38,11 +57,37 @@
     "src": "resources/js/app.js",
     "isEntry": true
   },
+  "resources/js/dashboard.js": {
+    "file": "assets/dashboard-DzeDb740.js",
+    "name": "dashboard",
+    "src": "resources/js/dashboard.js",
+    "isEntry": true,
+    "imports": [
+      "_preload-helper-I4rgV-VL.js"
+    ],
+    "dynamicImports": [
+      "node_modules/apexcharts/dist/apexcharts.esm.js",
+      "resources/js/dashboard/locator-map.js",
+      "resources/js/dashboard/locator-map.js"
+    ]
+  },
+  "resources/js/dashboard/locator-map.js": {
+    "file": "assets/locator-map-CO6WWJ3J.js",
+    "name": "locator-map",
+    "src": "resources/js/dashboard/locator-map.js",
+    "isDynamicEntry": true,
+    "css": [
+      "assets/locator-map--S9olhOP.css"
+    ]
+  },
   "resources/js/site.js": {
-    "file": "assets/site-CTKzIXzz.js",
+    "file": "assets/site-7QEXKWoP.js",
     "name": "site",
     "src": "resources/js/site.js",
     "isEntry": true,
+    "imports": [
+      "_preload-helper-I4rgV-VL.js"
+    ],
     "dynamicImports": [
       "resources/js/site/order.js",
       "resources/js/site/enquiry.js",
@@ -58,95 +103,105 @@
     ]
   },
   "resources/js/site/atlas.js": {
-    "file": "assets/atlas-DyDHDaTc.js",
+    "file": "assets/atlas-RrnPlluk.js",
     "name": "atlas",
     "src": "resources/js/site/atlas.js",
     "isDynamicEntry": true,
     "imports": [
-      "resources/js/site.js"
+      "resources/js/site.js",
+      "_preload-helper-I4rgV-VL.js"
     ]
   },
   "resources/js/site/cakes.js": {
-    "file": "assets/cakes-Cc8fxzTa.js",
+    "file": "assets/cakes-w65y5-3C.js",
     "name": "cakes",
     "src": "resources/js/site/cakes.js",
     "isDynamicEntry": true,
     "imports": [
-      "resources/js/site.js"
+      "resources/js/site.js",
+      "_preload-helper-I4rgV-VL.js"
     ]
   },
   "resources/js/site/enquiry.js": {
-    "file": "assets/enquiry-Bvnl0d1j.js",
+    "file": "assets/enquiry-BkHH-mNj.js",
     "name": "enquiry",
     "src": "resources/js/site/enquiry.js",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/site.js",
-      "_forms-DqaYW5a5.js"
+      "_branch-finder-CEioCTWP.js",
+      "_preload-helper-I4rgV-VL.js"
     ]
   },
   "resources/js/site/experience.js": {
-    "file": "assets/experience-B-DtVYzp.js",
+    "file": "assets/experience-C-EyeXGw.js",
     "name": "experience",
     "src": "resources/js/site/experience.js",
     "isDynamicEntry": true,
     "imports": [
-      "resources/js/site.js"
+      "resources/js/site.js",
+      "_preload-helper-I4rgV-VL.js"
     ]
   },
   "resources/js/site/home.js": {
-    "file": "assets/home-DxTUaIDe.js",
+    "file": "assets/home-DS47q4WU.js",
     "name": "home",
     "src": "resources/js/site/home.js",
     "isDynamicEntry": true,
     "imports": [
-      "resources/js/site.js"
+      "resources/js/site.js",
+      "_preload-helper-I4rgV-VL.js"
     ]
   },
   "resources/js/site/menu.js": {
-    "file": "assets/menu-ZodlW1_k.js",
+    "file": "assets/menu-Be8fRR3i.js",
     "name": "menu",
     "src": "resources/js/site/menu.js",
     "isDynamicEntry": true,
     "imports": [
-      "resources/js/site.js"
+      "resources/js/site.js",
+      "_preload-helper-I4rgV-VL.js"
     ]
   },
   "resources/js/site/order.js": {
-    "file": "assets/order-1g2D2V1S.js",
+    "file": "assets/order-BxdhRsX1.js",
     "name": "order",
     "src": "resources/js/site/order.js",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/site.js",
-      "_forms-DqaYW5a5.js"
+      "_branch-finder-CEioCTWP.js",
+      "_preload-helper-I4rgV-VL.js"
     ]
   },
   "resources/js/site/pour.js": {
-    "file": "assets/pour-ClNrKfo3.js",
+    "file": "assets/pour-icxq8bsK.js",
     "name": "pour",
     "src": "resources/js/site/pour.js",
     "isDynamicEntry": true,
     "imports": [
-      "resources/js/site.js"
+      "resources/js/site.js",
+      "_preload-helper-I4rgV-VL.js"
     ]
   },
   "resources/js/site/reviews.js": {
-    "file": "assets/reviews-yksNTUAj.js",
+    "file": "assets/reviews-BmXFhtJg.js",
     "name": "reviews",
     "src": "resources/js/site/reviews.js",
     "isDynamicEntry": true,
     "imports": [
-      "resources/js/site.js"
+      "resources/js/site.js",
+      "_preload-helper-I4rgV-VL.js"
     ]
   },
   "resources/js/site/story.js": {
-    "file": "assets/story-BvR3Wbk6.js",
+    "file": "assets/story-CfQCNb1c.js",
     "name": "story",
     "src": "resources/js/site/story.js",
     "isDynamicEntry": true,
     "imports": [
-      "resources/js/site.js"
+      "resources/js/site.js",
+      "_preload-helper-I4rgV-VL.js"
     ]
   }
 }

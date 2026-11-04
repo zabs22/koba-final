@@ -28,16 +28,17 @@ class CustomerDashboardService
     }
 
     /**
-     * So the tracker always has something to follow: while Bole Atlas is open
-     * (07:00–21:00), a customer with nothing in the kitchen gets a new demo
-     * order, a couple of minutes after the last one was picked up.
+     * So the tracker always has something to follow: while the customer's home
+     * café is open (07:00–21:00), a customer with nothing in the kitchen gets a
+     * new demo order, a couple of minutes after the last one was picked up.
      */
     public function ensureDemoOrder(User $user): void
     {
         $id = $this->profile($user);
         $now = $this->data->now();
         $key = "autostart:$id";
-        $branch = $this->data->branch('bole-atlas');
+        $home = $this->data->customers()[$id]['home'] ?? array_key_first($this->data->branches());
+        $branch = $this->data->branch($home);
 
         if (! $branch || $branch['status'] !== 'open' || $now->hour < 7 || $now->hour >= 21) {
             return;
@@ -57,7 +58,7 @@ class CustomerDashboardService
         }
 
         $this->state->put($key, $now->timestamp, 2);
-        $this->data->placeOrder('bole-atlas', $id, [[1, 1], [15, 1]]);
+        $this->data->placeOrder($home, $id, [[1, 1], [15, 1]]);
     }
 
     public function overview(User $user): array

@@ -20,4 +20,6 @@ export default defineConfig({
         }),
         tailwindcss(),
     ],
+    // MapLibre (café locator) starts its web worker as an ES module.
+    worker: { format: 'es' },
 });
